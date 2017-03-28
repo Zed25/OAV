@@ -1,0 +1,56 @@
+-UC1 Login      USER
+
+-UC2 Administrator:     ADM
+    -importare un nuovo file dei dati specifici di un satelliti
+    -registare un nuovo utente
+    -inserire i dati di un satellite
+    -inserire i dati degli strumenti con le relative bande e mappe
+
+-UC3 Importazione file:     ADM
+    importare i file in formato csv. I valori precedenti saranno aggiornati con i nuovi valori.
+
+-UC4 Ricerca di un oggetto in una mappa:        USER
+    Un utente registrato potrà visualizzare tutti gli oggetti in una mappa per una o tutte le bande.
+    Delle bande saranno riportati i flussi. Gli oggetti saranno mostrati al massimo 50 per volta.
+
+-UC5 Ricerca di un clump:   USER
+    Un utente registrato potrà effettuare una ricerca per il riferimento del clump e succesivamente
+    l’applicazione  visualizzerà la posizione e i relativi valori dei flussi di tutte le bande per il clump ricercato.
+
+-UC6 Ricerca di un clump per densita':      USER
+    Un clump è considerato un candidato ad ospitare una stella massiva se la densità di superficie
+    di quest’ultima è maggiore strettamente di 0.1 e minore strettamente di 1.0.
+    Ricercare i clump che possono ospitare una stella massiva e restituire la frazione della popolazione totale.
+
+-UC7 Ricerca di un oggetto all'interno di una regione:      USER
+    Un utente registrato potrà ricercare i primi n-oggetti di un determinato tipo (clump o sorgenti)
+    all’interno di una regione (potrà essere un cerchio o un quadrato) data una determinata posizione spaziale.
+    Il risultato sarà ordinato rispetto alla distanza dal punto centrale.
+    Per il cerchio l’utente inserirà il raggio, mentre per il quadrato la lunghezza del cateto.
+
+-UC8 Ricerca di un oggetto MIPSGAL all'interno di un clump:     USER
+    Trovare tra le sorgenti all’interno della mappa MIPSGAL, tutte quelle che sono all’interno di uno specifico clump
+    e per una specifica banda. Un oggetto si dice che appartiene a un clump
+    se la distanza tra la posizione della sorgente  e quella del clump è minore dell’asse maggiore dell’ellisse
+    per la banda selezionata. Ad esempio, se si seleziona la banda di 350us, allora si utilizzerà
+    come distanza massima la colonna relativa FW350_1.
+
+-UC9 Visualizzare la massa di tutti i clump:        USER
+    Trovare la massa di ogni clump. La massa è stimata secondo la seguente formula
+    M = 0.053*(S350)*(D^2)*{exp(41.14/TEMP) - 1}
+
+    	Con  D = la distanza in Kilo Parsec (kpc). Considerare tutte le sorgenti ad una distanza di D=10 kpc.
+
+-UC10 Valori dei rapporti delle righe:      USER
+    Un utente registrato potrà richiedere il valore medio, la deviazione standard,
+    la mediana e la deviazione media assoluta delle masse di tutti i clumps.
+
+-UC11 Valore dei rapporti delle righe per gruppo spettrale:     USER
+    Un utente registrato potrà selezionare un clump e successivamente trovare tutte le sorgenti che sono nella mappa MIPSGAL
+    e che sono classificate come stelle giovani di classe I.
+    Una sorgente infrarossa è considerata una stella giovane di classe I (Young Source Object I YSO I)
+    se sono rispettate le seguenti condizioni:
+    a.  Flux[4.5]-Flux[5.8] > 0.7
+    b. Flux[3.6-Flux[4.5] > 0.7
+    c. (Flux[3.6]-Flux[4.5]) > 1.4 * (Flux[4.5]-Flux[5.8] – 0.7) + 0.15
+
