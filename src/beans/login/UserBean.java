@@ -14,6 +14,9 @@ public class UserBean {
         this.email = email;
     }
 
+    public UserBean() {
+    }
+
     public String getName() {
         return name;
     }
