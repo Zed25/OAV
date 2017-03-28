@@ -7,6 +7,13 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+<jsp:useBean id="newUserBean" scope="session" class="beans.login.UserBean"/>
+<jsp:setProperty name="newUserBean" property="name"/>
+<jsp:setProperty name="newUserBean" property="surname"/>
+<jsp:setProperty name="newUserBean" property="userID"/>
+<jsp:setProperty name="newUserBean" property="password"/>
+<jsp:setProperty name="newUserBean" property="email"/>
+
 <!-- Registration modal structure -->
 <div id="registration_modal" class="modal">
     <div class="modal-content">
