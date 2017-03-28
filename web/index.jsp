@@ -6,6 +6,12 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<jsp:useBean id="newUserBean" scope="session" class="beans.login.UserBean"/>
+<jsp:setProperty name="newUserBean" property="name"/>
+<jsp:setProperty name="newUserBean" property="surname"/>
+<jsp:setProperty name="newUserBean" property="userID"/>
+<jsp:setProperty name="newUserBean" property="password"/>
+<jsp:setProperty name="newUserBean" property="email"/>
 
 <jsp:include page="header.jsp"/>
 <!-- Login modal structure -->
@@ -34,9 +40,6 @@
     </form>
   </div>
 </div>
-<!-- Registration modal structure -->
-<div id="registration_modal" class="modal">
-  <jsp:include page="registration.jsp"/>
-</div>
+<jsp:include page="registration.jsp"/>
 <jsp:include page="footer.jsp"/>
 
