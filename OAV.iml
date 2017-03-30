@@ -39,7 +39,7 @@
     <orderEntry type="library" scope="PROVIDED" name="Tomcat 8.5.12" level="application_server_libraries" />
     <orderEntry type="library" name="Arquillian JUnit:Release" level="project" />
     <orderEntry type="library" name="JPA 2.0-2.0" level="project" />
+    <orderEntry type="library" name="taglibs-standard-impl-1.2.5" level="project" />
     <orderEntry type="library" name="postgresql-42.0.0" level="project" />
-    <orderEntry type="library" name="taglibs-standard-impl-1.2.5" level="application" />
   </component>
 </module>

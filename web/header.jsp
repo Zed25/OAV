@@ -23,7 +23,11 @@
     <div class="nav-wrapper blue">
         <a href="#" class="brand-logo">Logo</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a href="#login_modal">Login</a></li>
+            <%if(session.getAttribute("loginBean") == null){%>
+                <li><a href="#login_modal">Login</a></li>
+            <%}else{%>
+                <li>Loggato!</li>
+            <%}%>
             <li><a href="#registration_modal">Registration</a></li>
         </ul>
     </div>

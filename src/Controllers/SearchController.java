@@ -19,8 +19,8 @@ public class SearchController {
     // non dovra essere void, ma dovra' ritornare una lista di oggetti o un bean che li contiene
 
     public void FindObjectInMap(String mapName, int band){  //band==0 -> 1 banda, else tutte
-        Map map = new Map(mapName);
-        map.searchObject(band);
+        //Map map = new Map(mapName);
+        //map.searchObject(band);
 
 
     }

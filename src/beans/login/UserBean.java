@@ -1,5 +1,7 @@
 package beans.login;
 
+import Controllers.UsersController;
+
 /**
  * Created by simone on 26/03/17.
  */
@@ -15,6 +17,12 @@ public class UserBean {
     }
 
     public UserBean() {
+    }
+
+    public boolean login(){
+        if(this.getUserID() != null && this.getPassword() != null)
+            return UsersController.getUsersControllerInstance().checkUserEsistence(this);
+        return false;
     }
 
     public String getName() {
