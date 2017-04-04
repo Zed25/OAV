@@ -33,8 +33,9 @@ public class SearchController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
 
-    public List<AgencyBean> getAllAgencies() {
+    public List<AgencyBean> getAllAgencies(){
         AgencyDAO agencyDAO = new AgencyDAO();
         return agencyDAO.getAll();
     }
