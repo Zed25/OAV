@@ -1,8 +1,13 @@
 package Controllers;
 
 import DAO.AgencyDAO;
+import DAO.SearchDAO;
 import beans.login.AgencyBean;
+import beans.login.search.ResultBean;
+import beans.login.search.SearchBean;
+import com.sun.rowset.CachedRowSetImpl;
 
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -17,12 +22,17 @@ public class SearchController {
 
     // non dovra essere void, ma dovra' ritornare una lista di oggetti o un bean che li contiene
 
-    public void FindObjectInMap(String mapName, int band){  //band==0 -> 1 banda, else tutte
-        //Map map = new Map(mapName);
-        //map.searchObject(band);
+    public void FindObjectInMap(SearchBean bean) {  //band==0 -> 1 banda, else tutte
+        SearchDAO dao = new SearchDAO();
 
-
-    }
+        try {
+            CachedRowSetImpl result = new CachedRowSetImpl();
+            result = dao.searchObjectInMap(bean);
+            ResultBean resBean = new ResultBean();
+            resBean.populate(result);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     public List<AgencyBean> getAllAgencies() {
         AgencyDAO agencyDAO = new AgencyDAO();

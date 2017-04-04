@@ -1,7 +1,6 @@
 package beans.login;
 
 import Controllers.UsersController;
-import enumerations.UserType;
 
 /**
  * Created by simone on 26/03/17.

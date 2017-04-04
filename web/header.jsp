@@ -48,6 +48,7 @@
     <li><a href="registration.jsp"><i class="material-icons black-text">person_add</i>Sign in a user</a></li>
     <li><a href="logout.jsp" ><i class="material-icons black-text">eject</i>Logout</a></li>
     <li><a href="insertSatellite.jsp"><i class="material-icons black-text">add</i>New Satellite</a></li>
+    <li><a href="findObjInMap.jsp"><i class="material-icons black-text">add</i>Search Source</a></li>
     <li><div class="divider"></div></li>
     <li><a class="subheader">Subheader</a></li>
     <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
@@ -63,6 +64,7 @@
         <span class="white-text email"><%=loginBean.getEmail()%></span>
     </div></li>
     <li><a href="#!"><i class="material-icons black-text">add</i>First Link With Icon</a></li>
+    <li><a href="findObjInMap.jsp"><i class="material-icons black-text">add</i>Search Source</a></li>
     <li><a href="#!">Second Link</a></li>
     <li><div class="divider"></div></li>
     <li><a class="subheader">Subheader</a></li>

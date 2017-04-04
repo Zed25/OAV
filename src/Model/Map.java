@@ -1,10 +1,9 @@
 package Model;
-import DAO.DB;
 
 /**
  * Created by andrea on 29/03/17.
  */
-public class Map implements DB{
+public class Map {
 
     private String name;
 
@@ -18,8 +17,4 @@ public class Map implements DB{
         this.name = name;
     }
 
-
-    public void searchObject(String mapName, int band){
-
-    }
 }
