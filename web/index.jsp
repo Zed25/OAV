@@ -10,11 +10,13 @@
 <jsp:setProperty name="loginBean" property="userID" param="log_userID"/>
 <jsp:setProperty name="loginBean" property="password" param="log_password"/>
 
-<%  //loginBean.setUserID("Zed");
-    //loginBean.setPassword("root");
+<%  loginBean.setUserID("Zed");
+    loginBean.setPassword("root");
     if(!loginBean.isLogged() && !loginBean.getUserID().equals("")){
     loginBean.login();
 }%>
+
+<jsp:forward page="insertSatellite.jsp"/>
 
 <jsp:include page="header.jsp"/>
 <jsp:include page="login.jsp"/>

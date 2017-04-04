@@ -7,7 +7,7 @@ import java.util.List;
  * Created by simone on 03/04/17.
  */
 public class SatelliteBean {
-    String name, startMissionDate, endMissionDate;
+    String name, startMissionDate, endMissionDate, agenciesConnected;
     List<AgencyBean> agencyPartecipationList;
 
     public SatelliteBean(){
@@ -55,5 +55,14 @@ public class SatelliteBean {
 
     public void setAgencyPartecipationList(List<AgencyBean> agencyPartecipationList) {
         this.agencyPartecipationList = agencyPartecipationList;
+    }
+
+    public String getAgenciesConnected() {
+        return agenciesConnected;
+    }
+
+    public void setAgenciesConnected(String agenciesConnected) {
+        this.agenciesConnected = agenciesConnected;
+        System.out.println("Agency connected:" + this.agenciesConnected); //DEBUG
     }
 }
