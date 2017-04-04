@@ -1,27 +1,53 @@
 package beans.login;
 
 import Controllers.UsersController;
+import enumerations.UserType;
 
 /**
  * Created by simone on 26/03/17.
  */
 public class UserBean {
-    private String name, surname, userID, password, email;
-
-    public UserBean(String name, String surname, String userID, String password, String email) {
-        this.name = name;
-        this.surname = surname;
-        this.userID = userID;
-        this.password = password;
-        this.email = email;
-    }
+    private String name, surname, userID, password, email, type;
+    private boolean logged;
+    private AdministrationBean administrationRole = null;
 
     public UserBean() {
+        name = "";
+        surname = "";
+        userID = "";
+        password = "";
+        email = "";
+        type = "";
+        logged = false;
     }
 
     public boolean login(){
         if(this.getUserID() != null && this.getPassword() != null)
             return UsersController.getUsersControllerInstance().checkUserEsistence(this);
+        return false;
+    }
+
+    public boolean isFull(){
+        if(this.getUserID().equals("") || this.getPassword().equals("") || this.getName().equals("") || this.getSurname().equals("") || this.getEmail().equals(""))
+            return false;
+        return true;
+    }
+
+    public void emptyBean(){
+        this.setName("");
+        this.setSurname("");
+        this.setUserID("");
+        this.setPassword("");
+        this.setEmail("");
+        this.setType("");
+        if(isAdmin())
+            this.administrationRole = null;
+    }
+
+    public boolean newUserRegistration(UserBean newUser){
+        if(this.isAdmin()){
+            return this.getAdministrationRole().newUserRegistration(newUser);
+        }
         return false;
     }
 
@@ -63,5 +89,33 @@ public class UserBean {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public boolean isLogged() {
+        return logged;
+    }
+
+    public void setLogged(boolean logged) {
+        this.logged = logged;
+    }
+
+    public String getType() { return type; }
+
+    public void setType(String type) { this.type = type; }
+
+    public AdministrationBean getAdministrationRole() {
+        return administrationRole;
+    }
+
+    public boolean isAdmin(){
+        if(administrationRole == null)
+            return false;
+        return true;
+    }
+
+    public void setAdministrationRole() {
+        if(administrationRole == null) {
+            this.administrationRole = new AdministrationBean(this);
+        }
     }
 }

@@ -11,18 +11,18 @@
 <div id="login_modal" class="modal bottom-sheet">
     <div class="modal-content">
         <h4>Login</h4>
-        <form action="#">
+        <form action="#" method="post">
             <div class="row">
                 <div class="input-field col s5">
-                    <input id="user-id" name="userID" type="text" class="validate">
+                    <input id="user-id" name="log_userID" type="text" class="validate">
                     <label for="user-id">Username</label>
                 </div>
                 <div class="input-field col s5">
-                    <input id="password" name="password" type="text" class="validate">
+                    <input id="password" name="log_password" type="text" class="validate">
                     <label for="password">Password</label>
                 </div>
                 <div>
-                    <button class="btn-floating btn-large waves-effect waves-light blue offset-s10" type="submit" name="loginBean" id="loginBean">
+                    <button class="btn-floating btn-large waves-effect waves-light blue offset-s10" type="submit">
                         <i class="material-icons">send</i>
                     </button>
                     <button class="btn-floating btn-large waves-effect waves-light blue modal-close" type="button">

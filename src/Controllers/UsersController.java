@@ -14,8 +14,17 @@ public class UsersController {
     }
 
     public boolean checkUserEsistence(UserBean userData){
-        UserDAO userDAO= new UserDAO();
-        return userDAO.login(userData);
+        UserDAO userDAO = new UserDAO();
+        if(userDAO.login(userData)){
+            userData.setLogged(true);
+            return true;
+        }
+        return  false;
+    }
+
+    public boolean createNewUserRecord(UserBean user) {
+        UserDAO userDAO = new UserDAO();
+        return userDAO.createUserRecord(user);
     }
 
     public static synchronized UsersController getUsersControllerInstance() {

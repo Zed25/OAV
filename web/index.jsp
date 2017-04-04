@@ -6,19 +6,17 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<jsp:useBean id="loginBean" class="beans.login.UserBean" scope="session"/>
+<jsp:setProperty name="loginBean" property="userID" param="log_userID"/>
+<jsp:setProperty name="loginBean" property="password" param="log_password"/>
 
-<% if(request.getParameter("loginBean") != null){%>
-    <jsp:useBean id="loginBean" scope="session" class="beans.login.UserBean"/>
-    <jsp:setProperty name="loginBean" property="*"/>
-    <%if(loginBean.login()) {
-      session.setAttribute("loginBean", loginBean);
-    }else{
-      loginBean = null;
-    }
+<%  //loginBean.setUserID("Zed");
+    //loginBean.setPassword("root");
+    if(!loginBean.isLogged() && !loginBean.getUserID().equals("")){
+    loginBean.login();
 }%>
 
 <jsp:include page="header.jsp"/>
 <jsp:include page="login.jsp"/>
-<jsp:include page="registration.jsp"/>
 <jsp:include page="footer.jsp"/>
 

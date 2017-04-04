@@ -8,4 +8,6 @@ import beans.login.UserBean;
 public interface UserDAOInterface {
 
     public boolean login(UserBean user);
+
+    public boolean createUserRecord(UserBean user);
 }

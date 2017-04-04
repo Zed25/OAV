@@ -1,17 +1,16 @@
 package Controllers;
 
+import DAO.AgencyDAO;
+import beans.login.AgencyBean;
+
+import java.util.List;
+
 /**
  * Created by andrea on 29/03/17.
  */
 
 public class SearchController {
     private static SearchController instance;
-
-    public static synchronized SearchController getInstance() {
-        if (instance == null)
-            instance = new SearchController();
-        return instance;
-    }
 
     private SearchController() {
     }
@@ -23,5 +22,16 @@ public class SearchController {
         //map.searchObject(band);
 
 
+    }
+
+    public List<AgencyBean> getAllAgencies() {
+        AgencyDAO agencyDAO = new AgencyDAO();
+        return agencyDAO.getAll();
+    }
+
+    public static synchronized SearchController getInstance() {
+        if (instance == null)
+            instance = new SearchController();
+        return instance;
     }
 }

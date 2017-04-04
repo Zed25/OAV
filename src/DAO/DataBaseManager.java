@@ -72,6 +72,42 @@ public class DataBaseManager {
         return cachedRowSetImpl;
     }
 
+    public boolean insertTuple(String insertQuerySQL) {
+        Statement statement = null;
+        Connection connection = null;
+        try {
+            Class.forName("org.postgresql.Driver");
+            connection = DriverManager.getConnection(DB_NAME, DB_PSW, DB_USER);
+            statement = connection.createStatement();
+            statement.executeUpdate(insertQuerySQL);
+            statement.close();
+            connection.close();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+        finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return true;
+    }
+
     public static synchronized DataBaseManager getInstance() {
         if (DataBaseManager.dbInstance==null){
             dbInstance = new DataBaseManager();
