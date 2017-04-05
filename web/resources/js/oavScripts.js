@@ -13,17 +13,26 @@ function connectAgencyToSatellite(agencyID, agencyListID) {
 
     if(document.getElementById(agencyID).checked) {
 
-        document.getElementById(agencyListID).value = agencyListValue + agencyName + ", ";
+        addAgencytoInput(agencyListID, agencyListValue, agencyName);
+
     }else{
 
-        var newAgencyListValue = agencyListValue.replace(agencyName + ',', '');
-
-        document.getElementById(agencyListID).value = newAgencyListValue;
+        removeAgencyFromInput(agencyListID, agencyListValue, agencyName);
     }
 
 }
 
-function addNewAgency() {
+function addAgencytoInput(agencyListID, agencyListValue, agencyName) {
+    document.getElementById(agencyListID).value = agencyListValue + agencyName + ", ";
+}
+
+function removeAgencyFromInput(agencyListID, agencyListValue, agencyName) {
+    var newAgencyListValue = agencyListValue.replace(agencyName + ',', '');
+
+    document.getElementById(agencyListID).value = newAgencyListValue;
+}
+
+function addNewAgency(agencyListID) {
 
     var div = document.createElement('div');
 
@@ -39,7 +48,8 @@ function addNewAgency() {
     checkbox.type = 'checkbox';
     checkbox.id = IDNumber;
     checkbox.name = 'agencies_satellite_name';
-    checkbox.onchange = connectAgencyToSatellite(this.id, 'agencies_to_satellite');
+    checkbox.checked = 'checked';
+    //checkbox.disabled = true;
 
     var textnode = document.createTextNode(labelText);
 
@@ -51,19 +61,27 @@ function addNewAgency() {
     var buttonDeleteRow = document.createElement('input');
     buttonDeleteRow.type = 'button';
     buttonDeleteRow.value = '-';
-    buttonDeleteRow.onclick = removeRow(this);
+    buttonDeleteRow.onclick = function(){removeRow(this, agencyListID, document.getElementById(agencyListID).value, labelText);};
 
     div.appendChild(checkbox);
     div.appendChild(checkboxLabel);
     div.appendChild(buttonDeleteRow);
+
+    addAgencytoInput(agencyListID, document.getElementById(agencyListID).value, labelText);
 
     /*document.getElementById('div_' + IDNumber).appendChild(checkbox);
     document.getElementById('div_' + IDNumber).appendChild(checkboxLabel);
     document.getElementById('div_' + IDNumber).appendChild(buttonDeleteRow);*/
 
     document.getElementById('agencies_satellite').appendChild(div);
+
+    document.getElementById('label_new_agency').value = '';
+
 }
 
-function removeRow(input) {
+function removeRow(input, agencyListID, agencyListValue, agencyName) {
+
+    removeAgencyFromInput(agencyListID, agencyListValue, agencyName);
+
     document.getElementById('agencies_satellite').removeChild( input.parentNode );
 }

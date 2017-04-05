@@ -53,7 +53,7 @@
         </div>
         <div class="row">
             <input type='text area' id='label_new_agency'>
-            <button class="btn waves-effect waves-light blue" type="button" onClick="addNewAgency()">Add</button>
+            <button class="btn waves-effect waves-light blue" type="button" onClick="addNewAgency('agencies_to_satellite')">Add</button>
         </div>
         <input id="agencies_to_satellite" type="text" name="agencies_in_mission">
         <div class="row">
