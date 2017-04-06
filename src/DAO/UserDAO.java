@@ -14,7 +14,7 @@ public class UserDAO implements UserDAOInterface{
     @Override
     public boolean login(UserBean user) {
 
-        String query = "SELECT * FROM \"Utenti\" WHERE \"User-id\" = " + "'" + user.getUserID() + "' AND " +  "\"Password\"=" + "'" + user.getPassword() + "';";
+        String query = "SELECT * FROM Users WHERE User_id = " + "'" + user.getUserID() + "' AND " +  "Password=" + "'" + user.getPassword() + "';";
 
         System.out.println(query); //DEBUG
 
@@ -22,11 +22,11 @@ public class UserDAO implements UserDAOInterface{
 
         try {
             while(cachedRowSetImpl.next()){
-                if (cachedRowSetImpl.getString("User-id").equals(user.getUserID())){
-                    user.setName(cachedRowSetImpl.getString("Nome"));
-                    user.setSurname(cachedRowSetImpl.getString("Cognome"));
-                    user.setEmail(cachedRowSetImpl.getString("email"));
-                    if(cachedRowSetImpl.getString("tipo").equals("Admin")) {
+                if (cachedRowSetImpl.getString("User_id").equals(user.getUserID())){
+                    user.setName(cachedRowSetImpl.getString("Name"));
+                    user.setSurname(cachedRowSetImpl.getString("Surname"));
+                    user.setEmail(cachedRowSetImpl.getString("Email"));
+                    if(cachedRowSetImpl.getString("Type").equals("Admin")) {
                         user.setAdministrationRole();
                     }
                     System.out.println("There is a match!"); //DEBUG
@@ -42,14 +42,14 @@ public class UserDAO implements UserDAOInterface{
 
     @Override
     public boolean createUserRecord(UserBean user) {
-        String checkUsernameEsistance = "SELECT \"User-id\" FROM \"Utenti\" WHERE \"User-id\" = '" + user.getUserID() +"'";
+        String checkUsernameEsistance = "SELECT User_id FROM Users WHERE User_id = '" + user.getUserID() +"'";
         System.out.println(checkUsernameEsistance);
 
         CachedRowSetImpl cachedRowSetImpl = DataBaseManager.getInstance().dbQuery(checkUsernameEsistance);
 
         try {
             while(cachedRowSetImpl.next()){
-                if(cachedRowSetImpl.getString("User-id").equals(user.getUserID()))
+                if(cachedRowSetImpl.getString("User_id").equals(user.getUserID()))
                     return false;
             }
         } catch (SQLException e) {
@@ -57,7 +57,7 @@ public class UserDAO implements UserDAOInterface{
             return false;
         }
 
-        String query = "INSERT INTO \"Utenti\" (\"User-id\", \"Password\", \"Nome\", \"Cognome\", email, tipo) VALUES ('" + user.getUserID() + "', '" +
+        String query = "INSERT INTO Users (User_id, Password, Name, Surname, Email, Type) VALUES ('" + user.getUserID() + "', '" +
                 user.getPassword() + "', '" + user.getName() + "', '" + user.getSurname() + "', '" + user.getEmail() + "', '" + user.getType() + "');";
 
         System.out.println(query); //DEBUG

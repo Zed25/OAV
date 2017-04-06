@@ -30,7 +30,7 @@ create table Bands(
 	SpectralLength real not null
 );
 
-create table S-BSurbay(
+create table S_BSurbay(
 	Instrument character varying (10) references Instruments (Name),
 	Band integer references Bands (BandID),
 	primary key (Instrument, Band)
@@ -66,7 +66,7 @@ create table Clumps(
 	HigalMaps character varying (10) references StarMaps (Name)
 );
 
-create table S-C_Membership(
+create table S_C_Membership(
 	Source character varying (20) references Sources (SourceID),
 	Clump integer references Clumps (ClumpID),
 	primary key (Source,Clump)

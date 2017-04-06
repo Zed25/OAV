@@ -16,6 +16,8 @@
 <jsp:setProperty name="newSatellite" property="endMissionDate" param="sat_end_misison"/>
 
 <jsp:include page="header.jsp"/>
+
+<%if(!newSatellite.isFull()){%>
 <h4>Satellite's data</h4>
 <div class="row">
     <form id="new_satellite_form" action="#" method="post">
@@ -68,4 +70,35 @@
         </div>
     </form>
 </div>
+<%}else{%>
+<h4>Satellite's data summary</h4>
+<form action="serializeSatellite.jsp" method="post">
+    <div class="row"></div>
+        Name: <%=newSatellite.getName()%>
+    </div>
+    <div class="row">
+        Start Mission Date: <%=newSatellite.getStartMissionDate()%>
+    </div>
+    <div class="row">
+        <%if(newSatellite.getEndMissionDate() != null){%>
+            End Mission Date: <%=newSatellite.getEndMissionDate()%>
+        <%}else{%>
+            End Mission Date: not specified
+        <%}%>
+    </div>
+    <div class="divider"></div>
+    <h6>Agencies connected to mission:</h6>
+        <%for(int i = 0; i < newSatellite.getAgencyPartecipationList().size(); i++){%>
+        <div class="row">
+            <%=newSatellite.getAgencyPartecipationList().get(i).getName()%>
+        </div>
+        <%}%>
+    <button class="btn waves-effect waves-light blue offset-s10" type="submit">
+        Register
+    </button>
+    <button class="btn waves-effect waves-light blue" type="button" value="Back" onClick="history.go(-1);return true;">
+        Back
+    </button>
+</form>
+<%}%>
 <jsp:include page="footer.jsp"/>

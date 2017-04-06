@@ -13,7 +13,7 @@ import java.util.List;
 public class AgencyDAO {
 
     public List<AgencyBean> getAll(){
-        String query = "SELECT \"Nome\" FROM \"Agenzie\";";
+        String query = "SELECT Name FROM Agencies;";
 
         System.out.println(query); //DEBUG
 
@@ -24,7 +24,7 @@ public class AgencyDAO {
             try {
                 while (cachedRowSet.next()){
                     AgencyBean agencyBean = new AgencyBean();
-                    agencyBean.setName(cachedRowSet.getString("Nome"));
+                    agencyBean.setName(cachedRowSet.getString("Name"));
                     System.out.println(agencyBean.getName());
                     agencyBeanList.add(agencyBean);
                 }
@@ -35,5 +35,13 @@ public class AgencyDAO {
         }
 
         return agencyBeanList;
+    }
+
+    public void serializeAgency(AgencyBean agencyBean) {
+        String query = "INSERT INTO Agencies (Name) VALUES ('" + agencyBean.getName() + "');";
+
+        System.out.println(query); //DEBUG
+
+        DataBaseManager.getInstance().insertTuple(query);
     }
 }

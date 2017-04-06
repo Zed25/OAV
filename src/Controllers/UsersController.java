@@ -10,7 +10,7 @@ public class UsersController {
 
     private static UsersController usersControllerInstance = null;
 
-    public UsersController() {
+    private UsersController() {
     }
 
     public boolean checkUserEsistence(UserBean userData){

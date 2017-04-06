@@ -1,5 +1,7 @@
 package beans.login;
 
+import Controllers.SerializeController;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +10,7 @@ import java.util.List;
  */
 public class SatelliteBean {
     String name, startMissionDate, endMissionDate, agenciesConnected;
+    boolean toSerialize;
     List<AgencyBean> agencyPartecipationList;
 
     public SatelliteBean(){
@@ -17,12 +20,23 @@ public class SatelliteBean {
         agencyPartecipationList = null;
     }
 
-    public void addAgencyToMission(AgencyBean agency){
-        if(this.getAgencyPartecipationList() == null){
-            this.setAgencyPartecipationList(new ArrayList<>());
-        }
-        this.getAgencyPartecipationList().add(agency);
-        System.out.println("Agency " + agency.getName() + " added to mission's list"); //DEBUG
+    public boolean isFull(){
+        if(this.getName().equals("") || this.getStartMissionDate().equals("") || this.getAgenciesConnected().equals("") || this.getAgencyPartecipationList() == null)
+            return false;
+        return true;
+    }
+
+    public void emptyBean(){
+        this.setName("");
+        this.setStartMissionDate("");
+        this.setEndMissionDate("");
+        this.setAgenciesConnected("");
+        if(this.getAgencyPartecipationList() != null)
+            this.agencyPartecipationList = null;
+    }
+
+    public boolean serializeSatellite(){
+        return SerializeController.getSerializeControllerInstance().serializeSatellite(this);
     }
 
     public String getName() {
@@ -63,6 +77,26 @@ public class SatelliteBean {
 
     public void setAgenciesConnected(String agenciesConnected) {
         this.agenciesConnected = agenciesConnected;
-        System.out.println("Agency connected:" + this.agenciesConnected); //DEBUG
+
+        if(this.getAgencyPartecipationList() == null){
+            this.agencyPartecipationList = new ArrayList<>();
+        }
+
+        this.getAgencyPartecipationList().clear();
+
+        String[] agencies = this.getAgenciesConnected().split(",");
+
+        for(int i = 0; i < agencies.length - 1; i++){
+            if(!agencies[i].equals("")){
+                addAgencyToMission(agencies[i]);
+            }
+        }
+    }
+
+    public void addAgencyToMission(String agencyName){
+        AgencyBean agency = new AgencyBean();
+        agency.setName(agencyName);
+        this.getAgencyPartecipationList().add(agency);
+        System.out.println("Agency " + agency.getName() + " added to mission's list"); //DEBUG
     }
 }
