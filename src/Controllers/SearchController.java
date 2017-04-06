@@ -22,17 +22,10 @@ public class SearchController {
 
     // non dovra essere void, ma dovra' ritornare una lista di oggetti o un bean che li contiene
 
-    public void FindObjectInMap(SearchBean bean) {  //band==0 -> 1 banda, else tutte
+    public void FindObjectInMap(SearchBean bean, ResultBean resBean) {  //band==0 -> 1 banda, else tutte
         SearchDAO dao = new SearchDAO();
-
-        try {
-            CachedRowSetImpl result = new CachedRowSetImpl();
-            result = dao.searchObjectInMap(bean);
-            ResultBean resBean = new ResultBean();
-            resBean.populate(result);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        CachedRowSetImpl result = dao.searchObjectInMap(bean);
+        resBean.populate(result);
     }
 
     public List<AgencyBean> getAllAgencies(){

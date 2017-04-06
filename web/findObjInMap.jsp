@@ -9,7 +9,6 @@
 <jsp:useBean id="searchBean" scope="session" class="beans.login.search.SearchBean"/>
 <jsp:setProperty name="searchBean" property="*"/>
 <jsp:useBean id="resultBean" scope="session" class="beans.login.search.ResultBean"/>
-<jsp:setProperty name="resultBean" property="*"/>
 <% if (searchBean.isFull()) {
     searchBean.findObjectInMap(searchBean, resultBean); %>
 <jsp:forward page="searchResult.jsp"/>
@@ -23,6 +22,8 @@
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <title>OAV</title>
 </head>
+<jsp:include page="header.jsp"/>
+<jsp:include page="footer.jsp"/>
 <body>
 
 <br>

@@ -7,37 +7,35 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="searchBean" scope="session" class="beans.login.search.SearchBean"/>
-<jsp:setProperty name="searchBean" property="*"/>
 <jsp:useBean id="resultBean" scope="session" class="beans.login.search.ResultBean"/>
-<jsp:setProperty name="resultBean" property="*"/>
 <html>
 <head>
     <title>OAV</title>
 </head>
+<jsp:include page="header.jsp"/>
+<jsp:include page="footer.jsp"/>
 <body>
-<div class="container" style="align-content: center">
-    <div class="container" style="vertical-align: text-top">
+<table>
+    <thead>
+    <tr>
+        <th>Source Name</th>
+        <th>Flow Value</th>
+        <th>Band Width</th>
+    </tr>
+    </thead>
 
-        <h5 style="color: slategray">Source :</h5>
-        <br>
-    <% for (int i = 0; i<50; i++) {
-        System.out.println("ciao");
-        } %>
-        <br>
-
-    </div>
-
-    <div class="container" style="vertical-align: text-top">
-
-        <h5 style="color: slategray">Flow value :</h5>
-        <br>
-    <% for (int j = 0; j<2; j++) {
-        System.out.println(Double.toString(resultBean.getValues()[j]));
-        } %>
-        <br>
-
-    </div>
-</div>
-
+    <tbody>
+    <tr>
+        <td><% for(int i=0; i<resultBean.getSources().size(); i++) {
+            out.println((resultBean.getSources().get(i)));
+        }%>
+        </td>
+        <td><% for(int i=0; i<resultBean.getValues().size(); i++) {
+            out.println((resultBean.getValues().get(i)).toString());
+        }%>
+        </td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>

@@ -32,22 +32,22 @@ public class SearchDAO {
 
         if(cachedRowSetImpl == null)
             System.out.println("non ci sono match");
-
+/*
         try {
             while(cachedRowSetImpl.next()){
                 System.out.println(cachedRowSetImpl.getString("Valore"));
                 return cachedRowSetImpl;
 
-                /*if (cachedRowSetImpl.getString(1).equals(bean.getMapName())){
+                if (cachedRowSetImpl.getString(1).equals(bean.getMapName())){
                     System.out.println("There is a match!");
-                }*/
+                }
             }
 
-            System.out.println("sono vuoto");
+        System.out.println("sono vuoto");
 
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+        }*/
 
         return cachedRowSetImpl;
     }
