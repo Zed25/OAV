@@ -1,29 +1,44 @@
 package DAO;
 
+import beans.login.AgencyBean;
 import beans.login.SatelliteBean;
 import com.sun.rowset.CachedRowSetImpl;
+import enumerations.ConnectionType;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.List;
 
 /**
  * Created by simone on 05/04/17.
  */
-public class SatelliteDAO {
+public class SatelliteDAO extends SuperDAO{
 
 
-    public boolean serializeSatellite(SatelliteBean satelliteBean) {
-        String checkSatelliteExistence = "SELECT Name FROM Satellites WHERE Name = '" + satelliteBean.getName() +"'";
+    public boolean serializeSatellite(SatelliteBean satelliteBean, List<AgencyBean> newAgencies) {
+        String checkSatelliteExistence = "SELECT Name FROM Satellites WHERE Name = '" + satelliteBean.getName() +"';";
         System.out.println(checkSatelliteExistence);
 
-        CachedRowSetImpl cachedRowSetImpl = DataBaseManager.getInstance().dbQuery(checkSatelliteExistence);
+        Connection connection = connect(ConnectionType.COMPQUERY);
+        CachedRowSetImpl cachedRowSetImpl;
+        Statement statement;
 
         try {
-            while(cachedRowSetImpl.next()){
-                if(cachedRowSetImpl.getString("Name").equals(satelliteBean.getName()))
-                    return false;
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(checkSatelliteExistence);
+            if(resultSet.next()){
+                resultSet.close();
+                statement.close();
+                disconnect(connection);
+                System.out.println("Satellite's name already exists!");
+                return false;
             }
+            resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
+            disconnect(connection);
             return false;
         }
 
@@ -32,27 +47,40 @@ public class SatelliteDAO {
 
         System.out.println(query); //DEBUG
 
-        if(DataBaseManager.getInstance().insertTuple(query)){
-            for(int i = 0; i < satelliteBean.getAgencyPartecipationList().size(); i++){
-                if(addAgencyToSatelliteMission(satelliteBean.getName(), satelliteBean.getAgencyPartecipationList().get(i).getName()))
-                    continue;
-                else
-                    return false;
+
+        try {
+            statement.executeUpdate(query);
+            if(newAgencies != null) {
+                for (int i = 0; i < newAgencies.size(); i++) {
+                    String newAgencyQuery = "INSERT INTO Agencies (Name) VALUES ('" + newAgencies.get(i).getName() + "');";
+
+                    System.out.println(query); //DEBUG
+
+                    statement.executeUpdate(newAgencyQuery);
+                }
             }
+            for(int i = 0; i < satelliteBean.getAgencyPartecipationList().size(); i++){
+                String agencyQuery = "INSERT INTO MissionsJoined (Agency, Satellite) VALUES ('" + satelliteBean.getAgencyPartecipationList().get(i).getName() +"','" +
+                        satelliteBean.getName() + "');";
+
+                System.out.println(agencyQuery); //DEBUG
+
+                statement.executeUpdate(agencyQuery);
+            }
+            connection.commit();
+            disconnect(connection);
             return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            try {
+                connection.abort(null); //TODO check executor
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+                disconnect(connection);
+            }
+            disconnect(connection);
         }
 
-        return false;
-    }
-
-    private boolean addAgencyToSatelliteMission(String satelliteName, String agencyName) {
-        String query = "INSERT INTO MissionsJoined (Agency, Satellite) VALUES ('" + agencyName +"','" +
-                satelliteName + "');";
-
-        System.out.println(query); //DEBUG
-
-        if(DataBaseManager.getInstance().insertTuple(query))
-            return true;
         return false;
     }
 }

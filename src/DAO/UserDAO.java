@@ -3,23 +3,39 @@ package DAO;
 import beans.login.AdministrationBean;
 import beans.login.UserBean;
 import com.sun.rowset.CachedRowSetImpl;
+import enumerations.ConnectionType;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  * Created by simone on 29/03/17.
  */
-public class UserDAO implements UserDAOInterface{
+public class UserDAO extends SuperDAO{
 
-    @Override
     public boolean login(UserBean user) {
 
         String query = "SELECT * FROM Users WHERE User_id = " + "'" + user.getUserID() + "' AND " +  "Password=" + "'" + user.getPassword() + "';";
 
         System.out.println(query); //DEBUG
 
-        CachedRowSetImpl cachedRowSetImpl = DataBaseManager.getInstance().dbQuery(query);
-
+        CachedRowSetImpl cachedRowSetImpl;
+        Connection connection = connect(ConnectionType.SINGLEQUERY);
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+            cachedRowSetImpl = new CachedRowSetImpl();
+            cachedRowSetImpl.populate(resultSet);
+            resultSet.close();
+            statement.close();
+            disconnect(connection);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            disconnect(connection);
+            return false;
+        }
         try {
             while(cachedRowSetImpl.next()){
                 if (cachedRowSetImpl.getString("User_id").equals(user.getUserID())){
@@ -40,28 +56,40 @@ public class UserDAO implements UserDAOInterface{
         return false;
     }
 
-    @Override
     public boolean createUserRecord(UserBean user) {
-        String checkUsernameEsistance = "SELECT User_id FROM Users WHERE User_id = '" + user.getUserID() +"'";
+        String checkUsernameEsistance = "SELECT User_id FROM Users WHERE User_id='" + user.getUserID() +"';";
         System.out.println(checkUsernameEsistance);
-
-        CachedRowSetImpl cachedRowSetImpl = DataBaseManager.getInstance().dbQuery(checkUsernameEsistance);
-
-        try {
-            while(cachedRowSetImpl.next()){
-                if(cachedRowSetImpl.getString("User_id").equals(user.getUserID()))
-                    return false;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
 
         String query = "INSERT INTO Users (User_id, Password, Name, Surname, Email, Type) VALUES ('" + user.getUserID() + "', '" +
                 user.getPassword() + "', '" + user.getName() + "', '" + user.getSurname() + "', '" + user.getEmail() + "', '" + user.getType() + "');";
 
         System.out.println(query); //DEBUG
 
-        return DataBaseManager.getInstance().insertTuple(query);
+        Connection connection = connect(ConnectionType.SINGLEQUERY);
+        Statement statement;
+        ResultSet resultSet;
+
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(checkUsernameEsistance);
+
+            if(resultSet.next()){
+                System.out.println("This username (" + user.getUserID() +") already exits!");
+                statement.close();
+                resultSet.close();
+                disconnect(connection);
+                return false;
+            }
+
+            resultSet.close();
+            statement.executeUpdate(query);
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            disconnect(connection);
+            return false;
+        }
+        disconnect(connection);
+        return true;
     }
 }

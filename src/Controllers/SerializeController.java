@@ -20,15 +20,10 @@ public class SerializeController {
 
     public boolean serializeSatellite(SatelliteBean satelliteBean) {
         List<AgencyBean> newAgencies = getNewAgenciesFromSatelliteBean(satelliteBean.getAgencyPartecipationList());
-        if(newAgencies != null){
-            for(int i = 0; i < newAgencies.size(); i++){
-                serializeAgency(newAgencies.get(i));
-            }
-        }
 
         SatelliteDAO satelliteDAO = new SatelliteDAO();
 
-        if(satelliteDAO.serializeSatellite(satelliteBean))
+        if(satelliteDAO.serializeSatellite(satelliteBean, newAgencies))
             return true;
 
         return false;
@@ -61,11 +56,11 @@ public class SerializeController {
     }
 
     //it will return a boolean
-    private void serializeAgency(AgencyBean agencyBean) {
+    /*private void serializeAgency(AgencyBean agencyBean) {
         AgencyDAO agencyDAO = new AgencyDAO();
 
         agencyDAO.serializeAgency(agencyBean);
-    }
+    }*/
 
     public static synchronized SerializeController getSerializeControllerInstance() {
         if(serializeControllerInstance == null)
