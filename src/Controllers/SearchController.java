@@ -1,7 +1,7 @@
 package Controllers;
 
 import DAO.AgencyDAO;
-import DAO.SearchDAO;
+//import DAO.SearchDAO;
 import beans.login.AgencyBean;
 import beans.login.search.ResultBean;
 import beans.login.search.SearchBean;
@@ -22,16 +22,17 @@ public class SearchController {
 
     // non dovra essere void, ma dovra' ritornare una lista di oggetti o un bean che li contiene
 
-    public void FindObjectInMap(SearchBean bean, ResultBean resBean) {  //band==0 -> 1 banda, else tutte
+    /*public void FindObjectInMap(SearchBean bean, ResultBean resBean) {  //band==0 -> 1 banda, else tutte
         SearchDAO dao = new SearchDAO();
         CachedRowSetImpl result = dao.searchObjectInMap(bean);
         resBean.populate(result);
-    }
+    }*/
 
     public List<AgencyBean> getAllAgencies(){
         AgencyDAO agencyDAO = new AgencyDAO();
         return agencyDAO.getAll();
     }
+
 
     public static synchronized SearchController getInstance() {
         if (instance == null)

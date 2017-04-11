@@ -7,7 +7,6 @@ import java.sql.SQLException;
 
 /**
  * Created by andrea on 30/03/17.
- */
 public class SearchDAO {
 
     public CachedRowSetImpl searchObjectInMap(SearchBean bean) {
@@ -47,8 +46,10 @@ public class SearchDAO {
 
         } catch (SQLException e) {
             e.printStackTrace();
-        }*/
+        }
 
         return cachedRowSetImpl;
     }
 }
+
+                */

@@ -7,11 +7,24 @@
 
     <servlet>
         <servlet-name>Fileuploader</servlet-name>
-        <servlet-class>FileUpload</servlet-class>
+        <servlet-class>csvReader.FileUpload</servlet-class>
     </servlet>
 
     <servlet-mapping>
         <servlet-name>Fileuploader</servlet-name>
         <url-pattern>/upload</url-pattern>
     </servlet-mapping>
+    <!--url-pattern>/rdBtnChecked</url-pattern-->
+
+    <servlet>
+        <servlet-name>RadioButton</servlet-name>
+        <servlet-class>csvReader.RadioButton</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>RadioButton</servlet-name>
+        <url-pattern>/radiobot</url-pattern>
+    </servlet-mapping>
+
+
 </web-app>

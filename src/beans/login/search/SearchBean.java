@@ -36,8 +36,8 @@ public class SearchBean {
         else return false;
     }
 
-    public void findObjectInMap(SearchBean bean, ResultBean resBean) {
+   /* public void findObjectInMap(SearchBean bean, ResultBean resBean) {
         SearchController.getInstance().FindObjectInMap(this, resBean);
 
-    }
+    }*/
 }

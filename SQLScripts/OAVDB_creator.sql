@@ -25,21 +25,22 @@ create table Instruments (
 );
 
 create table Bands(
-	BandID integer primary key,
-	Resolution real not null,
+	Resolution real PRIMARY KEY ,
 	SpectralLength real not null
 );
 
 create table S_BSurbay(
 	Instrument character varying (10) references Instruments (Name),
-	Band integer references Bands (BandID),
+	Band real references Bands (Resolution),
 	primary key (Instrument, Band)
 );
-	
+
 create table Sources (
 	SourceID character varying (20) primary key,
-	Luminosity real not null,
-	Type character varying (10) not null
+	GalacticLongitude double precision DEFAULT 0.0,
+	GalacticLatitude double precision DEFAULT 0.0,
+	Type character varying (10) DEFAULT '',
+	ComparedSource character varying (20) references Sources(SourceID)
 );
 
 create table Collection (
@@ -48,21 +49,16 @@ create table Collection (
 	primary key (StarMap, Source)
 );
 
-create table S_S_Comparison(
-	ComparingSource character varying (20) references Sources(SourceID),
-	ComparedSource character varying (20) references Sources(SourceID),
-	primary key (ComparingSource, ComparedSource)
-);
 
 create table Clumps(
 	ClumpID integer primary key,
-	GalacticLongitude double precision not null,
-	GalacticLatitude double precision not null,
-	Temperature real not null,
-	LMRatio real not null,
-	Mass real not null,
-	SurfeceDensity real not null,
-	Type decimal not null,
+	GalacticLongitude double precision DEFAULT 0.0,
+	GalacticLatitude double precision DEFAULT 0.0,
+	Temperature real DEFAULT 0.0,
+	LMRatio real DEFAULT 0.0,
+	Mass real DEFAULT 0.0,
+	SurfeceDensity real DEFAULT 0.0,
+	Type decimal DEFAULT 0,
 	HigalMaps character varying (10) references StarMaps (Name)
 );
 
@@ -73,19 +69,25 @@ create table S_C_Membership(
 );
 
 create table Ellipses (
-	Clump integer references Clumps(ClumpID),
-	Band integer references Bands(BandID),
-	Xaxis double precision not null,
-	Yaxis double precision not null,
+	Clump integer not null,
+	Band integer references Bands(Resolution),
+	Maxaxis double precision not null,
+	Minaxis double precision not null,
 	PositionAngle double precision not null,
 	primary key (Clump , Band)
 );
 
 create table Fluxes (
-	FluxID integer primary key,
+	FluxID integer primary KEY DEFAULT NEXTVAL('flux_sequence'),
 	Value real not null,
 	Error real,
-	Band integer references Bands (BandID),
+	Band integer references Bands (Resolution),
 	Source character varying (20) references Sources (SourceID),
 	Clump integer references Clumps (ClumpID)
 );
+
+
+CREATE  SEQUENCE flux_sequence
+START WITH     1
+INCREMENT BY   1;
+

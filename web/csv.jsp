@@ -8,23 +8,40 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 
-
+<jsp:include page="header.jsp"/>
 
 <div class="row">
     <div class="col s6">
-        <fieldset class="radiogroup">
-            <legend>Scegli il file da modificare</legend>
+        <div class="card teal lighten-5">
+            <form action="radiobot" method="post">
+                <p>
+                    <input class="with-gap" type="radio" name="filescelto" id="higal" value="higal.csv"/>
+                    <label for="higal" style="color: darkslategray">Higal</label>
+                </p>
 
-            <ul class="radio" >
-                <li><input type="radio" name="filescelto" id="higal" /> <label for="higal">Higal</label></li>
-                <li><input type="radio" name="filescelto" id="higal_additionalinfo" /><label for="higal_additionalinfo">Higal additional Info</label></li>
-                <li><input type="radio" name="filescelto" id="mips" /><label for="mips">Mips</label></li>
-                <li><input type="radio" name="filescelto" id="r08" /><label for="r08">R08</label></li>
-            </ul>
-        </fieldset>
+                <p>
+                    <input class="with-gap" type="radio" name="filescelto" id="higal_additionalinfo" value="higal_additionalinfo.csv"/>
+                    <label for="higal_additionalinfo" style="color: darkslategray">Higal_additionalinfo</label>
+                </p>
+
+                <p>
+                    <input class="with-gap" type="radio" name="filescelto" id="mips"  value="mips.csv"/>
+                    <label for="mips" style="color: darkslategray">Mips</label>
+                </p>
+
+                <p>
+                    <input class="with-gap" type="radio" name="filescelto" id="r08" value="r08.csv" />
+                    <label for="r08" style="color: darkslategray">R08</label>
+                </p>
+
+                <button class="btn waves-effect waves-light" type="submit" style="margin-top:2%" name="validate">Submit
+                    <i class="material-icons right">send</i>
+                </button>
+
+            </form>
+        </div>
     </div>
 </div>
-
 
 
 <form action="upload" method="post" enctype="multipart/form-data">
@@ -51,3 +68,9 @@
         </div>
     </div>
 </form>
+
+
+
+
+
+<jsp:include page="footer.jsp"/>
