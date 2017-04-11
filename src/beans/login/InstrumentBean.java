@@ -47,6 +47,11 @@ public class InstrumentBean {
         return SerializeController.getSerializeControllerInstance().getAllBandsFromDB();
     }
 
+
+    public boolean serializeInstrument() {
+        return SerializeController.getSerializeControllerInstance().serializeInstrument(this);
+    }
+
     public String getName() {
         return name;
     }
@@ -77,6 +82,23 @@ public class InstrumentBean {
 
     public void setBandsFromFormString(String bandsFromFormString) {
         this.bandsFromFormString = bandsFromFormString;
+
+        if(bandsFromFormString != null) {
+
+            if (this.getBands() == null) {
+                this.bands = new ArrayList<>();
+            }
+
+            this.getBands().clear();
+
+            String[] bands = this.getBandsFromFormString().split(",");
+
+            for (int i = 0; i < bands.length - 1; i++) {
+                if (!bands[i].equals("")) {
+                    this.getBands().add(bands[i]);
+                }
+            }
+        }
     }
 
     public List<String> getBands() {

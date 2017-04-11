@@ -1,6 +1,7 @@
 package DAO;
 
 import beans.login.AgencyBean;
+import beans.login.InstrumentBean;
 import beans.login.SatelliteBean;
 import com.sun.rowset.CachedRowSetImpl;
 import enumerations.ConnectionType;

@@ -1,4 +1,4 @@
-package beans.login;
+package DAO;
 
 import DAO.SuperDAO;
 import com.sun.rowset.CachedRowSetImpl;
@@ -14,10 +14,12 @@ import java.util.List;
 /**
  * Created by simone on 11/04/17.
  */
-public class BandDAO extends SuperDAO{
+public class StarMapDAO extends SuperDAO{
 
-    public List<String> getAllBandsFromDB() {
-        String query = "SELECT resolution FROM bands;";
+
+    public List<String> getAllStarMapsNameFromDB() {
+
+        String query = "SELECT Name From starmaps";
 
         Connection connection = connect(ConnectionType.SINGLEQUERY);
 
@@ -30,15 +32,16 @@ public class BandDAO extends SuperDAO{
             statement.close();
             disconnect(connection);
 
-            List<String> bands = new ArrayList<>();
+            List<String> names = new ArrayList<>();
+
             while (cachedRowSet.next()){
-                bands.add(cachedRowSet.getString("Resolution"));
+                names.add(cachedRowSet.getString("Name"));
             }
 
-            if(bands.size() == 0)
+            if(names.size() == 0)
                 return null;
 
-            return bands;
+            return names;
         } catch (SQLException e) {
             e.printStackTrace();
             disconnect(connection);

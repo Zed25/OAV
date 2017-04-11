@@ -73,6 +73,34 @@
             </div>
         </div>
     </form>
+
+    <h3>If Satellite or Map not in list go to <a href="insertSatellite.jsp">insertSatellite</a> or insertMap</h3>
 </div>
+<%}else{%>
+<h4>Satellite's data summary</h4>
+<form action="serializeInstrument.jsp" method="post">
+    <div class="row"></div>
+    Name: <%=newInstrument.getName()%>
+    </div>
+    <div class="row">
+        Satellite's name: <%=newInstrument.getSatellite()%>
+    </div>
+    <div class="row">
+        Map's name: <%=newInstrument.getMap()%>
+    </div>
+    <div class="divider"></div>
+    <h6>measured bands:</h6>
+    <%for(int i = 0; i < newInstrument.getBands().size(); i++){%>
+    <div class="row">
+        <%=newInstrument.getBands().get(i)%>
+    </div>
+    <%}%>
+    <button class="btn waves-effect waves-light blue offset-s10" type="submit">
+        Register
+    </button>
+    <button class="btn waves-effect waves-light blue" type="button" value="Back" onClick="history.go(-1);return true;">
+        Back
+    </button>
+</form>
 <%}%>
 <jsp:include page="footer.jsp"/>

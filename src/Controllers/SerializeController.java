@@ -1,11 +1,9 @@
 package Controllers;
 
-import DAO.AgencyDAO;
+import DAO.*;
 import beans.login.AgencyBean;
-import beans.login.BandDAO;
+import beans.login.InstrumentBean;
 import beans.login.SatelliteBean;
-import DAO.SatelliteDAO;
-import beans.login.StarMapDAO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +27,12 @@ public class SerializeController {
             return true;
 
         return false;
+    }
+
+    public boolean serializeInstrument(InstrumentBean instrumentBean) {
+        InstrumentDAO instrumentDAO = new InstrumentDAO();
+
+        return instrumentDAO.serializeInstrument(instrumentBean);
     }
 
     private List<AgencyBean> getNewAgenciesFromSatelliteBean(List<AgencyBean> agencies) {
@@ -71,7 +75,6 @@ public class SerializeController {
         BandDAO bandDAO = new BandDAO();
         return bandDAO.getAllBandsFromDB();
     }
-
     //it will return a boolean
     /*private void serializeAgency(AgencyBean agencyBean) {
         AgencyDAO agencyDAO = new AgencyDAO();
