@@ -18,7 +18,7 @@
                     <label for="user-id">Username</label>
                 </div>
                 <div class="input-field col s5">
-                    <input id="password" name="log_password" type="text" class="validate">
+                    <input id="password" name="log_password" type="password" class="validate">
                     <label for="password">Password</label>
                 </div>
                 <div>

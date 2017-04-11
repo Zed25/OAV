@@ -2,34 +2,34 @@
  * Created by simone on 03/04/17.
  */
 
-function connectAgencyToSatellite(agencyID, agencyListID) {
+function connectCheckBosListToBean(singleElementID, completeListID) {
 
-    var labelAgencyID = "label_" + agencyID;
+    var labelID = "label_" + singleElementID;
 
-    var agencyName = document.getElementById(labelAgencyID).innerHTML;
+    var elementName = document.getElementById(labelID).innerHTML;
 
-    var agencyListValue = document.getElementById(agencyListID).value;
+    var listValue = document.getElementById(completeListID).value;
 
 
-    if(document.getElementById(agencyID).checked) {
+    if(document.getElementById(singleElementID).checked) {
 
-        addAgencytoInput(agencyListID, agencyListValue, agencyName);
+        addCheckBoxElementToInput(completeListID, listValue, elementName);
 
     }else{
 
-        removeAgencyFromInput(agencyListID, agencyListValue, agencyName);
+        removeCheckBoxElementFromInput(completeListID, listValue, elementName);
     }
 
 }
 
-function addAgencytoInput(agencyListID, agencyListValue, agencyName) {
-    document.getElementById(agencyListID).value = agencyListValue + agencyName + ", ";
+function addCheckBoxElementToInput(completeListID, elementListValue, elementName) {
+    document.getElementById(completeListID).value = elementListValue + elementName + ", ";
 }
 
-function removeAgencyFromInput(agencyListID, agencyListValue, agencyName) {
-    var newAgencyListValue = agencyListValue.replace(agencyName + ',', '');
+function removeCheckBoxElementFromInput(completeListID, elementListValue, elementName) {
+    var newElementListValue = elementListValue.replace(elementName + ',', '');
 
-    document.getElementById(agencyListID).value = newAgencyListValue;
+    document.getElementById(completeListID).value = newElementListValue;
 }
 
 function addNewAgency(agencyListID) {
@@ -67,7 +67,7 @@ function addNewAgency(agencyListID) {
     div.appendChild(checkboxLabel);
     div.appendChild(buttonDeleteRow);
 
-    addAgencytoInput(agencyListID, document.getElementById(agencyListID).value, labelText);
+    addCheckBoxElementToInput(agencyListID, document.getElementById(agencyListID).value, labelText);
 
     /*document.getElementById('div_' + IDNumber).appendChild(checkbox);
     document.getElementById('div_' + IDNumber).appendChild(checkboxLabel);
@@ -81,7 +81,7 @@ function addNewAgency(agencyListID) {
 
 function removeRow(input, agencyListID, agencyListValue, agencyName) {
 
-    removeAgencyFromInput(agencyListID, agencyListValue, agencyName);
+    removeCheckBoxElementFromInput(agencyListID, agencyListValue, agencyName);
 
     document.getElementById('agencies_satellite').removeChild( input.parentNode );
 }

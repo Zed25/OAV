@@ -48,7 +48,7 @@
                 System.out.println(agencyList.getAgencyBeansList().get(0).getName());
                 for(int i = 0; i < agencyList.getAgencyBeansList().size(); i++) {%>
                     <div class="row">
-                        <input type="checkbox" id="<%="checkbox" + i%>" name="agencies_satellite_name" onchange="connectAgencyToSatellite(this.id, 'agencies_to_satellite')"/>
+                        <input type="checkbox" id="<%="checkbox" + i%>" name="agencies_satellite_name" onchange="connectCheckBosListToBean(this.id, 'agencies_to_satellite')"/>
                         <label for="<%="checkbox" + i%>" id="label_<%="checkbox" + i%>"><%=agencyList.getAgencyBeansList().get(i).getName()%></label>
                     </div>
                 <%}}%>

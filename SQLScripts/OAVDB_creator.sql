@@ -78,16 +78,11 @@ create table Ellipses (
 );
 
 create table Fluxes (
-	FluxID integer primary KEY DEFAULT NEXTVAL('flux_sequence'),
+	FluxID SERIAL PRIMARY KEY,
 	Value real not null,
 	Error real,
 	Band integer references Bands (Resolution),
 	Source character varying (20) references Sources (SourceID),
 	Clump integer references Clumps (ClumpID)
 );
-
-
-CREATE  SEQUENCE flux_sequence
-START WITH     1
-INCREMENT BY   1;
 

@@ -2,8 +2,10 @@ package Controllers;
 
 import DAO.AgencyDAO;
 import beans.login.AgencyBean;
+import beans.login.BandDAO;
 import beans.login.SatelliteBean;
 import DAO.SatelliteDAO;
+import beans.login.StarMapDAO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +55,21 @@ public class SerializeController {
             return null;
 
         return newAgencies;
+    }
+
+    public List<String> getAllSatellitesNameFromDB() {
+        SatelliteDAO satelliteDAO = new SatelliteDAO();
+        return satelliteDAO.getAllSatellitesNameFromDB();
+    }
+
+    public List<String> getAllStarMapsNameFromDB() {
+        StarMapDAO starMapsDAO = new StarMapDAO();
+        return starMapsDAO.getAllStarMapsNameFromDB();
+    }
+
+    public List<String> getAllBandsFromDB() {
+        BandDAO bandDAO = new BandDAO();
+        return bandDAO.getAllBandsFromDB();
     }
 
     //it will return a boolean

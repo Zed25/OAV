@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -73,7 +74,7 @@ public class SatelliteDAO extends SuperDAO{
         } catch (SQLException e) {
             e.printStackTrace();
             try {
-                connection.abort(null); //TODO check executor
+                connection.rollback();
             } catch (SQLException e1) {
                 e1.printStackTrace();
                 disconnect(connection);
@@ -82,5 +83,37 @@ public class SatelliteDAO extends SuperDAO{
         }
 
         return false;
+    }
+
+    public List<String> getAllSatellitesNameFromDB() {
+
+        String query = "SELECT Name From Satellites";
+
+        Connection connection = connect(ConnectionType.SINGLEQUERY);
+
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+            CachedRowSetImpl cachedRowSet = new CachedRowSetImpl();
+            cachedRowSet.populate(resultSet);
+            resultSet.close();
+            statement.close();
+            disconnect(connection);
+
+            List<String> names = new ArrayList<>();
+
+            while (cachedRowSet.next()){
+                names.add(cachedRowSet.getString("Name"));
+            }
+
+            if(names.size() == 0)
+                return null;
+
+            return names;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            disconnect(connection);
+            return null;
+        }
     }
 }

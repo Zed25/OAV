@@ -18,6 +18,7 @@
 <jsp:useBean id="loginBean" scope="session" class="beans.login.UserBean"/>
 
 <jsp:include page="header.jsp"/>
+
 <%if(!newUserBean.isFull()){%>
 <h4>Registration</h4>
 <form action="#" method="post" onsubmit="registrationFormValidate()">
