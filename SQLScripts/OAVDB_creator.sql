@@ -9,8 +9,8 @@ create table Satellites (
 );
 
 create table MissionsJoined(
-	Agency character varying (10) references Agencies (Name),
-	Satellite character varying (10) references Satellites (Name),
+	Agency character varying (10) references Agencies (Name) NOT NULL,
+	Satellite character varying (10) references Satellites (Name)  NOT NULL,
 	primary key (Agency, Satellite)
 );
 
@@ -20,8 +20,8 @@ create table  StarMaps(
 
 create table Instruments (
 	Name character varying (10) primary key,
-	Satallite character varying (10) references Satellites (Name),
-	StarMap character varying (10) references StarMaps (Name)
+	Satallite character varying (10) references Satellites (Name) NOT NULL,
+	StarMap character varying (10) references StarMaps (Name) NOT NULL 
 );
 
 create table Bands(
@@ -30,8 +30,8 @@ create table Bands(
 );
 
 create table S_BSurbay(
-	Instrument character varying (10) references Instruments (Name),
-	Band real references Bands (Resolution),
+	Instrument character varying (10) references Instruments (Name) NOT NULL,
+	Band real references Bands (Resolution) NOT NULL,
 	primary key (Instrument, Band)
 );
 
@@ -44,8 +44,8 @@ create table Sources (
 );
 
 create table Collection (
-	StarMap character varying (10) references StarMaps(Name),
-	Source character varying (20) references Sources(SourceID),
+	StarMap character varying (10) references StarMaps(Name)  NOT NULL,
+	Source character varying (20) references Sources(SourceID) NOT NULL,
 	primary key (StarMap, Source)
 );
 
@@ -63,14 +63,14 @@ create table Clumps(
 );
 
 create table S_C_Membership(
-	Source character varying (20) references Sources (SourceID),
-	Clump integer references Clumps (ClumpID),
+	Source character varying (20) references Sources (SourceID) NOT NULL,
+	Clump integer references Clumps (ClumpID)  NOT NULL,
 	primary key (Source,Clump)
 );
 
 create table Ellipses (
 	Clump integer not null,
-	Band integer references Bands(Resolution),
+	Band REAL references Bands(Resolution)  NOT NULL,
 	Maxaxis double precision not null,
 	Minaxis double precision not null,
 	PositionAngle double precision not null,
@@ -81,8 +81,8 @@ create table Fluxes (
 	FluxID SERIAL PRIMARY KEY,
 	Value real not null,
 	Error real,
-	Band integer references Bands (Resolution),
-	Source character varying (20) references Sources (SourceID),
-	Clump integer references Clumps (ClumpID)
+	Band real references Bands (Resolution)  NOT NULL,
+	Source character varying (20) references Sources (SourceID)  NOT NULL,
+	Clump integer references Clumps (ClumpID) NOT NULL
 );
 

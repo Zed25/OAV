@@ -16,10 +16,11 @@
     loginBean.login();
 }%>
 
-<!--jsp:forward page="insertSatellite.jsp"/>
-<jsp:forward page="csv.jsp"/>
-
 <jsp:include page="header.jsp"/>
 <jsp:include page="login.jsp"/>
+
 <jsp:include page="footer.jsp"/>
+
+
+<jsp:include page="csvInsert.jsp"/>
 

@@ -12,18 +12,18 @@
 
     <servlet-mapping>
         <servlet-name>Fileuploader</servlet-name>
-        <url-pattern>/upload</url-pattern>
+        <url-pattern>/login</url-pattern>
     </servlet-mapping>
-    <!--url-pattern>/rdBtnChecked</url-pattern-->
+
 
     <servlet>
         <servlet-name>RadioButton</servlet-name>
-        <servlet-class>csvReader.RadioButton</servlet-class>
+        <servlet-class>csvReader.FileUpload</servlet-class>
     </servlet>
 
     <servlet-mapping>
         <servlet-name>RadioButton</servlet-name>
-        <url-pattern>/radiobot</url-pattern>
+        <url-pattern>/filescelto</url-pattern>
     </servlet-mapping>
 
 

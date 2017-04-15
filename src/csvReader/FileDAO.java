@@ -21,6 +21,7 @@ public class FileDAO extends SuperDAO {
         String[] tableNamesRight;
 
         switch (fileName) {
+
             case "higal.csv":
 
                 //Controllo  NOMI COLONNE prima riga
@@ -80,6 +81,7 @@ public class FileDAO extends SuperDAO {
                 if (!(FirstLineOK(allLines.get(0), tableNamesRight))) {
                     System.out.println("E' stato inserito un csv errato");//STAMPARE ROBE A SCHERMO html
                 } else {
+
                     for (int i = 1; i < allLines.size(); i++) {
 
                         String[] line = allLines.get(i);
@@ -197,10 +199,9 @@ public class FileDAO extends SuperDAO {
                 }
                 return true;
 
-          /*  case "mips.csv":
+            case "r08.csv":
 
-                //Controllo  NOMI COLONNE prima riga
-                tableNamesRight = new String[]{"MIPSGAL", "GLON", "GLAT", "[24]", "e_[24]", "GLIMPSE"};
+                tableNamesRight = new String[]{"SSTGLMC", "GLon", "GLat" ,"[3.6]G", "[4.5]G", "[5.8]G", "[8.0]G"};
 
                 if (!(FirstLineOK(allLines.get(0), tableNamesRight))) {
                     System.out.println("E' stato inserito un csv errato"); //STAMPARE ROBE A SCHERMO html
@@ -212,17 +213,124 @@ public class FileDAO extends SuperDAO {
                             String[] line = allLines.get(i);
                             String query;
                             String query2;
+                            List<String> queriesFluxes = new ArrayList<>();
 
                             try {
 
+                                //Riempimento tabella SourcesGLIMPSE
+                                query = "INSERT INTO sources (sourceid, galacticLongitude, galacticLatitude) VALUES ('" +
+                                        line[0]+ "', " + Double.parseDouble(line[1])+ ", " + Double.parseDouble(line[2]) +");";
 
-                                //Riempimento tabella Sources
-                                query = "INSERT INTO sources( sourcedid, galacticLongitude, galacticLatitude, comparedSource) VALUES (" +
-                                         line[0]+ ", " + Double.parseDouble(line[1])+ ", " + Double.parseDouble(line[2]) + ", " + line[5]+");";
+                                if (!(line[3].equals("     "))) {
+                                    query2 = "INSERT INTO fluxes (value, band, source) VALUES (" +
+                                            Double.parseDouble(line[3])+ ", " +Double.parseDouble("3.6")+ ", '" + line[0] +"');";
+                                    queriesFluxes.add(query2);
+                                }
 
+                                // if (!line[4].trim().isEmpty())  {
+                                if (!(line[4].equals("     "))) {
+                                    query2 = "INSERT INTO fluxes (value, band, source) VALUES (" +
+                                            Double.parseDouble(line[4])+ ", " +Double.parseDouble("4.5")+ ", '" + line[0] +"');";
+                                    queriesFluxes.add(query2);
+                                }
+
+                                if (!(line[5].equals("     ")))  {
+                                    query2 = "INSERT INTO fluxes (value, band, source) VALUES (" +
+                                            Double.parseDouble(line[5])+ ", " +Double.parseDouble("5.8")+ ", '" + line[0] +"');";
+                                    queriesFluxes.add(query2);
+                                }
+
+                                if ((line[6].equals("     ")))  {
+                                    query2 = "INSERT INTO fluxes (value, band, source) VALUES (" +
+                                            Double.parseDouble(line[6])+ ", " +Double.parseDouble("8.0")+ ", '" + line[0] +"');";
+                                    queriesFluxes.add(query2);
+                                }
+
+                            } catch (NumberFormatException e) {
+                                //Controllo type sulle singole righe
+                                System.out.println("il formato del csv non è adatto a questa operazione"); //STAMPARE ROBE A SCHERMO html
+                                return false;
+
+                            }
+                            Statement statement = connection.createStatement();
+                            statement.executeUpdate(query);
+                            for (String s : queriesFluxes) statement.executeUpdate(s);
+
+                        }
+                        connection.commit();
+                        disconnect(connection);
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                        try {
+                            connection.rollback();
+                        } catch (SQLException e1) {
+                            e1.printStackTrace();
+                        }
+                    }
+                }
+                return true;
+
+
+            case "mips.csv"://MANCANO ALCUNE CHIAVI
+                List<String> existingSources= GetOldSources(connection);
+                List<String> newSources= new ArrayList<>();
+
+
+                //Controllo  NOMI COLONNE prima riga
+                tableNamesRight = new String[]{"MIPSGAL", "GLON", "GLAT", "[24]", "e_[24]", "GLIMPSE"};
+
+                if (!(FirstLineOK(allLines.get(0), tableNamesRight))) {
+                    System.out.println("E' stato inserito un csv errato"); //STAMPARE ROBE A SCHERMO html
+                } else {
+
+
+                    for (int i = 1; i < allLines.size(); i++) {
+
+                        String[] line = allLines.get(i); //OUT OF 5e
+
+                        if (line.length>5) {
+                            if (!(existingSources.contains(line[5])) && !(newSources.contains(line[5]))) {
+                                newSources.add(line[5]);
+                            }
+                        }
+                    }
+
+
+                    try {//Aggiornamento tabella Clumps
+                        for (int j=0; j<newSources.size();j++){
+                            String queryNewSources = "INSERT INTO sources (sourceid) Values ('" + newSources.get(j) + "');";
+                            Statement statement = connection.createStatement();
+
+                            statement.executeUpdate(queryNewSources);
+                        }
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+
+
+                    try {
+                        for (int i = 1; i < allLines.size(); i++) {
+
+                            String[] line = allLines.get(i);
+                            String query;
+                            String query2;
+
+
+                            try {
+                                if (line.length==6) {
+
+                                    //Riempimento tabella Sources
+                                    query = "INSERT INTO sources (sourceid, galacticLongitude, galacticLatitude, comparedSource) VALUES ('" +
+                                            line[0]+ "', " + Double.parseDouble(line[1])+ ", " + Double.parseDouble(line[2]) + ", '" + line[5]+"');";
+                                }else{
+                                    query = "INSERT INTO sources (sourceid, galacticLongitude, galacticLatitude) VALUES ('" +
+                                            line[0]+ "', " + Double.parseDouble(line[1])+ ", " + Double.parseDouble(line[2])+");";
+
+                                }
                                 //Riempimento tabella fluxes
-                                query2 = "INSERT INTO fluxes (Value, Error, Band, Source) VALUES ("+
-                                 Double.parseDouble(line[3])+ ", " +  Double.parseDouble(line[4])+ ", " +  line[0]+");";
+                                query2 = "INSERT INTO fluxes (value, error, band, source) VALUES ("+
+                                        Double.parseDouble(line[3])+ ", " +  Double.parseDouble(line[4])+ ", " + Double.parseDouble("24.0")+ ", '"  + line[0]+"');";
 
 
                             } catch (NumberFormatException e) {
@@ -249,16 +357,7 @@ public class FileDAO extends SuperDAO {
                     }
                 }
                 return true;
-
-
-        }*/
-
-
-
-
-
         }
-
 
         return false;
     }
@@ -299,17 +398,17 @@ public class FileDAO extends SuperDAO {
         return existingClump;
     }
 
-  /*  private List<Integer> UpateClump(Connection connection,){
+    private List<String> GetOldSources(Connection connection) {
 
-        List<Integer> newClump= new ArrayList<>();
+        List<String> existingSources= new ArrayList<>();
 
         try {
 
             Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT clumpid FROM Clumps;");
+            ResultSet rs = statement.executeQuery("SELECT sourceid FROM Sources;");
 
             while (rs.next())
-                existingClump.add(rs.getInt("clumpid"));
+                existingSources.add(rs.getString("sourceid"));
             // TEST: System.out.println(Arrays.toString(existingClump.toArray()));
 
         } catch (SQLException e) {
@@ -320,8 +419,9 @@ public class FileDAO extends SuperDAO {
                 e1.printStackTrace();
             }
         }
-        return existingClump;
-    }*/
+        return existingSources;
+    }
+
 
 }
 

@@ -13,6 +13,7 @@
 <div class="row">
     Instrument insert correctly
 </div>
+
 <div class="row">
     <form action="index.jsp" method="post">
         <button class="waves-effect waves-light blue" type="submit">

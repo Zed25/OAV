@@ -15,11 +15,11 @@ insert into StarMaps(Name) values
   ('Glimpse'), ('HiGal'), ('MIPS-GAL');
 
 
-insert into Instruments(Name, StarMap) values
-  ('PACS', 'HiGal'),
-  ('SPIRE', 'HiGal'),
-  ('IRAC', 'Glimpse'),
-  ('MIPS', 'MIPS-GAL');
+insert into Instruments(Name, satallite, StarMap) values
+  ('PACS', 'Herchel','HiGal'),
+  ('SPIRE','Herchel', 'HiGal'),
+  ('IRAC','Spitzer', 'Glimpse'),
+  ('MIPS', 'Spitzer','MIPS-GAL');
 
 
 

@@ -51,7 +51,7 @@
     <li><a href="logout.jsp" ><i class="material-icons black-text">eject</i>Logout</a></li>
     <li><a href="insertSatellite.jsp"><i class="material-icons black-text">add</i>New Satellite</a></li>
     <li><a href="findObjInMap.jsp"><i class="material-icons black-text">add</i>Search Source</a></li>
-    <li><a href="csv.jsp"><i class="material-icons black-text">add</i>Add csv</a></li>
+    <li><a href="csvInsert.jsp"><i class="material-icons black-text">add</i>Add csv</a></li>
     <li><a href="insertInstrument.jsp"><i class="material-icons black-text">add</i>New Instrument</a></li>
     <li><div class="divider"></div></li>
     <li><a class="subheader">Subheader</a></li>
