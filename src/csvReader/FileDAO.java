@@ -219,7 +219,7 @@ public class FileDAO extends SuperDAO {
                             try {
 
                                 //Riempimento tabella SourcesGLIMPSE
-                             /*   query = "INSERT INTO sources (sourceid, galacticLongitude, galacticLatitude) VALUES ('" +
+                                query = "INSERT INTO sources (sourceid, galacticLongitude, galacticLatitude) VALUES ('" +
                                         line[0]+ "', " + Double.parseDouble(line[1])+ ", " + Double.parseDouble(line[2]) +");";
 
                                 if (!(line[3].equals("     "))) {
@@ -245,7 +245,7 @@ public class FileDAO extends SuperDAO {
                                             Double.parseDouble(line[6])+ ", " +Double.parseDouble("8.0")+ ", '" + line[0] +"');";
                                     queriesFluxes.add(query2);
                                 }
-*/
+
                                 query3= "INSERT INTO collection (starmap, source) VALUES ('Glimpse', '"  +line[0]+"');";
                             } catch (NumberFormatException e) {
                                 //Controllo type sulle singole righe
@@ -254,8 +254,8 @@ public class FileDAO extends SuperDAO {
 
                             }
                             Statement statement = connection.createStatement();
-                        //    statement.executeUpdate(query);
-                          //  for (String s : queriesFluxes) statement.executeUpdate(s);
+                            statement.executeUpdate(query);
+                            for (String s : queriesFluxes) statement.executeUpdate(s);
 
                             statement.executeUpdate(query3);
 
@@ -330,7 +330,7 @@ public class FileDAO extends SuperDAO {
                                             line[0]+ "', " + Double.parseDouble(line[1])+ ", " + Double.parseDouble(line[2])+");";
 
                                 }
-                                //Riempimento tabella fluxes
+                                //clRiempimento tabella fluxes
                                 query2 = "INSERT INTO fluxes (value, error, band, source) VALUES ("+
                                         Double.parseDouble(line[3])+ ", " +  Double.parseDouble(line[4])+ ", " + Double.parseDouble("24.0")+ ", '"  + line[0]+"');";
 
