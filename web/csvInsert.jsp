@@ -50,7 +50,7 @@
 
 
 
-            <form action="upload.jsp" method="post" enctype="multipart/form-data">
+            <form action="upload" method="post" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col s12">
                         <div class="col s7">
