@@ -82,7 +82,7 @@ create table Fluxes (
 	Value real not null,
 	Error real,
 	Band real references Bands (Resolution)  NOT NULL,
-	Source character varying (20) references Sources (SourceID)  NOT NULL,
-	Clump integer references Clumps (ClumpID) NOT NULL
+	Source character varying (20) references Sources (SourceID),
+	Clump integer references Clumps (ClumpID)
 );
 

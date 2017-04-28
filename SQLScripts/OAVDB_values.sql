@@ -1,3 +1,6 @@
+insert into Users (user_id, password, name, surname, email, type) VALUES
+  ('Zed','root','i','i','iii@gmail.com','Admin');
+
 insert into Agencies (Name) values
   ('ESA'), ('NASA');
 
@@ -16,8 +19,8 @@ insert into StarMaps(Name) values
 
 
 insert into Instruments(Name, satallite, StarMap) values
-  ('PACS', 'Herchel','HiGal'),
-  ('SPIRE','Herchel', 'HiGal'),
+  ('PACS', 'Herschel','HiGal'),
+  ('SPIRE','Herschel', 'HiGal'),
   ('IRAC','Spitzer', 'Glimpse'),
   ('MIPS', 'Spitzer','MIPS-GAL');
 

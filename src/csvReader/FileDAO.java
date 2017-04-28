@@ -213,12 +213,13 @@ public class FileDAO extends SuperDAO {
                             String[] line = allLines.get(i);
                             String query;
                             String query2;
+                            String query3;
                             List<String> queriesFluxes = new ArrayList<>();
 
                             try {
 
                                 //Riempimento tabella SourcesGLIMPSE
-                                query = "INSERT INTO sources (sourceid, galacticLongitude, galacticLatitude) VALUES ('" +
+                             /*   query = "INSERT INTO sources (sourceid, galacticLongitude, galacticLatitude) VALUES ('" +
                                         line[0]+ "', " + Double.parseDouble(line[1])+ ", " + Double.parseDouble(line[2]) +");";
 
                                 if (!(line[3].equals("     "))) {
@@ -227,7 +228,6 @@ public class FileDAO extends SuperDAO {
                                     queriesFluxes.add(query2);
                                 }
 
-                                // if (!line[4].trim().isEmpty())  {
                                 if (!(line[4].equals("     "))) {
                                     query2 = "INSERT INTO fluxes (value, band, source) VALUES (" +
                                             Double.parseDouble(line[4])+ ", " +Double.parseDouble("4.5")+ ", '" + line[0] +"');";
@@ -245,7 +245,8 @@ public class FileDAO extends SuperDAO {
                                             Double.parseDouble(line[6])+ ", " +Double.parseDouble("8.0")+ ", '" + line[0] +"');";
                                     queriesFluxes.add(query2);
                                 }
-
+*/
+                                query3= "INSERT INTO collection (starmap, source) VALUES ('Glimpse', '"  +line[0]+"');";
                             } catch (NumberFormatException e) {
                                 //Controllo type sulle singole righe
                                 System.out.println("il formato del csv non è adatto a questa operazione"); //STAMPARE ROBE A SCHERMO html
@@ -253,8 +254,10 @@ public class FileDAO extends SuperDAO {
 
                             }
                             Statement statement = connection.createStatement();
-                            statement.executeUpdate(query);
-                            for (String s : queriesFluxes) statement.executeUpdate(s);
+                        //    statement.executeUpdate(query);
+                          //  for (String s : queriesFluxes) statement.executeUpdate(s);
+
+                            statement.executeUpdate(query3);
 
                         }
                         connection.commit();
@@ -276,8 +279,7 @@ public class FileDAO extends SuperDAO {
                 List<String> existingSources= GetOldSources(connection);
                 List<String> newSources= new ArrayList<>();
 
-
-                //Controllo  NOMI COLONNE prima riga
+                //Controllo  NOMI COLONNE prima rmiga
                 tableNamesRight = new String[]{"MIPSGAL", "GLON", "GLAT", "[24]", "e_[24]", "GLIMPSE"};
 
                 if (!(FirstLineOK(allLines.get(0), tableNamesRight))) {
@@ -301,7 +303,6 @@ public class FileDAO extends SuperDAO {
                         for (int j=0; j<newSources.size();j++){
                             String queryNewSources = "INSERT INTO sources (sourceid) Values ('" + newSources.get(j) + "');";
                             Statement statement = connection.createStatement();
-
                             statement.executeUpdate(queryNewSources);
                         }
                     } catch (SQLException e) {
@@ -315,12 +316,13 @@ public class FileDAO extends SuperDAO {
                             String[] line = allLines.get(i);
                             String query;
                             String query2;
+                            String query3;
 
 
                             try {
                                 if (line.length==6) {
 
-                                    //Riempimento tabella Sources
+                                //Riempimento tabella Sources
                                     query = "INSERT INTO sources (sourceid, galacticLongitude, galacticLatitude, comparedSource) VALUES ('" +
                                             line[0]+ "', " + Double.parseDouble(line[1])+ ", " + Double.parseDouble(line[2]) + ", '" + line[5]+"');";
                                 }else{
@@ -332,6 +334,7 @@ public class FileDAO extends SuperDAO {
                                 query2 = "INSERT INTO fluxes (value, error, band, source) VALUES ("+
                                         Double.parseDouble(line[3])+ ", " +  Double.parseDouble(line[4])+ ", " + Double.parseDouble("24.0")+ ", '"  + line[0]+"');";
 
+                                query3= "INSERT INTO collection (starmap, source) VALUES ('MIPS-GAL', '"  +line[0]+"');";
 
                             } catch (NumberFormatException e) {
                                 //Controllo type sulle singole righe
@@ -342,6 +345,7 @@ public class FileDAO extends SuperDAO {
                             Statement statement = connection.createStatement();
                             statement.executeUpdate(query);
                             statement.executeUpdate(query2);
+                            statement.executeUpdate(query3);
 
                         }
                         connection.commit();
@@ -358,7 +362,6 @@ public class FileDAO extends SuperDAO {
                 }
                 return true;
         }
-
         return false;
     }
 

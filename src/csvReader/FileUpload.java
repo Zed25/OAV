@@ -12,40 +12,39 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
-
 public class FileUpload extends HttpServlet {
 
+    public String filescelto;
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        FileGetter c = FileGetter.getFileControllerInstance();
+        filescelto = c.filescelto;
 
         ServletFileUpload sf = new ServletFileUpload(new DiskFileItemFactory());
         String savePath = request.getServletContext().getRealPath("");         //System.out.print(savePath); =*/OAV/out/artifacts/OAV_war_exploded/
 
-        String filecheck = request.getParameter("filescelto");
-      //  System.out.println("fileupload" + filecheck);
-
         try {
+            List<FileItem> multifiles = sf.parseRequest(request);
+            //System.out.println(Arrays.toString(new List[]{multifiles}));
+            FileItem item = multifiles.get(0);
+            String fileName = item.getName();
+            if (fileName.equals(filescelto)){
+                item.write(new File(savePath + fileName));
 
-           List<FileItem> multifiles = sf.parseRequest(request);
+                if (!(getSplitted(savePath, fileName))) {
+                    System.out.println("errore durante la lettura del file");
+                }
 
-            for (FileItem item : multifiles) {
-
-                String fileName = item.getName();
-              //  if (filecheck.equals(fileName)){
-                    item.write(new File(savePath + fileName));
-
-                    if (getSplitted(savePath, fileName)) {
-                        response.setContentType("errore");
-                    }
-              /*  }else{
-                    System.out.println("Il file inserito non corrisponde a quello selezionato");
-                }*/
+            }else{
+                System.out.println("Hai inserito il file "+fileName+", ma hai selezionato il file "+filescelto+". Riprova");
             }
+
         } catch (Exception b) {
             b.printStackTrace();
         }
-    }
 
+
+    }
 
 
     private boolean getSplitted(String path, String fileName) throws SQLException, ClassNotFoundException {
@@ -76,14 +75,6 @@ public class FileUpload extends HttpServlet {
         return false;
 
     }
-
-
-
-
-    /*TODO:
-        -R3.4
-     */
-
 }
 
 

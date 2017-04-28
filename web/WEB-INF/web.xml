@@ -12,19 +12,7 @@
 
     <servlet-mapping>
         <servlet-name>Fileuploader</servlet-name>
-        <url-pattern>/login</url-pattern>
+        <url-pattern>/upload</url-pattern>
     </servlet-mapping>
-
-
-    <servlet>
-        <servlet-name>RadioButton</servlet-name>
-        <servlet-class>csvReader.FileUpload</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>RadioButton</servlet-name>
-        <url-pattern>/filescelto</url-pattern>
-    </servlet-mapping>
-
 
 </web-app>

@@ -17,7 +17,7 @@ public class UserDAO extends SuperDAO{
 
     public boolean login(UserBean user) {
 
-        String query = "SELECT * FROM Users WHERE User_id = " + "'" + user.getUserID() + "' AND " +  "Password=" + "'" + user.getPassword() + "';";
+        String query = "SELECT * FROM users WHERE user_id= " + "'" + user.getUserID() + "' AND " +  "password=" + "'" + user.getPassword() + "';";
 
         System.out.println(query); //DEBUG
 
@@ -60,7 +60,7 @@ public class UserDAO extends SuperDAO{
         String checkUsernameEsistance = "SELECT User_id FROM Users WHERE User_id='" + user.getUserID() +"';";
         System.out.println(checkUsernameEsistance);
 
-        String query = "INSERT INTO Users (User_id, Password, Name, Surname, Email, Type) VALUES ('" + user.getUserID() + "', '" +
+        String query = "INSERT INTO users (user_id, password, name, surname, email, type) VALUES ('" + user.getUserID() + "', '" +
                 user.getPassword() + "', '" + user.getName() + "', '" + user.getSurname() + "', '" + user.getEmail() + "', '" + user.getType() + "');";
 
         System.out.println(query); //DEBUG
