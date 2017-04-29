@@ -6,3 +6,6 @@ create table Users (
 	Email text not null,
 	Type character varying(20) not null
 );
+
+INSERT INTO Users(User_ID, Password, Name, Surname, Email, Type)
+		VALUES ('Zed', 'root', 'Simone', 'Mancini', '2simonemancini5@gmail.com', 'Admin');

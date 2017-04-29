@@ -10,6 +10,9 @@ public class UserBean {
     private boolean logged;
     private AdministrationBean administrationRole = null;
 
+    /**
+     * user bean's constructor
+     */
     public UserBean() {
         name = "";
         surname = "";
@@ -20,18 +23,29 @@ public class UserBean {
         logged = false;
     }
 
+    /**
+     * login routine. Check if the username and password passed are in the db and if it's true this bean is filled by the constructor
+     * @return boolean
+     */
     public boolean login(){
         if(this.getUserID() != null && this.getPassword() != null)
             return UsersController.getUsersControllerInstance().checkUserEsistence(this);
         return false;
     }
 
+    /**
+     * check if the bean's object is full
+     * @return boolean
+     */
     public boolean isFull(){
         if(this.getUserID().equals("") || this.getPassword().equals("") || this.getName().equals("") || this.getSurname().equals("") || this.getEmail().equals(""))
             return false;
         return true;
     }
 
+    /**
+     * clean the bean's object
+     */
     public void emptyBean(){
         this.setName("");
         this.setSurname("");
@@ -43,12 +57,19 @@ public class UserBean {
             this.administrationRole = null;
     }
 
+    /**
+     * if the bean's object colling this method had administration role the newUser data are inserted in the db by the constructor
+     * @param newUser
+     * @return boolean
+     */
     public boolean newUserRegistration(UserBean newUser){
         if(this.isAdmin()){
             return this.getAdministrationRole().newUserRegistration(newUser);
         }
         return false;
     }
+
+    /**GETTER AND SETTER**/
 
     public String getName() {
         return name;

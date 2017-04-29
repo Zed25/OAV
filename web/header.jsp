@@ -53,6 +53,7 @@
     <li><a href="findObjInMap.jsp"><i class="material-icons black-text">add</i>Search Source</a></li>
     <li><a href="csvInsert.jsp"><i class="material-icons black-text">add</i>Add csv</a></li>
     <li><a href="insertInstrument.jsp"><i class="material-icons black-text">add</i>New Instrument</a></li>
+    <li><a href="clumpByDensitySearch.jsp"><i class="material-icons black-text">search</i>Search clump for density</a></li>
     <li><div class="divider"></div></li>
     <li><a class="subheader">Subheader</a></li>
     <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
@@ -69,6 +70,7 @@
     </div></li>
     <li><a href="#!"><i class="material-icons black-text">add</i>First Link With Icon</a></li>
     <li><a href="findObjInMap.jsp"><i class="material-icons black-text">add</i>Search Source</a></li>
+    <li><a href="clumpByDensitySearch.jsp"><i class="material-icons black-text">search</i>Search clump for density</a></li>
     <li><a href="#!">Second Link</a></li>
     <li><div class="divider"></div></li>
     <li><a class="subheader">Subheader</a></li>

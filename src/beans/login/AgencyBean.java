@@ -8,10 +8,14 @@ import java.util.List;
 public class AgencyBean {
     String name;
 
+    /**
+     * Agency bean's constructor
+     */
     public AgencyBean(){
         name = "";
     }
 
+    /**GETTER AND SETTER**/
     public String getName() {
         return name;
     }

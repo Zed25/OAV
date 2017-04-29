@@ -2,12 +2,15 @@ package Controllers;
 
 import DAO.AgencyDAO;
 //import DAO.SearchDAO;
+import DAO.ClumpDAO;
 import beans.login.AgencyBean;
+import beans.login.ClumpBean;
 import beans.login.search.ResultBean;
 import beans.login.search.SearchBean;
 import com.sun.rowset.CachedRowSetImpl;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,6 +34,28 @@ public class SearchController {
     public List<AgencyBean> getAllAgencies(){
         AgencyDAO agencyDAO = new AgencyDAO();
         return agencyDAO.getAll();
+    }
+
+    public List<ClumpBean> getClumpsByDencity(float minD, float maxD) {
+        ClumpDAO clumpDAO = new ClumpDAO();
+        CachedRowSetImpl cachedRowSet = clumpDAO.getClumpsByDencity(minD, maxD);
+
+        List<ClumpBean> clumps = new ArrayList<>();
+        try {
+            while(cachedRowSet.next()){
+                ClumpBean clump = new ClumpBean();
+                clump.setClumpID(cachedRowSet.getString("clumpid"));
+                clump.setDensity(cachedRowSet.getString("surfacedensity"));
+                clumps.add(clump);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+        if(clumps.size() == 0)
+            return null;
+
+        return clumps;
     }
 
 

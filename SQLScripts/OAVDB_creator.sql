@@ -57,7 +57,7 @@ create table Clumps(
 	Temperature real DEFAULT 0.0,
 	LMRatio real DEFAULT 0.0,
 	Mass real DEFAULT 0.0,
-	SurfeceDensity real DEFAULT 0.0,
+	SurfaceDensity real DEFAULT 0.0,
 	Type decimal DEFAULT 0,
 	HigalMaps character varying (10) references StarMaps (Name)
 );
