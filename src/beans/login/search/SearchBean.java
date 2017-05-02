@@ -9,12 +9,12 @@ public class SearchBean {
 
     private String mapName;
     private boolean allBands;
-    private int band;
+    private float band;
 
     public SearchBean() {
         this.mapName = "";
         this.allBands = false;
-        this.band = 0;
+        this.band = 0.0f;
     }
 
     public String getMapName() { return mapName; }
@@ -25,19 +25,18 @@ public class SearchBean {
 
     public void setAllBands(boolean allBands) { this.allBands = allBands; }
 
-    public int getBand() { return band; }
+    public float getBand() { return band; }
 
-    public void setBand(int band) { this.band = band; }
+    public void setBand(float band) { this.band = band; }
 
     public boolean isFull() {
-        if (this.getMapName() != "" || this.getBand() != 0) {
+        if (this.getMapName() != "") {
             return true;
         }
         else return false;
     }
 
-   /* public void findObjectInMap(SearchBean bean, ResultBean resBean) {
+    public void findObjectInMap(SearchBean bean, ResultBean resBean) {
         SearchController.getInstance().FindObjectInMap(this, resBean);
-
-    }*/
+    }
 }

@@ -12,10 +12,18 @@
 <head>
     <title>OAV</title>
 </head>
+
 <jsp:include page="header.jsp"/>
 <jsp:include page="footer.jsp"/>
+
 <body>
-<table>
+
+<%--NON FUNGE--%>
+<% if (resultBean.getValues() == null) { %>
+    <jsp:forward page="noMatch.jsp"/>
+<%}%>
+
+<table class="striped, striped">
     <thead>
     <tr>
         <th>Source Name</th>
@@ -25,17 +33,33 @@
     </thead>
 
     <tbody>
-    <tr>
-        <td><% for(int i=0; i<resultBean.getSources().size(); i++) {
-            out.println((resultBean.getSources().get(i)));
-        }%>
-        </td>
-        <td><% for(int i=0; i<resultBean.getValues().size(); i++) {
-            out.println((resultBean.getValues().get(i)).toString());
-        }%>
-        </td>
-    </tr>
+    <%--max 50 elementi visualizzati per pagina--%>
+    <%  for(resultBean.getCount(); resultBean.getCount()<50*resultBean.getPage(); resultBean.incrementCount()) {
+            if (resultBean.getCount()<resultBean.getValues().size()) {  %>
+                    <tr>
+                        <td> <%out.println((resultBean.getSources().get(resultBean.getCount())));%> </td>
+                        <td> <%out.println((resultBean.getValues().get(resultBean.getCount())).toString());%> </td>
+                        <td> <%out.println((resultBean.getBand().get(resultBean.getCount())).toString());%> </td>
+                    </tr>
+
+         <% }
+            else break;
+        } %>
     </tbody>
 </table>
+
+<div class="row">
+    <form class="col s12" action="avanti.jsp" method="get" name="nextform">
+        <div class="row">
+            <button class="material-icons" type="submit" name="nextpage">next</button>
+        </div>
+    </form>
+
+    <form class="col s12" action="indietro.jsp" method="get" name="previousform">
+        <div class="row">
+            <button class="material-icons" type="submit" name="previouspage">previous</button>
+        </div>
+    </form>
+</div>
 </body>
 </html>

@@ -13,47 +13,78 @@ import java.util.List;
 public class ResultBean {
 
     private List<String> sources;
-    private List<Integer> band;
-    private List<Double> values;
+    private List<Float> band;
+    private List<Float> values;
+    //serve a tenere traccia del numero di risultati per pagina
+    private int count;
+    //serve a tenere traccia del numeo di pagina
+    private int page;
 
     public ResultBean() {
         sources = new ArrayList<>();
         band = new ArrayList<>();
         values = new ArrayList<>();
+        this.count = 0;
+        this.page = 1;
     }
 
     public void setSources(List<String> sources) {
         this.sources = sources;
     }
 
-    public void setBand(List<Integer> band) {
+    public void setBand(List<Float> band) {
         this.band = band;
     }
 
-    public void setValues(List<Double> values) {
+    public void setValues(List<Float> values) {
         this.values = values;
     }
 
     public List<String> getSources() { return sources; }
 
-    public List<Integer> getBand() { return band; }
+    public List<Float> getBand() { return band; }
 
-    public List<Double> getValues() { return values; }
+    public List<Float> getValues() { return values; }
+
+    public int getCount() { return count; }
+
+    public void setCount(int count) { this.count = count; }
+
+    public int getPage() { return page; }
+
+    public void setPage(int page) { this.page = page; }
+
+    public void reset() {
+        this.count = 0;
+        this.page = 1;
+    }
+
+    public void resetCount() { this.count = 1; }
+
+    public void incrementCount () {
+        this.count += 1;
+    }
+
+    public void incrementPage () { this.page++; }
+
+    public void decrementPage () {
+        if (this.page > 0)
+            this.page--;
+        else;}
 
     public void populate(CachedRowSetImpl result) {
         if (this.getSources() == null) {
             this.setSources(new  ArrayList<String>());
-            this.setBand(new  ArrayList<Integer>());
-            this.setValues(new  ArrayList<Double>());
+            this.setBand(new  ArrayList<Float>());
+            this.setValues(new  ArrayList<Float>());
         }
 
         try {
             int count = 0;
             while (result.next()){
-                System.out.println(result.getString("IDSorgente"));
-                System.out.println(result.getDouble("Valore"));
                 this.getSources().add(result.getString("IDSorgente"));
-                this.getValues().add(result.getDouble("Valore"));
+                this.getValues().add(result.getFloat("Valore"));
+                this.getBand().add(result.getFloat("Risoluzione"));
                 count ++;
             }
         } catch (SQLException e) {

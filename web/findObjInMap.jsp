@@ -9,8 +9,9 @@
 <jsp:useBean id="searchBean" scope="session" class="beans.login.search.SearchBean"/>
 <jsp:setProperty name="searchBean" property="*"/>
 <jsp:useBean id="resultBean" scope="session" class="beans.login.search.ResultBean"/>
-<% if (searchBean.isFull()) {
-    searchBean.findObjectInMap(searchBean, resultBean); %>
+<%  resultBean.reset();
+    if (searchBean.isFull()) {
+        searchBean.findObjectInMap(searchBean, resultBean); %>
 <jsp:forward page="searchResult.jsp"/>
 <%
     }
