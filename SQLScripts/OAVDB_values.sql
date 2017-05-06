@@ -1,5 +1,3 @@
-insert into Users (user_id, password, name, surname, email, type) VALUES
-  ('Zed','root','i','i','iii@gmail.com','Admin');
 
 insert into Agencies (Name) values
   ('ESA'), ('NASA');

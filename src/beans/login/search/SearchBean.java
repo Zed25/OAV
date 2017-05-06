@@ -1,6 +1,9 @@
 package beans.login.search;
 
 import Controllers.SearchController;
+import Controllers.SerializeController;
+
+import java.util.List;
 
 /**
  * Created by andrea on 30/03/17.
@@ -9,13 +12,23 @@ public class SearchBean {
 
     private String mapName;
     private boolean allBands;
-    private float band;
+    private String bandRead;    //for reading from html
+    private Float realBand;     //for SQL query
 
     public SearchBean() {
         this.mapName = "";
         this.allBands = false;
-        this.band = 0.0f;
+        this.bandRead = "0.0";
+        this.realBand = 0.0f;
     }
+
+    public String getBandRead() { return bandRead; }
+
+    public void setBandRead(String bandRead) { this.bandRead = bandRead; }
+
+    public Float getRealBand() { return realBand; }
+
+    public void setRealBand(Float realBand) { this.realBand = realBand; }
 
     public String getMapName() { return mapName; }
 
@@ -25,10 +38,6 @@ public class SearchBean {
 
     public void setAllBands(boolean allBands) { this.allBands = allBands; }
 
-    public float getBand() { return band; }
-
-    public void setBand(float band) { this.band = band; }
-
     public boolean isFull() {
         if (this.getMapName() != "") {
             return true;
@@ -37,6 +46,18 @@ public class SearchBean {
     }
 
     public void findObjectInMap(SearchBean bean, ResultBean resBean) {
+        this.setRealBand(Float.parseFloat(this.bandRead));
         SearchController.getInstance().FindObjectInMap(this, resBean);
+    }
+
+    public List<String> getAllBandsFromDB() {
+        List<String> bands = SerializeController.getSerializeControllerInstance().getAllBandsFromDB();
+        bands.add(bands.size(), "All");
+        return bands;
+
+    }
+
+    public List<String> getAllStarMapsNameFromDB() {
+        return SerializeController.getSerializeControllerInstance().getAllStarMapsNameFromDB();
     }
 }

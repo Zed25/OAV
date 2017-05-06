@@ -39,7 +39,7 @@ public class FileDAO extends SuperDAO {
                             try {
 
                                 Double mass = Double.parseDouble(line[3]) / Double.parseDouble(line[4]);
-                                query = "INSERT INTO Clumps( ClumpID, GalacticLongitude, GalacticLatitude, Temperature, LMRatio, Mass, Surfecedensity , Type, higalmaps)" +
+                                query = "INSERT INTO Clumps( ClumpID, GalacticLongitude, GalacticLatitude, Temperature, LMRatio, Mass, surfacedensity , Type, higalmaps)" +
                                         " VALUES(" + Integer.parseInt(line[0]) + ", " + Double.parseDouble(line[1]) + ", " + Double.parseDouble(line[2]) + ", " +
                                         Double.parseDouble(line[3]) + ", " + Double.parseDouble(line[4]) + ", " + Double.parseDouble(line[5])
                                         + ", " + mass + ", " + Integer.parseInt(line[6]) + ",'HiGal');";

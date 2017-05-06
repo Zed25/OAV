@@ -4,5 +4,6 @@
     <file url="file://$PROJECT_DIR$/SQLScripts/OAVDB_creator.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/SQLScripts/OAVDB_values.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/SQLScripts/UserTable_creator.sql" dialect="PostgreSQL" />
+    <file url="PROJECT" dialect="PostgreSQL" />
   </component>
 </project>

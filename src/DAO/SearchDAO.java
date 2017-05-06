@@ -1,5 +1,6 @@
 package DAO;
 
+import beans.login.ClumpBean;
 import beans.login.search.SearchBean;
 import com.sun.rowset.CachedRowSetImpl;
 import enumerations.ConnectionType;
@@ -14,25 +15,61 @@ import java.sql.Statement;
  */
 public class SearchDAO extends SuperDAO {
 
+    public CachedRowSetImpl searchClumpByID(ClumpBean clumpBean) {
+
+        String query;
+
+        query = "SELECT clumpid, galacticlatitude, galacticlongitude, band, value " +
+                "FROM clump INNER JOIN fluxes ON (clump,clumpid = fluxes.clump) " +
+                "WHERE (clumpid = " + "'" + clumpBean.getClumpID() + "');";
+
+        return executeQuery(query);
+    }
+
     public CachedRowSetImpl searchObjectInMap(SearchBean bean) {
 
         String query;
-        //voglio una banda precisa
-        if (bean.getBand() != 0.0) {
-            query = "SELECT f.\"Valore\", sorg.\"IDSorgente\", b.\"Risoluzione\" " +
-                    "FROM \"Afferenza_M_S-S\" AS aff INNER JOIN \"Sorgenti\" AS sorg ON (aff.\"Sorgente\" = sorg.\"IDSorgente\") " +
-                    "INNER JOIN \"Flussi\" AS f ON (aff.\"Sorgente\" = f.\"Sorgente\") " +
-                    "INNER JOIN \"Bande\" AS b ON (f.\"Banda\" = b.\"IDBanda\") " +
-                    "WHERE (\"MappaStellare\" = " + "'" + bean.getMapName() + "' AND " + "b.\"Risoluzione\" = " + "'" + bean.getBand() + "');";
+
+        //Sources case
+
+        if (!bean.getMapName().equals("HiGal")) {
+
+            //voglio una banda precisa
+            if ( bean.getRealBand() != 0.0) {
+                query = "SELECT fl.value, src.sourceid, fl.band " +
+                        "FROM collection AS coll INNER JOIN sources AS src ON (coll.source = src.sourceid) " +
+                        "INNER JOIN fluxes AS fl ON (coll.source = fl.source) " +
+                        "WHERE (starmap = " + "'" + bean.getMapName() + "' AND " + "fl.band = " + "'" + bean.getRealBand() + "');";
             //voglio tutte le bande
-        } else {
-            query = "SELECT f.\"Valore\", sorg.\"IDSorgente\", b.\"Risoluzione\" " +
-                    "FROM \"Afferenza_M_S-S\" AS aff INNER JOIN \"Sorgenti\" AS sorg ON (aff.\"Sorgente\" = sorg.\"IDSorgente\") " +
-                    "INNER JOIN \"Flussi\" AS f ON (aff.\"Sorgente\" = f.\"Sorgente\") " +
-                    "INNER JOIN \"Bande\" AS b ON (f.\"Banda\" = b.\"IDBanda\") " +
-                    "WHERE (\"MappaStellare\" = " + "'" + bean.getMapName() + "');";
+            } else {
+                query = "SELECT fl.value, src.sourceid, fl.band " +
+                        "FROM collection AS coll INNER JOIN sources AS src ON (coll.source = src.sourceid) " +
+                        "INNER JOIN fluxes AS fl ON (coll.source = fl.source) " +
+                        "WHERE (starmap = " + "'" + bean.getMapName() + "');";
+            }
         }
 
+        //Clump case
+
+        else {
+            //want a target band
+            if ( bean.getRealBand() != 0.0) {
+                query = "SELECT fl.value, clumps.clumpid, fl.band " +
+                        "FROM clumps INNER JOIN fluxes AS fl ON (clumps.clumpid = fl.clump) " +
+                        "WHERE (clumps.higalmaps = " + "'" + bean.getMapName() + "' AND " + "fl.band = " + "'" + bean.getRealBand() + "');";
+            }
+            //want all bands
+            else {
+                query = "SELECT fl.value, clumps.clumpid, fl.band " +
+                        "FROM clumps INNER JOIN fluxes AS fl ON (clumps.clumpid = fl.clump) " +
+                        "WHERE (clumps.higalmaps = " + "'" + bean.getMapName() + "');";
+            }
+        }
+
+        return executeQuery(query);
+    }
+
+    public CachedRowSetImpl executeQuery(String query) {
 
         Connection connection = connect(ConnectionType.SINGLEQUERY);
         try {
@@ -49,6 +86,6 @@ public class SearchDAO extends SuperDAO {
             disconnect(connection);
             return null;
         }
-
     }
+
 }

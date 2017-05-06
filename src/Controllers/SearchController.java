@@ -24,12 +24,19 @@ public class SearchController {
     private SearchController() {
     }
 
-    // non dovra essere void, ma dovra' ritornare una lista di oggetti o un bean che li contiene
-
+    //UC 4
     public void FindObjectInMap(SearchBean bean, ResultBean resBean) {  //band==0 -> 1 banda, else tutte
         SearchDAO dao = new SearchDAO();
         CachedRowSetImpl result = dao.searchObjectInMap(bean);
-        resBean.populate(result);
+        resBean.populateSourcesInMap(result, bean);
+    }
+
+    //UC 5
+    public void searchClumpByID(ClumpBean clumpBean, ResultBean resBean) {
+        SearchDAO dao = new SearchDAO();
+        CachedRowSetImpl result = dao.searchClumpByID(clumpBean);
+        resBean.populateClumpsByID(result);
+
     }
 
     public List<AgencyBean> getAllAgencies(){

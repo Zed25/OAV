@@ -1,4 +1,5 @@
-<%@ page import="beans.login.search.SearchBean" %><%--
+<%@ page import="beans.login.search.SearchBean" %>
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: andrea
   Date: 30/03/17
@@ -17,15 +18,7 @@
     }
 %>
 
-<html>
-<head>
-    <link rel="stylesheet" href="css\materialize.min.css">
-    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <title>OAV</title>
-</head>
 <jsp:include page="header.jsp"/>
-<jsp:include page="footer.jsp"/>
-<body>
 
 <br>
 
@@ -37,16 +30,30 @@
 
     <form class="col s12" action="#" method="post">
 
-        <div class="row">
-            <div class="input-field col s6">
-                <input placeholder="Map" name="mapName" id="mapName" type="text" class="validate">
-            </div>
+        <div class="input-field">
+            <select id="mapName" name="mapName" class="col s12 m6 l4">
+                <option value="" disabled selected>Choose map name</option>
+                <%
+                    List<String> maps = searchBean.getAllStarMapsNameFromDB();
+                    if(maps != null){
+                        for(int i = 0; i < maps.size(); i++){%>
+                <option value="<%=maps.get(i)%>" name="new_instr_satellite"><%=maps.get(i)%></option>
+                <%}}%>
+                <label>Map name</label><span></span>
+            </select>
         </div>
 
-        <div class="row">
-            <div class="input-field col s6">
-                <input placeholder="Band" name="band" id="band" type="text" class="validate">
-            </div>
+        <div class="input-field">
+            <select id="band" name="band" class="col s12 m6 l4">
+                <option value="" disabled selected>Choose band resolution</option>
+                <%
+                    List<String> bands = searchBean.getAllBandsFromDB();
+                    if(bands != null){
+                        for(int i = 0; i < bands.size(); i++){%>
+                <option value="<%=bands.get(i)%>" name="new_instr_satellite"><%=bands.get(i)%></option>
+                <%}}%>
+                <label>Band resolution</label><span></span>
+            </select>
         </div>
 
         <br>
@@ -68,6 +75,4 @@
 
 <script src="js\materialize.min.js"></script>
 <script type="text\javascript" src="js\jquery-2.1.1.min.js"></script>
-</body>
-</html>
-
+<jsp:include page="footer.jsp"/>
