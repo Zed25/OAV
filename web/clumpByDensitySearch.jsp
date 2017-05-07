@@ -34,6 +34,7 @@
           </tr>
         <%}%>
         </tbody>
+     </table>
   <%}%>
  <div class="row">
      <form action="index.jsp" method="get">

@@ -2,9 +2,7 @@ package DAO;
 
 import enumerations.ConnectionType;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 /**
  * Created by simone on 06/04/17.
@@ -42,6 +40,28 @@ public abstract class SuperDAO {
             System.out.println("connection close correctly"); //DEBUG
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    public int getTableEntryNumber(String tableName) {
+
+        String query = "SELECT COUNT(*) FROM " + tableName + ";";
+
+        Connection connection = connect(ConnectionType.SINGLEQUERY);
+
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+            resultSet.next();
+            int rowCount = resultSet.getInt("count");
+            resultSet.close();
+            statement.close();
+            disconnect(connection);
+            return rowCount;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            disconnect(connection);
+            return 0;
         }
     }
 

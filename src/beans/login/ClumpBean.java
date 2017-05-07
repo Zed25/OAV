@@ -9,7 +9,9 @@ import java.util.List;
  */
 public class ClumpBean {
 
-    private String clumpID, density;
+    private String clumpID, density, galLat, galLong;
+
+    private double distance;
 
     public ClumpBean() {
     }
@@ -33,5 +35,29 @@ public class ClumpBean {
 
     public void setDensity(String density) {
         this.density = density;
+    }
+
+    public String getGalLat() {
+        return galLat;
+    }
+
+    public void setGalLat(String galLat) {
+        this.galLat = galLat;
+    }
+
+    public String getGalLong() {
+        return galLong;
+    }
+
+    public void setGalLong(String galLong) {
+        this.galLong = galLong;
+    }
+
+    public double getDistance() {
+        return distance;
+    }
+
+    public void setDistance(double distance) {
+        this.distance = distance;
     }
 }

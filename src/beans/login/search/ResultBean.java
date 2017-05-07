@@ -95,12 +95,12 @@ public class ResultBean {
         else;   //TODO return error code
     }
 
-    public void populateClumpsByID(CachedRowSetImpl result) {
-        if (this.getClumpID() == 0) {
-            this.
-        }
+    //public void populateClumpsByID(CachedRowSetImpl result) {
+    //    if (this.getClumpID() == 0) {
+    //        this.
+    //    }
 
-    }
+    //}
 
     public void populateSourcesInMap(CachedRowSetImpl result, SearchBean bean) {
         if (this.getSources() == null) {
