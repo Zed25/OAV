@@ -15,13 +15,13 @@ import java.sql.Statement;
  */
 public class SearchDAO extends SuperDAO {
 
-    public CachedRowSetImpl searchClumpByID(ClumpBean clumpBean) {
+    public CachedRowSetImpl searchClumpByID(SearchBean bean) {
 
         String query;
 
         query = "SELECT clumpid, galacticlatitude, galacticlongitude, band, value " +
-                "FROM clump INNER JOIN fluxes ON (clump,clumpid = fluxes.clump) " +
-                "WHERE (clumpid = " + "'" + clumpBean.getClumpID() + "');";
+                "FROM clumps INNER JOIN fluxes ON (clumps.clumpid = fluxes.clump) " +
+                "WHERE (clumpid = " + "'" + bean.getClumpID() + "');";
 
         return executeQuery(query);
     }

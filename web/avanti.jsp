@@ -12,6 +12,6 @@
 <jsp:include page="header.jsp"/>
 
 <% resultBean.incrementPage(); %>
-<jsp:forward page="searchResult.jsp"></jsp:forward>
+<jsp:forward page="searchResultSource.jsp"></jsp:forward>
 
 <jsp:include page="footer.jsp"/>

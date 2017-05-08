@@ -11,9 +11,9 @@
 <jsp:setProperty name="searchBean" property="*"/>
 <jsp:useBean id="resultBean" scope="session" class="beans.login.search.ResultBean"/>
 <%  resultBean.reset();
-    if (searchBean.isFull()) {
+    if (searchBean.isFullSource()) {
         searchBean.findObjectInMap(searchBean, resultBean); %>
-<jsp:forward page="searchResult.jsp"/>
+<jsp:forward page="searchResultSource.jsp"/>
 <%
     }
 %>

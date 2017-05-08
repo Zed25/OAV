@@ -25,18 +25,17 @@ public class SearchController {
     }
 
     //UC 4
-    public void FindObjectInMap(SearchBean bean, ResultBean resBean) {  //band==0 -> 1 banda, else tutte
+    public boolean FindObjectInMap(SearchBean bean, ResultBean resBean) {  //band==0 -> 1 banda, else tutte
         SearchDAO dao = new SearchDAO();
         CachedRowSetImpl result = dao.searchObjectInMap(bean);
-        resBean.populateSourcesInMap(result, bean);
+        return resBean.populateSourcesInMap(result, bean);
     }
 
     //UC 5
-    public void searchClumpByID(ClumpBean clumpBean, ResultBean resBean) {
+    public boolean findClumpByID(SearchBean bean, ResultBean resBean) {
         SearchDAO dao = new SearchDAO();
-        CachedRowSetImpl result = dao.searchClumpByID(clumpBean);
-        //resBean.populateClumpsByID(result);
-
+        CachedRowSetImpl result = dao.searchClumpByID(bean);
+        return resBean.populateClumpsByID(result, bean);
     }
 
     public List<AgencyBean> getAllAgencies(){

@@ -25,7 +25,8 @@ public class ResultBean {
 
     /*UC5*/
     private int clumpID;
-
+    private List<Double> galacticLongitude;
+    private List<Double> galacticLatitude;
 
 
     public ResultBean() {
@@ -36,7 +37,17 @@ public class ResultBean {
         this.count = 0;
         this.page = 1;
         this.clumpID = 0;
+        galacticLongitude = new ArrayList<>();
+        galacticLatitude = new ArrayList<>();
     }
+
+    public List<Double> getGalacticLongitude() { return galacticLongitude; }
+
+    public void setGalacticLongitude(List<Double> galacticLongitude) { this.galacticLongitude = galacticLongitude; }
+
+    public List<Double> getGalacticLatitude() { return galacticLatitude; }
+
+    public void setGalacticLatitude(List<Double> galacticLatitude) { this.galacticLatitude = galacticLatitude; }
 
     public int getClumpID() { return clumpID; }
 
@@ -95,14 +106,33 @@ public class ResultBean {
         else;   //TODO return error code
     }
 
-    //public void populateClumpsByID(CachedRowSetImpl result) {
-    //    if (this.getClumpID() == 0) {
-    //        this.
-    //    }
+    public boolean populateClumpsByID(CachedRowSetImpl result, SearchBean bean) {
+        if (this.getClumpID() == 0) {
+            this.setGalacticLatitude(new ArrayList<Double>());
+            this.setGalacticLongitude(new ArrayList<Double>());
+            this.setBand(new ArrayList<String>());
+            this.setValues(new ArrayList<Float>());
+        }
 
-    //}
+        try {
+            while (result.next()){
+                this.getClumps().add(result.getInt("clumpid"));
+                this.getGalacticLatitude().add(result.getDouble("galacticlatitude"));
+                this.getGalacticLongitude().add(result.getDouble("galacticlongitude"));
+                this.getValues().add(result.getFloat("value"));
+                this.getBand().add(result.getString("band"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
-    public void populateSourcesInMap(CachedRowSetImpl result, SearchBean bean) {
+        //Does not work
+        if (this.getClumps() == null)
+            return false;
+        else return true;
+    }
+
+    public boolean populateSourcesInMap(CachedRowSetImpl result, SearchBean bean) {
         if (this.getSources() == null) {
             this.setSources(new  ArrayList<String>());
             this.setBand(new  ArrayList<String>());
@@ -135,5 +165,10 @@ public class ResultBean {
                 e.printStackTrace();
             }
         }
+
+        //Does not work
+        if (this.getValues() == null)
+            return false;
+        else return true;
     }
 }
