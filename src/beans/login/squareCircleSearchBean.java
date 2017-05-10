@@ -1,6 +1,7 @@
 package beans.login;
 
 import Controllers.SearchController;
+import enumerations.ErrorType;
 
 import java.util.List;
 
@@ -46,7 +47,7 @@ public class squareCircleSearchBean {
         return SearchController.getInstance().getMaxClumpSourcesNumber();
     }
 
-    public boolean searchElementsInArea() {
+    public ErrorType searchElementsInArea() {
         return SearchController.getInstance().searchElementsInArea(this);
     }
 

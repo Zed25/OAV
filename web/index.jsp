@@ -18,6 +18,7 @@
 
 <jsp:include page="header.jsp"/>
 <jsp:include page="login.jsp"/>
+<jsp:forward page="searchInSquareOrCircle.jsp"/>
 <jsp:include page="footer.jsp"/>
 
 

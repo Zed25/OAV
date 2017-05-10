@@ -9,6 +9,7 @@ import beans.login.search.ResultBean;
 import beans.login.search.SearchBean;
 import beans.login.squareCircleSearchBean;
 import com.sun.rowset.CachedRowSetImpl;
+import enumerations.ErrorType;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -77,18 +78,18 @@ public class SearchController {
     }
 
 
-    public boolean searchElementsInArea(squareCircleSearchBean squareCircleSearchBean) {
+    public ErrorType searchElementsInArea(squareCircleSearchBean squareCircleSearchBean) {
         switch (squareCircleSearchBean.getElementType()){
             case "Sources":
                 return searchSourcesInArea(squareCircleSearchBean);
             case "Clumps":
                 return searchClumpInArea(squareCircleSearchBean);
             default:
-                return false;
+                return ErrorType.GEN_ERR;
         }
     }
 
-    private boolean searchClumpInArea(squareCircleSearchBean squareCircleSearchBean) {
+    private ErrorType searchClumpInArea(squareCircleSearchBean squareCircleSearchBean) {
 
         String areaType = squareCircleSearchBean.getAreaType();
 
@@ -121,7 +122,7 @@ public class SearchController {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
+            return ErrorType.GEN_ERR;
         }
 
         if(areaType.equals("Square")) {
@@ -133,15 +134,19 @@ public class SearchController {
             }
             sortClumpListByDistance(clumpBeanList);
             squareCircleSearchBean.setResultClumps(clumpBeanList); //if area type is a square all clumps in range are also in square area
-            return true;
+            if(squareCircleSearchBean.getResultClumps().size() == 0)
+                return ErrorType.NO_RESULTS;
+            return ErrorType.NO_ERR;
         } else if(areaType.equals("Circle")){
             computeClumpIntersectionLineCircle(clumpBeanList, baseGalLat, baseGalLong, baseLength);
             sortClumpListByDistance(clumpBeanList);
             squareCircleSearchBean.setResultClumps(clumpBeanList);
-            return true;
+            if(squareCircleSearchBean.getResultClumps().size() == 0)
+                return ErrorType.NO_RESULTS;
+            return ErrorType.NO_ERR;
         }
 
-        return false;
+        return ErrorType.GEN_ERR;
     }
 
     private void sortClumpListByDistance(List<ClumpBean> clumpBeanList) {
@@ -187,7 +192,7 @@ public class SearchController {
 
     }
 
-    private boolean searchSourcesInArea(squareCircleSearchBean squareCircleSearchBean) {
+    private ErrorType searchSourcesInArea(squareCircleSearchBean squareCircleSearchBean) {
         String areaType = squareCircleSearchBean.getAreaType();
 
         //base coordinates and base length
@@ -219,7 +224,7 @@ public class SearchController {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
+            return ErrorType.GEN_ERR;
         }
 
         if(areaType.equals("Square")) {
@@ -231,17 +236,21 @@ public class SearchController {
             }
             sortSourceListByDistance(sourceBeansList);
             squareCircleSearchBean.setResultSources(sourceBeansList); //if area type is a square all sources in range are also in square area
-            return true;
+            if(squareCircleSearchBean.getResultSources().size() == 0)
+                return ErrorType.NO_RESULTS;
+            return ErrorType.NO_ERR;
         } else if(areaType.equals("Circle")){
             computeSourcesIntersectionLineCircle(sourceBeansList, baseGalLat, baseGalLong, baseLength);
             sortSourceListByDistance(sourceBeansList);
             squareCircleSearchBean.setResultSources(sourceBeansList);
-            return true;
+            if(squareCircleSearchBean.getResultSources().size() == 0)
+                return ErrorType.NO_RESULTS;
+            return ErrorType.NO_ERR;
         }
 
 
 
-        return false;
+        return ErrorType.GEN_ERR;
     }
 
     private void computeSourcesIntersectionLineCircle(List<SourceBean> sourceBeansList, String baseGalLat, String baseGalLong, String baseLength) {
@@ -263,7 +272,7 @@ public class SearchController {
     }
 
     private void sortSourceListByDistance(List<SourceBean> sourceBeansList) {
-        //a very stupid sort
+        //a very stupid insertion sort
         for(int i = 0; i < sourceBeansList.size(); i++){
             SourceBean sourceBean = sourceBeansList.get(0);
             int pos = 0;
