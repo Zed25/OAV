@@ -15,7 +15,7 @@
     <h4>Please, log in with a valid username to continue</h4>
 <%}else{
     ClumpBean clump = new ClumpBean();
-    List<ClumpBean> clumpBeans = clump.getClumpsByDencity(0.1F, 1.0F);
+    List<ClumpBean> clumpBeans = clump.getClumpsByDensity(0.1F, 1.0F);
     %>
      <table>
         <thead>

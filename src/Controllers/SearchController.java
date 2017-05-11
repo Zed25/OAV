@@ -59,9 +59,9 @@ public class SearchController {
         return Math.max(nClump, nSource);
     }
 
-    public List<ClumpBean> getClumpsByDencity(float minD, float maxD) {
+    public List<ClumpBean> getClumpsByDensity(float minD, float maxD) {
         ClumpDAO clumpDAO = new ClumpDAO();
-        CachedRowSetImpl cachedRowSet = clumpDAO.getClumpsByDencity(minD, maxD);
+        CachedRowSetImpl cachedRowSet = clumpDAO.getClumpsByDensity(minD, maxD);
 
         List<ClumpBean> clumps = new ArrayList<>();
         try {
@@ -132,8 +132,8 @@ public class SearchController {
         if(areaType.equals("Square")) {
             double lon, lat;
             for(int i = 0; i < clumpBeanList.size(); i++){
-                lon = Double.parseDouble(clumpBeanList.get(i).getGalLong()) - Double.parseDouble(baseGalLong);
-                lat = Double.parseDouble(clumpBeanList.get(i).getGalLat()) - Double.parseDouble(baseGalLat);
+                lon = clumpBeanList.get(i).getGalLong() - Double.parseDouble(baseGalLong);
+                lat = clumpBeanList.get(i).getGalLat() - Double.parseDouble(baseGalLat);
                 clumpBeanList.get(i).setDistance(computeDistance(lon, lat));
             }
             sortClumpListByDistance(clumpBeanList);
@@ -183,8 +183,8 @@ public class SearchController {
         for (int j = 0; j < clumpBeanList.size(); j++){
             ClumpBean clump = clumpBeanList.get(j);
 
-            y = Double.parseDouble(clump.getGalLat()) - Double.parseDouble(baseGalLat);
-            x = Double.parseDouble(clump.getGalLong()) - Double.parseDouble(baseGalLong);
+            y = clump.getGalLat() - Double.parseDouble(baseGalLat);
+            x = clump.getGalLong() - Double.parseDouble(baseGalLong);
             i = computeDistance(x, y);
             clump.setDistance(i);
 

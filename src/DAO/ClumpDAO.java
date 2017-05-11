@@ -14,7 +14,7 @@ import java.sql.Statement;
  */
 public class ClumpDAO extends SuperDAO{
 
-    public CachedRowSetImpl getClumpsByDencity(float minD, float maxD) {
+    public CachedRowSetImpl getClumpsByDensity(float minD, float maxD) {
         String query = "SELECT clumpid, surfacedensity FROM clumps WHERE (surfacedensity > 0.1 AND surfacedensity < 1.0);";
         Connection connection = connect(ConnectionType.SINGLEQUERY);
         try {

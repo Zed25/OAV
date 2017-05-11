@@ -23,8 +23,8 @@ public class ClumpBean {
 
     }
 
-    public List<ClumpBean> getClumpsByDencity(float minD, float maxD){
-        List<ClumpBean> clumps = SearchController.getInstance().getClumpsByDencity(minD, maxD);
+    public List<ClumpBean> getClumpsByDensity(float minD, float maxD){
+        List<ClumpBean> clumps = SearchController.getInstance().getClumpsByDensity(minD, maxD);
         return clumps;
     }
 
