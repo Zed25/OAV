@@ -24,7 +24,7 @@
 
     <tbody>
 
-    <% for(resultBean.getCount(); resultBean.getCount()<resultBean.getClumpBeans().size(); resultBean.incrementCount()) {
+    <% for (resultBean.getCount(); resultBean.getCount()<resultBean.getClumpBeans().size(); resultBean.incrementCount()) {
     %>
     <tr>
         <td> <%out.println(resultBean.getClumpBeans().get(resultBean.getCount()).getClumpID());%> </td>
