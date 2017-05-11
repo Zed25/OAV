@@ -1,4 +1,4 @@
-<%--
+<%@ page import="beans.login.ClumpBean" %><%--
   Created by IntelliJ IDEA.
   User: andrea
   Date: 08/05/17
@@ -10,11 +10,6 @@
 <jsp:useBean id="resultBean" scope="session" class="beans.login.search.ResultBean"/>
 
 <jsp:include page="header.jsp"/>
-
-<%--NON FUNGE--%>
-<% if (resultBean.getValues() == null) { %>
-<jsp:forward page="noMatch.jsp"/>
-<%}%>
 
 <table class="striped, striped">
     <thead>
@@ -29,14 +24,14 @@
 
     <tbody>
 
-    <% for(resultBean.getCount(); resultBean.getCount()<resultBean.getClumps().size(); resultBean.incrementCount()) {
+    <% for(resultBean.getCount(); resultBean.getCount()<resultBean.getClumpBeans().size(); resultBean.incrementCount()) {
     %>
     <tr>
-        <td> <%out.println((resultBean.getClumps().get(resultBean.getCount())).toString());%> </td>
-        <td> <%out.println((resultBean.getGalacticLatitude().get(resultBean.getCount())).toString());%> </td>
-        <td> <%out.println((resultBean.getGalacticLongitude().get(resultBean.getCount())).toString());%> </td>
-        <td> <%out.println((resultBean.getBand().get(resultBean.getCount())).toString());%> </td>
-        <td> <%out.println((resultBean.getValues().get(resultBean.getCount())).toString());%> </td>
+        <td> <%out.println(resultBean.getClumpBeans().get(resultBean.getCount()).getClumpID());%> </td>
+        <td> <%out.println(resultBean.getClumpBeans().get(resultBean.getCount()).getGalLat());%> </td>
+        <td> <%out.println(resultBean.getClumpBeans().get(resultBean.getCount()).getGalLong());%> </td>
+        <td> <%out.println(Float.toString(resultBean.getClumpBeans().get(resultBean.getCount()).getBand()));%> </td>
+        <td> <%out.println(Float.toString(resultBean.getClumpBeans().get(resultBean.getCount()).getFluxValue()));%> </td>
     </tr>
     <% } %>
 

@@ -36,7 +36,11 @@ public class SearchController {
     public boolean findClumpByID(SearchBean bean, ResultBean resBean) {
         SearchDAO dao = new SearchDAO();
         CachedRowSetImpl result = dao.searchClumpByID(bean);
-        return resBean.populateClumpsByID(result, bean);
+        resBean.populateClumpsByID(result, bean);
+        if (resBean.getClumpBeans().isEmpty()) {
+            return false;
+        }
+        else return true;
     }
 
     public List<AgencyBean> getAllAgencies(){
@@ -63,8 +67,8 @@ public class SearchController {
         try {
             while(cachedRowSet.next()){
                 ClumpBean clump = new ClumpBean();
-                clump.setClumpID(cachedRowSet.getString("clumpid"));
-                clump.setDensity(cachedRowSet.getString("surfacedensity"));
+                clump.setClumpID(cachedRowSet.getInt("clumpid"));
+                clump.setDensity(cachedRowSet.getFloat("surfacedensity"));
                 clumps.add(clump);
             }
         } catch (SQLException e) {
@@ -114,9 +118,9 @@ public class SearchController {
             while (clumps.next()) {
                 if(Double.parseDouble(clumps.getString("galacticlatitude")) != 0 || Double.parseDouble(clumps.getString("galacticlongitude")) != 0) {
                     ClumpBean clump = new ClumpBean();
-                    clump.setClumpID(clumps.getString("clumpid"));
-                    clump.setGalLat(clumps.getString("galacticlatitude"));
-                    clump.setGalLong(clumps.getString("galacticlongitude"));
+                    clump.setClumpID(clumps.getInt("clumpid"));
+                    clump.setGalLat(clumps.getDouble("galacticlatitude"));
+                    clump.setGalLong(clumps.getDouble("galacticlongitude"));
                     clumpBeanList.add(clump);
                 }
             }

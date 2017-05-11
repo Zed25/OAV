@@ -1,16 +1,23 @@
 package beans.login.search;
 
 import Controllers.SearchController;
+import beans.login.ClumpBean;
+import beans.login.SourceBean;
+import com.sun.beans.util.Cache;
 import com.sun.rowset.CachedRowSetImpl;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by andrea on 31/03/17.
  */
 public class ResultBean {
+
+    private List<ClumpBean> clumpBeans;
+    private List<SourceBean> sourceBeans;
 
     /*UC4*/
     private List<String> sources;
@@ -30,6 +37,9 @@ public class ResultBean {
 
 
     public ResultBean() {
+        clumpBeans = new ArrayList<>();
+        sourceBeans = new ArrayList<>();
+
         sources = new ArrayList<>();
         band = new ArrayList<>();
         values = new ArrayList<>();
@@ -41,7 +51,17 @@ public class ResultBean {
         galacticLatitude = new ArrayList<>();
     }
 
+
+
     public List<Double> getGalacticLongitude() { return galacticLongitude; }
+
+    public List<ClumpBean> getClumpBeans() { return clumpBeans; }
+
+    public void setClumpBeans(List<ClumpBean> clumpBeans) { this.clumpBeans = clumpBeans; }
+
+    public List<SourceBean> getSourceBeans() { return sourceBeans; }
+
+    public void setSourceBeans(List<SourceBean> sourceBeans) { this.sourceBeans = sourceBeans; }
 
     public void setGalacticLongitude(List<Double> galacticLongitude) { this.galacticLongitude = galacticLongitude; }
 
@@ -106,30 +126,41 @@ public class ResultBean {
         else;   //TODO return error code
     }
 
-    public boolean populateClumpsByID(CachedRowSetImpl result, SearchBean bean) {
-        if (this.getClumpID() == 0) {
-            this.setGalacticLatitude(new ArrayList<Double>());
-            this.setGalacticLongitude(new ArrayList<Double>());
-            this.setBand(new ArrayList<String>());
-            this.setValues(new ArrayList<Float>());
+    public List<ClumpBean> populateClumpsByID(CachedRowSetImpl result, SearchBean bean) {
+
+        List<ClumpBean> clumps = new ArrayList<>();
+
+        if (this.getClumpBeans().isEmpty()) {
+            this.setClumpBeans(clumps);
+
+//            this.setGalacticLatitude(new ArrayList<Double>());
+//            this.setGalacticLongitude(new ArrayList<Double>());
+//            this.setBand(new ArrayList<String>());
+//            this.setValues(new ArrayList<Float>());
         }
 
         try {
             while (result.next()){
+                ClumpBean clump = new ClumpBean();
+                clump.setClumpID(result.getInt("clumpid"));
+                clump.setGalLat(result.getDouble("galacticlatitude"));
+                clump.setGalLong(result.getDouble("galacticlongitude"));
+                clump.setBand(result.getFloat("band"));
+                clump.setFluxValue(result.getFloat("value"));
+                clumps.add(clump);
+
+                /*this.getClumpBeans().add(result.);
                 this.getClumps().add(result.getInt("clumpid"));
                 this.getGalacticLatitude().add(result.getDouble("galacticlatitude"));
                 this.getGalacticLongitude().add(result.getDouble("galacticlongitude"));
                 this.getValues().add(result.getFloat("value"));
-                this.getBand().add(result.getString("band"));
+                this.getBand().add(result.getString("band"));*/
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        //Does not work
-        if (this.getClumps() == null)
-            return false;
-        else return true;
+        return clumps;
     }
 
     public boolean populateSourcesInMap(CachedRowSetImpl result, SearchBean bean) {
