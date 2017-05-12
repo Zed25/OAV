@@ -27,16 +27,22 @@ public class SearchController {
 
     //UC 4
     public boolean FindObjectInMap(SearchBean bean, ResultBean resBean) {  //band==0 -> 1 banda, else tutte
+
         SearchDAO dao = new SearchDAO();
         CachedRowSetImpl result = dao.searchObjectInMap(bean);
-        return resBean.populateSourcesInMap(result, bean);
+        resBean.populateSourcesInMap(result, bean);
+        if (resBean.getClumpBeans().isEmpty() && resBean.getSourceBeans().isEmpty()) {
+            return false;
+        }
+        else return true;
     }
 
     //UC 5
     public boolean findClumpByID(SearchBean bean, ResultBean resBean) {
+
         SearchDAO dao = new SearchDAO();
         CachedRowSetImpl result = dao.searchClumpByID(bean);
-        resBean.populateClumpsByID(result, bean);
+        resBean.populateClumpsByID(result);
         if (resBean.getClumpBeans().isEmpty()) {
             return false;
         }
@@ -221,8 +227,8 @@ public class SearchController {
                 if(Double.parseDouble(sources.getString("galacticlatitude")) != 0 || Double.parseDouble(sources.getString("galacticlongitude")) != 0) {
                     SourceBean sourceBean = new SourceBean();
                     sourceBean.setSourceID(sources.getString("sourceid"));
-                    sourceBean.setGalLat(sources.getString("galacticlatitude"));
-                    sourceBean.setGalLong(sources.getString("galacticlongitude"));
+                    sourceBean.setGalLat(Double.parseDouble(sources.getString("galacticlatitude")));
+                    sourceBean.setGalLong(Double.parseDouble(sources.getString("galacticlongitude")));
                     sourceBeansList.add(sourceBean);
                 }
             }
@@ -234,8 +240,8 @@ public class SearchController {
         if(areaType.equals("Square")) {
             double lon, lat;
             for(int i = 0; i < sourceBeansList.size(); i++){
-                lon = Double.parseDouble(sourceBeansList.get(i).getGalLong()) - Double.parseDouble(baseGalLong);
-                lat = Double.parseDouble(sourceBeansList.get(i).getGalLat()) - Double.parseDouble(baseGalLat);
+                lon = sourceBeansList.get(i).getGalLong() - Double.parseDouble(baseGalLong);
+                lat = sourceBeansList.get(i).getGalLat() - Double.parseDouble(baseGalLat);
                 sourceBeansList.get(i).setDistance(computeDistance(lon, lat));
             }
             sortSourceListByDistance(sourceBeansList);
@@ -263,8 +269,8 @@ public class SearchController {
         for (int j = 0; j < sourceBeansList.size(); j++){
             SourceBean sourceBean = sourceBeansList.get(j);
 
-            y = Double.parseDouble(sourceBean.getGalLat()) - Double.parseDouble(baseGalLat);
-            x = Double.parseDouble(sourceBean.getGalLong()) - Double.parseDouble(baseGalLong);
+            y = sourceBean.getGalLat() - Double.parseDouble(baseGalLat);
+            x = sourceBean.getGalLong() - Double.parseDouble(baseGalLong);
             i = computeDistance(x, y);
             sourceBean.setDistance(i);
 

@@ -19,41 +19,14 @@ public class ResultBean {
     private List<ClumpBean> clumpBeans;
     private List<SourceBean> sourceBeans;
 
-    /*UC4*/
-    private List<String> sources;
-    private List<String> band;
-    private List<Float> values;
-    private List<Integer> clumps;
     //serve a tenere traccia del numero di risultati per pagina
     private int count;
     //serve a tenere traccia del numeo di pagina
     private int page;
 
-
-    /*UC5*/
-    private int clumpID;
-    private List<Double> galacticLongitude;
-    private List<Double> galacticLatitude;
-
-
     public ResultBean() {
-        clumpBeans = new ArrayList<>();
-        sourceBeans = new ArrayList<>();
 
-        sources = new ArrayList<>();
-        band = new ArrayList<>();
-        values = new ArrayList<>();
-        clumps = new ArrayList<>();
-        this.count = 0;
-        this.page = 1;
-        this.clumpID = 0;
-        galacticLongitude = new ArrayList<>();
-        galacticLatitude = new ArrayList<>();
     }
-
-
-
-    public List<Double> getGalacticLongitude() { return galacticLongitude; }
 
     public List<ClumpBean> getClumpBeans() { return clumpBeans; }
 
@@ -62,38 +35,6 @@ public class ResultBean {
     public List<SourceBean> getSourceBeans() { return sourceBeans; }
 
     public void setSourceBeans(List<SourceBean> sourceBeans) { this.sourceBeans = sourceBeans; }
-
-    public void setGalacticLongitude(List<Double> galacticLongitude) { this.galacticLongitude = galacticLongitude; }
-
-    public List<Double> getGalacticLatitude() { return galacticLatitude; }
-
-    public void setGalacticLatitude(List<Double> galacticLatitude) { this.galacticLatitude = galacticLatitude; }
-
-    public int getClumpID() { return clumpID; }
-
-    public void setClumpID(int clumpID) { this.clumpID = clumpID; }
-
-    public List<Integer> getClumps() { return clumps; }
-
-    public void setClumps(List<Integer> clumps) { this.clumps = clumps; }
-
-    public void setSources(List<String> sources) {
-        this.sources = sources;
-    }
-
-    public void setBand(List<String> band) {
-        this.band = band;
-    }
-
-    public void setValues(List<Float> values) {
-        this.values = values;
-    }
-
-    public List<String> getSources() { return sources; }
-
-    public List<String> getBand() { return band; }
-
-    public List<Float> getValues() { return values; }
 
     public int getCount() { return count; }
 
@@ -106,6 +47,14 @@ public class ResultBean {
     public void reset() {
         this.count = 0;
         this.page = 1;
+    }
+
+    public void dropAllData() {
+        this.reset();
+        List<ClumpBean> clumpBeans = new ArrayList<>();
+        this.setClumpBeans(clumpBeans);
+        List<SourceBean> sourceBeans = new ArrayList<>();
+        this.setSourceBeans(sourceBeans);
     }
 
     public void resetCount() { this.count = 0; }
@@ -126,18 +75,14 @@ public class ResultBean {
         else;   //TODO return error code
     }
 
-    public List<ClumpBean> populateClumpsByID(CachedRowSetImpl result, SearchBean bean) {
+    public List<ClumpBean> populateClumpsByID(CachedRowSetImpl result) {
 
         List<ClumpBean> clumps = new ArrayList<>();
+        this.setClumpBeans(clumps);
 
-        if (this.getClumpBeans().isEmpty()) {
+        /*if (this.getClumpBeans().isEmpty()) {
             this.setClumpBeans(clumps);
-
-//            this.setGalacticLatitude(new ArrayList<Double>());
-//            this.setGalacticLongitude(new ArrayList<Double>());
-//            this.setBand(new ArrayList<String>());
-//            this.setValues(new ArrayList<Float>());
-        }
+        }*/
 
         try {
             while (result.next()){
@@ -148,13 +93,6 @@ public class ResultBean {
                 clump.setBand(result.getFloat("band"));
                 clump.setFluxValue(result.getFloat("value"));
                 clumps.add(clump);
-
-                /*this.getClumpBeans().add(result.);
-                this.getClumps().add(result.getInt("clumpid"));
-                this.getGalacticLatitude().add(result.getDouble("galacticlatitude"));
-                this.getGalacticLongitude().add(result.getDouble("galacticlongitude"));
-                this.getValues().add(result.getFloat("value"));
-                this.getBand().add(result.getString("band"));*/
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -163,21 +101,22 @@ public class ResultBean {
         return clumps;
     }
 
-    public boolean populateSourcesInMap(CachedRowSetImpl result, SearchBean bean) {
-        if (this.getSources() == null) {
-            this.setSources(new  ArrayList<String>());
-            this.setBand(new  ArrayList<String>());
-            this.setValues(new  ArrayList<Float>());
-            this.setClumps(new  ArrayList<Integer>());
-        }
+    public void populateSourcesInMap(CachedRowSetImpl result, SearchBean bean) {
+
+        List<SourceBean> sources = new ArrayList<>();
+        List<ClumpBean> clumps = new ArrayList<>();
+        this.setSourceBeans(sources);
+        this.setClumpBeans(clumps);
 
         //Sources case
         if (!bean.getMapName().equals("HiGal")) {
             try {
-                while (result.next()){
-                    this.getSources().add(result.getString("sourceid"));
-                    this.getValues().add(result.getFloat("value"));
-                    this.getBand().add(result.getString("band"));
+                while (result.next()) {
+                    SourceBean source = new SourceBean();
+                    source.setSourceID(result.getString("sourceid"));
+                    source.setBand(result.getFloat("band"));
+                    source.setFluxValue(result.getFloat("value"));
+                    sources.add(source);
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -187,19 +126,17 @@ public class ResultBean {
         //Clumps case
         else {
             try {
-                while ((result.next())){
-                    this.getClumps().add(result.getInt("clumpid"));
-                    this.getValues().add(result.getFloat("value"));
-                    this.getBand().add(result.getString("band"));
+                while ((result.next())) {
+                    ClumpBean clump = new ClumpBean();
+                    clump.setClumpID(result.getInt("clumpid"));
+                    clump.setBand(result.getFloat("band"));
+                    clump.setFluxValue(result.getFloat("value"));
+                    clumps.add(clump);
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
-
-        //Does not work
-        if (this.getValues() == null)
-            return false;
-        else return true;
     }
+
 }

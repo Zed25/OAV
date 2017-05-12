@@ -5,12 +5,20 @@ package beans.login;
  */
 public class SourceBean {
 
-    private String sourceID, galLat, galLong;
-
-    private double distance;
+    private String sourceID;
+    private double galLat, galLong, distance;
+    private float band, fluxValue;
 
     public SourceBean() {
     }
+
+    public float getBand() { return band; }
+
+    public void setBand(float band) { this.band = band; }
+
+    public float getFluxValue() { return fluxValue; }
+
+    public void setFluxValue(float fluxValue) { this.fluxValue = fluxValue; }
 
     public String getSourceID() {
         return sourceID;
@@ -20,19 +28,19 @@ public class SourceBean {
         this.sourceID = sourceID;
     }
 
-    public String getGalLat() {
+    public Double getGalLat() {
         return galLat;
     }
 
-    public void setGalLat(String galLat) {
+    public void setGalLat(double galLat) {
         this.galLat = galLat;
     }
 
-    public String getGalLong() {
+    public Double getGalLong() {
         return galLong;
     }
 
-    public void setGalLong(String galLong) {
+    public void setGalLong(double galLong) {
         this.galLong = galLong;
     }
 

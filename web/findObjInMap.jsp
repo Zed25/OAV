@@ -12,10 +12,12 @@
 <jsp:useBean id="resultBean" scope="session" class="beans.login.search.ResultBean"/>
 <%  resultBean.reset();
     if (searchBean.isFullSource()) {
-        searchBean.findObjectInMap(searchBean, resultBean); %>
+        if (searchBean.findObjectInMap(searchBean, resultBean)) {
+%>
 <jsp:forward page="searchResultSource.jsp"/>
-<%
-    }
+<%      } else { %>
+<jsp:forward page="noMatch.jsp"/>
+<%      }}
 %>
 
 <jsp:include page="header.jsp"/>

@@ -23,7 +23,7 @@ NO MATCHES FOUND
 
 <br>
 
-<a href="noMatch.jsp" class="waves-effect waves-light">Back To Search</a>
+<a href="index.jsp" class="waves-effect waves-light">Back To Search</a>
 
 <script src="js\materialize.min.js"></script>
 <script type="text\javascript" src="js\jquery-2.1.1.min.js"></script>

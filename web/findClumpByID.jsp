@@ -9,12 +9,12 @@
 <%@ page import="java.util.List" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:useBean id="searchBeanClump" scope="session" class="beans.login.search.SearchBean"/>
-<jsp:setProperty name="searchBeanClump" property="*"/>
+<jsp:useBean id="searchBean" scope="session" class="beans.login.search.SearchBean"/>
+<jsp:setProperty name="searchBean" property="*"/>
 <jsp:useBean id="resultBean" scope="session" class="beans.login.search.ResultBean"/>
 <%  resultBean.reset();
-    if (searchBeanClump.isFullClump()) {
-        if (searchBeanClump.findClumpByID(searchBeanClump, resultBean)) {
+    if (searchBean.isFullClump()) {
+        if (searchBean.findClumpByID(searchBean, resultBean)) {
             %>
             <jsp:forward page="searchResultClump.jsp"/>
 <%      } else { %>

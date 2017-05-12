@@ -44,6 +44,14 @@ public class SearchBean {
 
     public void setAllBands(boolean allBands) { this.allBands = allBands; }
 
+    public void dropAllData() {
+        this.setMapName("");
+        this.setAllBands(false);
+        this.setBandRead("0.0");
+        this.setRealBand(0.0f);
+        this.setClumpID(0);
+    }
+
     public boolean isFullSource() {
         if (this.getMapName() != "") {
             return true;

@@ -11,11 +11,6 @@
 
 <jsp:include page="header.jsp"/>
 
-<%--NON FUNGE--%>
-<% if (resultBean.getValues() == null) { %>
-    <jsp:forward page="noMatch.jsp"/>
-<%}%>
-
 <table class="striped, striped">
     <thead>
     <tr>
@@ -24,8 +19,8 @@
         <% } else { %>
         <th>Clump ID</th>
         <% } %>
-        <th>Flow Value</th>
         <th>Band Width</th>
+        <th>Flow Value</th>
     </tr>
     </thead>
 
@@ -36,15 +31,15 @@
 
     <% if (!searchBean.getMapName().equals("HiGal")) {
         for(resultBean.getCount(); resultBean.getCount()<50*resultBean.getPage(); resultBean.incrementCount()) {
-            //if (resultBean.getCount()<resultBean.getValues().size()) {  %>
+            if (resultBean.getCount()<resultBean.getSourceBeans().size()) {  %>
                     <tr>
-                        <td> <%out.println((resultBean.getSources().get(resultBean.getCount())));%> </td>
-                        <td> <%out.println((resultBean.getValues().get(resultBean.getCount())).toString());%> </td>
-                        <td> <%out.println((resultBean.getBand().get(resultBean.getCount())).toString());%> </td>
+                        <td> <%out.println(resultBean.getSourceBeans().get(resultBean.getCount()).getSourceID());%> </td>
+                        <td> <%out.println(Float.toString(resultBean.getSourceBeans().get(resultBean.getCount()).getBand()));%> </td>
+                        <td> <%out.println(Float.toString(resultBean.getSourceBeans().get(resultBean.getCount()).getFluxValue()));%> </td>
                     </tr>
-    <% //}
+    <% }
     }
-    if (resultBean.getCount()<resultBean.getValues().size()) {%>
+    if (resultBean.getCount()<resultBean.getSourceBeans().size()) {%>
 
     <div class="row">
     <form class="col s12" action="avanti.jsp" method="get" name="nextform">
@@ -78,15 +73,15 @@
 
     <%} else {
          for(resultBean.getCount(); resultBean.getCount()<50*resultBean.getPage(); resultBean.incrementCount()) {
-             //if (resultBean.getCount()<resultBean.getValues().size()) {  %>
+             if (resultBean.getCount()<resultBean.getClumpBeans().size()) {  %>
                 <tr>
-                    <td> <%out.println((resultBean.getClumps().get(resultBean.getCount())).toString());%> </td>
-                    <td> <%out.println((resultBean.getValues().get(resultBean.getCount())).toString());%> </td>
-                    <td> <%out.println((resultBean.getBand().get(resultBean.getCount())).toString());%> </td>
+                    <td> <%out.println(Integer.toString(resultBean.getClumpBeans().get(resultBean.getCount()).getClumpID()));%> </td>
+                    <td> <%out.println(Float.toString(resultBean.getClumpBeans().get(resultBean.getCount()).getBand()));%> </td>
+                    <td> <%out.println(Float.toString(resultBean.getClumpBeans().get(resultBean.getCount()).getFluxValue()));%> </td>
                 </tr>
 
-    <%//}
-    } if (resultBean.getCount()<resultBean.getValues().size()) {%>
+    <% }
+    } if (resultBean.getCount()<resultBean.getClumpBeans().size()) {%>
 
     <div class="row">
         <form class="col s12" action="avanti.jsp" method="get" name="nextform">
@@ -117,4 +112,9 @@
     <% };}%>
     </tbody>
 </table>
+
+<form class="col s12" action="backToSearch.jsp" method="post">
+    <button class="waves-effect" name="backToSearchButton" id="backToSearchButton">Back to Search</button>
+</form>
+
 <jsp:include page="footer.jsp"/>
