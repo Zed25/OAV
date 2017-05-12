@@ -13,9 +13,12 @@
 <%if(!loginBean.isLogged()){%>
     <h2>Error: this action can't be performed without logging in!</h2>
     <h4>Please, log in with a valid username to continue</h4>
-<%}else{
+<%}else {
     ClumpBean clump = new ClumpBean();
     List<ClumpBean> clumpBeans = clump.getClumpsByDensity(0.1F, 1.0F);
+    if (clumpBeans.size() == 0){
+        out.println("<h4 class=\"red-text\">Something went wrong! There aren't results. We are sorry for it!</h4>");
+}else{
     %>
      <table>
         <thead>
@@ -43,6 +46,7 @@
          </button>
      </form>
  </div>
+<%}%>
 <jsp:include page="footer.jsp"/>
 
 
