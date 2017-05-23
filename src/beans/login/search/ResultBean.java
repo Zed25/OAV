@@ -72,18 +72,31 @@ public class ResultBean {
                 this.count -= 50;
             }
         }
-        else;   //TODO return error code
+        else
+            System.out.println("errore in indietro");   //TODO return error code
     }
 
-    public List<ClumpBean> populateClumpsByID(CachedRowSetImpl result) {
-
+    public void populateClumpsMass(CachedRowSetImpl result) {
         List<ClumpBean> clumps = new ArrayList<>();
         this.setClumpBeans(clumps);
+        try {
+            while (result.next()) {
+                ClumpBean clump = new ClumpBean();
+                clump.setClumpID(result.getInt("clumpid"));
+                clump.setTemperature(result.getFloat("temperature"));
+                clumps.add(clump);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
+    public void populateClumpsByID(CachedRowSetImpl result) {
+        List<ClumpBean> clumps = new ArrayList<>();
+        this.setClumpBeans(clumps);
         /*if (this.getClumpBeans().isEmpty()) {
             this.setClumpBeans(clumps);
         }*/
-
         try {
             while (result.next()){
                 ClumpBean clump = new ClumpBean();
@@ -97,12 +110,9 @@ public class ResultBean {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        return clumps;
     }
 
     public void populateSourcesInMap(CachedRowSetImpl result, SearchBean bean) {
-
         List<SourceBean> sources = new ArrayList<>();
         List<ClumpBean> clumps = new ArrayList<>();
         this.setSourceBeans(sources);

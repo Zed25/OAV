@@ -14,6 +14,9 @@ import enumerations.ErrorType;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.math.*;
+
+import static java.lang.Math.exp;
 
 /**
  * Created by andrea on 29/03/17.
@@ -47,6 +50,23 @@ public class SearchController {
             return false;
         }
         else return true;
+    }
+
+    //UC 10
+    public boolean getMassAllClumps(ResultBean resBean) {
+        ClumpDAO dao = new ClumpDAO();
+        CachedRowSetImpl result = dao.getMassAllClumps();
+        resBean.populateClumpsMass(result);
+        if (resBean.getClumpBeans().isEmpty()) {
+            return false;
+        }
+        else {
+            for (ClumpBean clump : resBean.getClumpBeans()) {   //for item i in resbean.getClumpsBean
+                clump.setMass(0.053*(1)*(10)*(exp(41.14/clump.getTemperature()) - 1));
+                // where is 1 it should be the # of sources in the clump for band = 350us
+            }
+            return true;
+        }
     }
 
     public List<AgencyBean> getAllAgencies(){

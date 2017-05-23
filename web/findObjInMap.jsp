@@ -75,6 +75,4 @@
 
 <br>
 
-<script src="js\materialize.min.js"></script>
-<script type="text\javascript" src="js\jquery-2.1.1.min.js"></script>
 <jsp:include page="footer.jsp"/>

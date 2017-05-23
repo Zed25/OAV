@@ -17,6 +17,8 @@ public class ClumpBean {
     private double distance;
     private float band;
     private float fluxValue;
+    private float temperature;
+    private double mass;
 
 
     public ClumpBean() {
@@ -27,11 +29,6 @@ public class ClumpBean {
         List<ClumpBean> clumps = SearchController.getInstance().getClumpsByDensity(minD, maxD);
         return clumps;
     }
-
-    //public Map<Float, Float> getBand_fluxValue() { return band_fluxValue; }
-
-    //public void setBand_fluxValue(Map<Float, Float> band_fluxValue) { this.band_fluxValue = band_fluxValue; }
-
 
     public float getBand() { return band; }
 
@@ -75,5 +72,17 @@ public class ClumpBean {
 
     public void setDistance(double distance) {
         this.distance = distance;
+    }
+
+    public float getTemperature() { return temperature; }
+
+    public void setTemperature(float temperature) { this.temperature = temperature; }
+
+    public double getMass() {
+        return mass;
+    }
+
+    public void setMass(double mass) {
+        this.mass = mass;
     }
 }

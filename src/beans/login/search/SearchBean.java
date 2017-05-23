@@ -79,7 +79,10 @@ public class SearchBean {
         List<String> bands = SerializeController.getSerializeControllerInstance().getAllBandsFromDB();
         bands.add(bands.size(), "All");
         return bands;
+    }
 
+    public boolean getMassAllClumps(ResultBean resBean) {
+        return SearchController.getInstance().getMassAllClumps(resBean);
     }
 
     public List<String> getAllStarMapsNameFromDB() {
