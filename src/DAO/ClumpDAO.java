@@ -16,7 +16,9 @@ import java.sql.Statement;
 public class ClumpDAO extends SuperDAO{
 
     public CachedRowSetImpl getMassAllClumps() {
-        String query = "SELECT clumpid, temperature FROM clumps;";
+        String query = "SELECT clumpid, temperature, value FROM clumps " +
+                "INNER JOIN fluxes ON (clumps.clumpid = fluxes.clump) " +
+                "WHERE (band = 350);";
         return executeQuery(query);
     }
 

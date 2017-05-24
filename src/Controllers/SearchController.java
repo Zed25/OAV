@@ -62,8 +62,11 @@ public class SearchController {
         }
         else {
             for (ClumpBean clump : resBean.getClumpBeans()) {   //for item i in resbean.getClumpsBean
-                clump.setMass(0.053*(1)*(10)*(exp(41.14/clump.getTemperature()) - 1));
-                // where is 1 it should be the # of sources in the clump for band = 350us
+                if (clump.getTemperature() == 0)
+                    continue;
+                BigDecimal exp = new BigDecimal(exp(41.14/clump.getTemperature()) - 1, MathContext.DECIMAL32);
+                BigDecimal b = new BigDecimal(0.053*(clump.getFluxValue())*10, MathContext.DECIMAL32);
+                clump.setMass(b.multiply(exp));
             }
             return true;
         }

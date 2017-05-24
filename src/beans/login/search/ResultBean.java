@@ -84,6 +84,7 @@ public class ResultBean {
                 ClumpBean clump = new ClumpBean();
                 clump.setClumpID(result.getInt("clumpid"));
                 clump.setTemperature(result.getFloat("temperature"));
+                clump.setFluxValue(result.getFloat("value"));
                 clumps.add(clump);
             }
         } catch (SQLException e) {

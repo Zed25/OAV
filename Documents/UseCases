@@ -38,7 +38,7 @@
 -UC9 Visualizzare la massa di tutti i clump:        USER    [Andrea - in progress]
     Trovare la massa di ogni clump. La massa è stimata secondo la seguente formula
     M = 0.053*(S350)*(D^2)*{exp(41.14/TEMP) - 1}
-    //S350 credo sia il numero di sorgenti all'interno del clump alla banda di 350 us
+    //S350 e' il valore del flusso per il clump specifico alla banda 350 us e sta nella tab. fluxes
     //D e' una costante ed e' 10 kp
     //miglioria: aggiungere una colonna alla tabella clumps con il numero di sorgenti al suo interno alla banda 350 us
     //           invece di richiamare UC 8 per ogni clump

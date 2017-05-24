@@ -4,6 +4,7 @@ import Controllers.SearchController;
 import com.sun.beans.util.Cache;
 
 import java.lang.reflect.Array;
+import java.math.BigDecimal;
 import java.util.*;
 
 /**
@@ -18,7 +19,7 @@ public class ClumpBean {
     private float band;
     private float fluxValue;
     private float temperature;
-    private double mass;
+    private BigDecimal mass;
 
 
     public ClumpBean() {
@@ -78,11 +79,11 @@ public class ClumpBean {
 
     public void setTemperature(float temperature) { this.temperature = temperature; }
 
-    public double getMass() {
+    public BigDecimal getMass() {
         return mass;
     }
 
-    public void setMass(double mass) {
+    public void setMass(BigDecimal mass) {
         this.mass = mass;
     }
 }
