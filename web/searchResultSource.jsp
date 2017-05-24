@@ -11,7 +11,7 @@
 
 <jsp:include page="header.jsp"/>
 
-<table class="striped, striped">
+<table class="striped">
     <thead>
     <tr>
         <% if (!searchBean.getMapName().equals("HiGal")) {%>

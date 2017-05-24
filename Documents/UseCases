@@ -46,7 +46,7 @@
 
     	Con  D = la distanza in Kilo Parsec (kpc). Considerare tutte le sorgenti ad una distanza di D=10 kpc.
 
--UC10 Valori dei rapporti delle righe:      USER
+-UC10 Valori dei rapporti delle righe:      USER    [Andrea - in progress]
     Un utente registrato potrà richiedere il valore medio, la deviazione standard,
     la mediana e la deviazione media assoluta delle masse di tutti i clumps.
 

@@ -1,8 +1,8 @@
-<%@ page import="beans.login.ClumpBean" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: andrea
-  Date: 23/05/17
-  Time: 10.57
+  Date: 24/05/17
+  Time: 16.46
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -11,24 +11,26 @@
 <jsp:useBean id="resultBean" scope="session" class="beans.login.search.ResultBean"/>
 <jsp:include page="header.jsp"/>
 
-<% searchBean.getMassAllClumps(resultBean); %>
+<% searchBean.ratioBetweenLines(resultBean); %>
 
 <table class="striped">
     <thead>
     <tr>
-        <th>Clump ID</th>
-        <th>Mass</th>
+        <th>Medium Value</th>
+        <th>Standard Deviation</th>
+        <th>Median</th>
+        <th>MAD</th>
     </tr>
     </thead>
 
     <tbody>
 
-    <% for (ClumpBean clump : resultBean.getClumpBeans()) { %>
-        <tr>
-            <td> <%=clump.getClumpID()%> </td>
-            <td> <%=clump.getMass()%> </td>
-        </tr>
-    <% } %>
+    <tr>
+        <td> <%=resultBean.getMediumValue()%> </td>
+        <td> <%=resultBean.getStandardDeviation()%> </td>
+        <td> <%=resultBean.getMedian()%> </td>
+        <td> <%=resultBean.getMAD()%> </td>
+    </tr>
 
     </tbody>
 </table>

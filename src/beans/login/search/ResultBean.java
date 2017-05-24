@@ -23,9 +23,46 @@ public class ResultBean {
     private int count;
     //serve a tenere traccia del numeo di pagina
     private int page;
+    //UC 10
+    private double mediumValue;
+    private double standardDeviation;
+    private double median;
+    private double MAD;
 
     public ResultBean() {
 
+    }
+
+    public double getMediumValue() {
+        return mediumValue;
+    }
+
+    public void setMediumValue(double mediumValue) {
+        this.mediumValue = mediumValue;
+    }
+
+    public double getStandardDeviation() {
+        return standardDeviation;
+    }
+
+    public void setStandardDeviation(double standardDeviation) {
+        this.standardDeviation = standardDeviation;
+    }
+
+    public double getMedian() {
+        return median;
+    }
+
+    public void setMedian(double median) {
+        this.median = median;
+    }
+
+    public double getMAD() {
+        return MAD;
+    }
+
+    public void setMAD(double MAD) {
+        this.MAD = MAD;
     }
 
     public List<ClumpBean> getClumpBeans() { return clumpBeans; }

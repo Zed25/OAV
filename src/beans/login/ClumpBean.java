@@ -19,7 +19,7 @@ public class ClumpBean {
     private float band;
     private float fluxValue;
     private float temperature;
-    private BigDecimal mass;
+    private double mass;
 
 
     public ClumpBean() {
@@ -79,11 +79,11 @@ public class ClumpBean {
 
     public void setTemperature(float temperature) { this.temperature = temperature; }
 
-    public BigDecimal getMass() {
+    public double getMass() {
         return mass;
     }
 
-    public void setMass(BigDecimal mass) {
+    public void setMass(double mass) {
         this.mass = mass;
     }
 }

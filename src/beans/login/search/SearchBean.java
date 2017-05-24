@@ -85,6 +85,10 @@ public class SearchBean {
         return SearchController.getInstance().getMassAllClumps(resBean);
     }
 
+    public boolean ratioBetweenLines(ResultBean resBean) {
+        return SearchController.getInstance().ratioBetweenLines(resBean);
+    }
+
     public List<String> getAllStarMapsNameFromDB() {
         return SerializeController.getSerializeControllerInstance().getAllStarMapsNameFromDB();
     }
