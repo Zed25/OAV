@@ -7,6 +7,5 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="loginBean" scope="session" class="beans.login.UserBean"/>
-<%loginBean.emptyBean();
-loginBean.setLogged(false);%>
+<%loginBean.logout();%>
 <jsp:forward page="index.jsp"/>

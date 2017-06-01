@@ -86,8 +86,8 @@ public class User {
                 !this.getEmail().equals("") ||
                 !this.getType().equals(""))
             this.logged = true;
-
-        this.logged = false;
+        else
+            this.logged = false;
     }
 
     public Administration getAdministrationRole() {

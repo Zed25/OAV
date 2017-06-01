@@ -29,9 +29,14 @@ public class UserBean {
      * @return boolean
      */
     public ErrorType login(){
-        if(this.getUserID() != null && this.getPassword() != null)
+        if(this.getUserID() != null && this.getPassword() != null) {
             return UsersController.getUsersControllerInstance().login(this);
+        }
         return ErrorType.MISS_VAL;
+    }
+
+    public ErrorType logout(){
+        return UsersController.getUsersControllerInstance().logout(this);
     }
 
     /**
@@ -54,6 +59,7 @@ public class UserBean {
         this.setPassword("");
         this.setEmail("");
         this.setType("");
+        this.setLogged(false);
         if(isAdmin())
             this.administrationRole = null;
     }
@@ -63,11 +69,11 @@ public class UserBean {
      * @param newUser
      * @return boolean
      */
-    public boolean newUserRegistration(UserBean newUser){
+    public ErrorType newUserRegistration(UserBean newUser){
         if(this.isAdmin()){
             return this.getAdministrationRole().newUserRegistration(newUser);
         }
-        return false;
+        return ErrorType.NO_ADMIN;
     }
 
     /**GETTER AND SETTER**/

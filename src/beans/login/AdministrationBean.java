@@ -2,6 +2,7 @@ package beans.login;
 
 import Controllers.UsersController;
 import DAO.UserDAO;
+import enumerations.ErrorType;
 
 /**
  * Created by simone on 30/03/17.
@@ -23,14 +24,14 @@ public class AdministrationBean extends UserBean {
     }
 
     /**
-     * It' call the user's controller to register a new user (only administrator can do this)
+     * It call the user's controller to register a new user (only administrator can do this)
      * @param user
      * @return boolan
      */
-    public boolean newUserRegistration(UserBean user){
+    public ErrorType newUserRegistration(UserBean user){
         if(user.isFull())
             return UsersController.getUsersControllerInstance().createNewUserRecord(user);
-        return false;
+        return ErrorType.GEN_ERR;
     }
 
 }

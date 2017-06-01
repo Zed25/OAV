@@ -1,4 +1,4 @@
-<%--
+<%@ page import="enumerations.ErrorType" %><%--
   Created by IntelliJ IDEA.
   User: simone
   Date: 24/03/17
@@ -12,10 +12,22 @@
 
 <%  loginBean.setUserID("Zed");
     loginBean.setPassword("root");
-    if(!loginBean.isLogged() && !loginBean.getUserID().equals("")){
-    loginBean.login();
-}%>
-
+    if(!loginBean.isLogged() && !loginBean.getUserID().equals("") && !loginBean.getPassword().equals("")){
+    ErrorType errorType = loginBean.login();
+    if(errorType != ErrorType.NO_ERR){
+        loginBean.emptyBean();
+        switch (errorType){
+            case GEN_ERR:
+                out.println("<h3 class=\"red-text\">An error occurred, please try again!</h3>");
+                break;
+            case NO_RESULTS:
+                out.println("<h3 class=\"red-text\">UserID or password wrong!</h3>");
+        }
+    }
+}
+else{
+        out.println("<h3 class=\"red-text\">Please enter both UserID and Password in order to login!</h3>");
+    }%>
 <jsp:include page="header.jsp"/>
 <jsp:include page="login.jsp"/>
 <jsp:forward page="searchInSquareOrCircle.jsp"/>

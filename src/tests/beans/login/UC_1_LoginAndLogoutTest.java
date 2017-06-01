@@ -5,18 +5,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
-import javax.jws.soap.SOAPBinding;
 import java.util.Arrays;
 import java.util.Collection;
 
-import static org.junit.Assert.*;
-
 /**
- * Created by simone on 30/05/17.
+ * Created by simone on 01/06/17.
  */
 @RunWith(value = Parameterized.class)
-public class UserBeanTest {
-
+public class UC_1_LoginAndLogoutTest {
     private UserBean user;
 
     @Parameterized.Parameters
@@ -41,16 +37,23 @@ public class UserBeanTest {
 
         return Arrays.asList(
                 user1,
-                user2
+                user2,
+                user3
         ); //return an admin user logged
     }
 
-    public UserBeanTest(UserBean userBean){
-        this.user = userBean;
+    public UC_1_LoginAndLogoutTest(UserBean user) {
+        this.user = user;
     }
 
+    /**A complete login test.
+     * Create a new userBean.
+     * Check if the bean's attribute are cleaned.
+     * Insert username and password.
+     * Start login routine.
+     * Check if the bean's are rightly filled.**/
     @Test
-    public void login() throws Exception {
+    public void completeLogin() throws Exception {
         UserBean user = new UserBean();
 
         Assert.assertEquals("Name isn't empty", "", user.getName());
@@ -76,6 +79,7 @@ public class UserBeanTest {
         Assert.assertTrue("the user results logged", user.isLogged());
     }
 
+    /**Check if all required attribute of a bean aren't void**/
     @Test
     public void isFull() throws Exception {
 
@@ -92,6 +96,8 @@ public class UserBeanTest {
 
     }
 
+
+    /**Check if all attributes of a bean are cleaned after the 'emptyBean' call**/
     @Test
     public void emptyBean() throws Exception {
 
@@ -106,5 +112,27 @@ public class UserBeanTest {
         Assert.assertEquals("Type isn't empty", "", user.getType());
         Assert.assertNull("AdministrationRole isn't null", user.getAdministrationRole());
         Assert.assertFalse("the user results logged", user.isLogged());
+    }
+
+    /**check if a logged userBean is empty after a logout**/
+    @Test
+    public void logout() throws Exception {
+        this.user.setUserID("Zed");
+        this.user.setPassword("root");
+        this.user.login();
+
+        Assert.assertTrue("this bean isn't logged", this.user.isLogged());
+
+        this.user.logout();
+
+        Assert.assertEquals("Name isn't empty", "", user.getName());
+        Assert.assertEquals("Surname isn't empty", "", user.getSurname());
+        Assert.assertEquals("Password isn't empty", "", user.getPassword());
+        Assert.assertEquals("UserID isn't empty", "", user.getUserID());
+        Assert.assertEquals("Email isn't empty", "", user.getEmail());
+        Assert.assertEquals("Type isn't empty", "", user.getType());
+        Assert.assertNull("AdministrationRole isn't null", user.getAdministrationRole());
+        Assert.assertFalse("the user results logged", user.isLogged());
+
     }
 }

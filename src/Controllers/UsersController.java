@@ -27,7 +27,7 @@ public class UsersController {
         if(user == null)
             return ErrorType.GEN_ERR;
 
-        if(user.isLogged()) { //a user is logged only if all his required attributes aren't empty
+        if(user.isLogged()) {
             fillUserBeanAfterLogin(userBean, user);
             return ErrorType.NO_ERR;
         }
@@ -62,9 +62,16 @@ public class UsersController {
                     cachedRowSet.getString("email"),
                     cachedRowSet.getString("type"));
             user.setLogged();
-            if(user.isLogged())
+            if(user.isLogged()) //a user is logged only if all his required attributes aren't empty
                 if(user.getType().equals("Admin"))
-                    user.setAdministrationRole(new Administration(user));
+                    user.setAdministrationRole(new Administration(
+                            user.getName(),
+                            user.getSurname(),
+                            user.getUserID(),
+                            user.getPassword(),
+                            user.getEmail(),
+                            user.getType()
+                    ));
             return user;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -72,7 +79,13 @@ public class UsersController {
         }
     }
 
-    public boolean createNewUserRecord(UserBean user) {
+    /**simple logout**/
+    public ErrorType logout(UserBean userBean) {
+        userBean.emptyBean();
+        return ErrorType.NO_ERR;
+    }
+
+    public ErrorType createNewUserRecord(UserBean user) {
         UserDAO userDAO = new UserDAO();
         return userDAO.createUserRecord(user);
     }
