@@ -5,55 +5,37 @@ import beans.login.UserBean;
 import com.sun.rowset.CachedRowSetImpl;
 import enumerations.ConnectionType;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 /**
  * Created by simone on 29/03/17.
  */
 public class UserDAO extends SuperDAO{
 
-    public boolean login(UserBean user) {
+    public CachedRowSetImpl login(String username, String password) {
 
-        String query = "SELECT * FROM users WHERE user_id= " + "'" + user.getUserID() + "' AND " +  "password=" + "'" + user.getPassword() + "';";
+        String query = "SELECT * FROM users WHERE user_id= " + "? AND password=?;";
 
         System.out.println(query); //DEBUG
 
         CachedRowSetImpl cachedRowSetImpl;
         Connection connection = connect(ConnectionType.SINGLEQUERY);
         try {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(query);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, username);
+            preparedStatement.setString(2, password);
+            ResultSet resultSet = preparedStatement.executeQuery(query);
             cachedRowSetImpl = new CachedRowSetImpl();
             cachedRowSetImpl.populate(resultSet);
             resultSet.close();
-            statement.close();
+            preparedStatement.close();
             disconnect(connection);
         } catch (SQLException e) {
             e.printStackTrace();
             disconnect(connection);
-            return false;
+            return null;
         }
-        try {
-            while(cachedRowSetImpl.next()){
-                if (cachedRowSetImpl.getString("User_id").equals(user.getUserID())){
-                    user.setName(cachedRowSetImpl.getString("Name"));
-                    user.setSurname(cachedRowSetImpl.getString("Surname"));
-                    user.setEmail(cachedRowSetImpl.getString("Email"));
-                    if(cachedRowSetImpl.getString("Type").equals("Admin")) {
-                        user.setAdministrationRole();
-                    }
-                    System.out.println("There is a match!"); //DEBUG
-                    return true;
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-        return false;
+        return cachedRowSetImpl;
     }
 
     public boolean createUserRecord(UserBean user) {

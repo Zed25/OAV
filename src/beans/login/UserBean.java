@@ -1,6 +1,7 @@
 package beans.login;
 
 import Controllers.UsersController;
+import enumerations.ErrorType;
 
 /**
  * Created by simone on 26/03/17.
@@ -27,10 +28,10 @@ public class UserBean {
      * login routine. Check if the username and password passed are in the db and if it's true this bean is filled by the constructor
      * @return boolean
      */
-    public boolean login(){
+    public ErrorType login(){
         if(this.getUserID() != null && this.getPassword() != null)
-            return UsersController.getUsersControllerInstance().checkUserEsistence(this);
-        return false;
+            return UsersController.getUsersControllerInstance().login(this);
+        return ErrorType.MISS_VAL;
     }
 
     /**
