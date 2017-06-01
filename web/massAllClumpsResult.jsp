@@ -13,24 +13,31 @@
 
 <% searchBean.getMassAllClumps(resultBean); %>
 
-<table class="striped">
-    <thead>
-    <tr>
-        <th>Clump ID</th>
-        <th>Mass</th>
-    </tr>
-    </thead>
-
-    <tbody>
-
-    <% for (ClumpBean clump : resultBean.getClumpBeans()) { %>
+<div class="container center-align">
+    <table class="striped">
+        <thead>
         <tr>
-            <td> <%=clump.getClumpID()%> </td>
-            <td> <%=clump.getMass()%> </td>
+            <th>Clump ID</th>
+            <th>Mass</th>
         </tr>
-    <% } %>
+        </thead>
 
-    </tbody>
-</table>
+        <tbody>
+
+        <% for (ClumpBean clump : resultBean.getClumpBeans()) { %>
+            <tr>
+                <td> <%=clump.getClumpID()%> </td>
+                <td> <%=clump.getMass()%> </td>
+            </tr>
+        <% } %>
+
+        </tbody>
+    </table>
+
+    <br>
+
+    <a class="waves-effect waves-light btn" href="backToSearch.jsp">Back to Search</a>
+
+</div>
 
 <jsp:include page="footer.jsp"/>

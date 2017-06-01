@@ -12,25 +12,22 @@ public class SearchBean {
 
     private String mapName;
     private boolean allBands;
-    private String bandRead;    //for reading from html
+    private String band;    //for reading from html
     private Float realBand;     //for SQL query
     private int clumpID;
 
     public SearchBean() {
-        this.mapName = "";
-        this.allBands = false;
-        this.bandRead = "0.0";
-        this.realBand = 0.0f;
-        this.clumpID = 0;
+        this.band = "";
+        this.mapName= "";
     }
 
     public int getClumpID() { return clumpID; }
 
     public void setClumpID(int clumpID) { this.clumpID = clumpID; }
 
-    public String getBandRead() { return bandRead; }
+    public String getBand() { return band; }
 
-    public void setBandRead(String bandRead) { this.bandRead = bandRead; }
+    public void setBand(String bandRead) { this.band = bandRead; }
 
     public Float getRealBand() { return realBand; }
 
@@ -47,7 +44,7 @@ public class SearchBean {
     public void dropAllData() {
         this.setMapName("");
         this.setAllBands(false);
-        this.setBandRead("0.0");
+        this.setBand("0.0");
         this.setRealBand(0.0f);
         this.setClumpID(0);
     }
@@ -67,7 +64,10 @@ public class SearchBean {
     }
 
     public boolean findObjectInMap(SearchBean bean, ResultBean resBean) {
-        this.setRealBand(Float.parseFloat(this.bandRead));
+        if (!this.getBand().equals("All"))
+            this.setRealBand(Float.parseFloat(this.band));
+        else
+            this.setRealBand(0.0f);
         return SearchController.getInstance().FindObjectInMap(this, resBean);
     }
 

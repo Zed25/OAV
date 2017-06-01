@@ -24,9 +24,9 @@
 
 <br>
 
-<div class="container">
+<div class="container center-align">
 
-    <h5 style="color: slategray">Inserisci i parametri della ricerca: </h5>
+    <h5 style="color: slategray">Insert search params: </h5>
 
     <br>
 
@@ -52,7 +52,7 @@
                     List<String> bands = searchBean.getAllBandsFromDB();
                     if(bands != null){
                         for(int i = 0; i < bands.size(); i++){%>
-                <option value="<%=bands.get(i)%>" name="new_instr_satellite"><%=bands.get(i)%></option>
+                <option value="<%=bands.get(i)%>" name="band"><%=bands.get(i)%></option>
                 <%}}%>
                 <label>Band resolution</label><span></span>
             </select>

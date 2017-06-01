@@ -50,7 +50,10 @@
     <li><a href="registration.jsp"><i class="material-icons black-text">person_add</i>Sign in a user</a></li>
     <li><a href="logout.jsp" ><i class="material-icons black-text">eject</i>Logout</a></li>
     <li><a href="insertSatellite.jsp"><i class="material-icons black-text">add</i>New Satellite</a></li>
-    <li><a href="findObjInMap.jsp"><i class="material-icons black-text">add</i>Search Source</a></li>
+    <li><a href="findObjInMap.jsp"><i class="material-icons black-text">search</i>Search Object in Map</a></li>
+    <li><a href="findClumpByID.jsp"><i class="material-icons black-text">search</i>Search Clump by ID</a></li>
+    <li><a href="massAllClumpsResult.jsp"><i class="material-icons black-text">equalizer</i>Get mass of all Clumps</a></li>
+    <li><a href="ratioBetweenLinesResult.jsp"><i class="material-icons black-text">equalizer</i>Get stats of clumps mass</a></li>
     <li><a href="csvInsert.jsp"><i class="material-icons black-text">add</i>Add csv</a></li>
     <li><a href="insertInstrument.jsp"><i class="material-icons black-text">add</i>New Instrument</a></li>
     <li><a href="clumpByDensitySearch.jsp"><i class="material-icons black-text">search</i>Search clump for density</a></li>

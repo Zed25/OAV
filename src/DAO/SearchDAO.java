@@ -35,7 +35,7 @@ public class SearchDAO extends SuperDAO {
         if (!bean.getMapName().equals("HiGal")) {
 
             //voglio una banda precisa
-            if ( bean.getRealBand() != 0.0) {
+            if ( bean.getRealBand() != 0.0f) {
                 query = "SELECT fl.value, src.sourceid, fl.band " +
                         "FROM collection AS coll INNER JOIN sources AS src ON (coll.source = src.sourceid) " +
                         "INNER JOIN fluxes AS fl ON (coll.source = fl.source) " +
@@ -53,7 +53,7 @@ public class SearchDAO extends SuperDAO {
 
         else {
             //want a target band
-            if ( bean.getRealBand() != 0.0) {
+            if ( bean.getRealBand() != 0.0f) {
                 query = "SELECT fl.value, clumps.clumpid, fl.band " +
                         "FROM clumps INNER JOIN fluxes AS fl ON (clumps.clumpid = fl.clump) " +
                         "WHERE (clumps.higalmaps = " + "'" + bean.getMapName() + "' AND " + "fl.band = " + "'" + bean.getRealBand() + "');";
@@ -65,7 +65,6 @@ public class SearchDAO extends SuperDAO {
                         "WHERE (clumps.higalmaps = " + "'" + bean.getMapName() + "');";
             }
         }
-
         return executeQuery(query);
     }
 

@@ -92,6 +92,10 @@ public class ResultBean {
         this.setClumpBeans(clumpBeans);
         List<SourceBean> sourceBeans = new ArrayList<>();
         this.setSourceBeans(sourceBeans);
+        this.setMediumValue(0.0);
+        this.setMedian(0.0);
+        this.setMAD(0.0);
+        this.setStandardDeviation(0.0);
     }
 
     public void resetCount() { this.count = 0; }

@@ -5,116 +5,47 @@
   Time: 14.48
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib uri="http://displaytag.sf.net" prefix="display" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <jsp:useBean id="searchBean" scope="session" class="beans.login.search.SearchBean"/>
 <jsp:useBean id="resultBean" scope="session" class="beans.login.search.ResultBean"/>
 
 <jsp:include page="header.jsp"/>
 
-<table class="striped">
-    <thead>
-    <tr>
-        <% if (!searchBean.getMapName().equals("HiGal")) {%>
-        <th>Source Name</th>
-        <% } else { %>
-        <th>Clump ID</th>
-        <% } %>
-        <th>Band Width</th>
-        <th>Flow Value</th>
-    </tr>
-    </thead>
+<%--max 50 elementi visualizzati per pagina--%>
 
-    <tbody>
-    <%--max 50 elementi visualizzati per pagina--%>
+<%--Sources case--%>
 
-    <%--Sources case--%>
+<% if (!searchBean.getMapName().equals("HiGal")) {
+    request.setAttribute("Sources", resultBean.getSourceBeans());%>
+    <div class="container center-align">
+        <display:table name="Sources" pagesize="50">
+            <display:column property="sourceID" title="Source ID"/>
+            <display:column property="band" title="Band Width"/>
+            <display:column property="fluxValue" title="Flux Value"/>
+        </display:table>
+    </div>
 
-    <% if (!searchBean.getMapName().equals("HiGal")) {
-        for(resultBean.getCount(); resultBean.getCount()<50*resultBean.getPage(); resultBean.incrementCount()) {
-            if (resultBean.getCount()<resultBean.getSourceBeans().size()) {  %>
-                    <tr>
-                        <td> <%out.println(resultBean.getSourceBeans().get(resultBean.getCount()).getSourceID());%> </td>
-                        <td> <%out.println(Float.toString(resultBean.getSourceBeans().get(resultBean.getCount()).getBand()));%> </td>
-                        <td> <%out.println(Float.toString(resultBean.getSourceBeans().get(resultBean.getCount()).getFluxValue()));%> </td>
-                    </tr>
-    <% }
-    }
-    if (resultBean.getCount()<resultBean.getSourceBeans().size()) {%>
+<%--Clumps case--%>
 
-    <div class="row">
-    <form class="col s12" action="avanti.jsp" method="get" name="nextform">
-        <div class="row">
-            <button class="waves-effect" type="submit" name="nextpage">next</button>
+<%} else {
+    request.setAttribute("Clumps", resultBean.getClumpBeans());%>
+    <div class="container center-align">
+        <div class="container center-align">
+            <display:table name="Clumps" pagesize="50">
+                <display:column property="clumpID" title="Clump ID"/>
+                <display:column property="band" title="Band Width"/>
+                <display:column property="fluxValue" title="Flux Value"/>
+            </display:table>
         </div>
-    </form>
 
-    <form class="col s12" action="indietro.jsp" method="get" name="previousform">
-        <div class="row">
-            <button class="waves-effect" type="submit" name="previouspage">previous</button>
-        </div>
-    </form>
-    </div>
+<% } %>
 
-    <%--Last page reached--%>
+<div class="container center-align">
+    <a class="waves-effect waves-light btn" href="backToSearch.jsp">Back to Search</a>
+</div>
 
-    <% } else { %>
-
-    <div>
-        <form class="col s12" action="indietro.jsp" method="get" name="previousform">
-            <div class="row">
-                <button class="waves-effect" type="submit" name="previouspage">previous</button>
-            </div>
-        </form>
-    </div>
-
-    <% };%>
-
-    <%--Clumps case--%>
-
-    <%} else {
-         for(resultBean.getCount(); resultBean.getCount()<50*resultBean.getPage(); resultBean.incrementCount()) {
-             if (resultBean.getCount()<resultBean.getClumpBeans().size()) {  %>
-                <tr>
-                    <td> <%out.println(Integer.toString(resultBean.getClumpBeans().get(resultBean.getCount()).getClumpID()));%> </td>
-                    <td> <%out.println(Float.toString(resultBean.getClumpBeans().get(resultBean.getCount()).getBand()));%> </td>
-                    <td> <%out.println(Float.toString(resultBean.getClumpBeans().get(resultBean.getCount()).getFluxValue()));%> </td>
-                </tr>
-
-    <% }
-    } if (resultBean.getCount()<resultBean.getClumpBeans().size()) {%>
-
-    <div class="row">
-        <form class="col s12" action="avanti.jsp" method="get" name="nextform">
-            <div class="row">
-                <button class="waves-effect" type="submit" name="nextpage">next</button>
-            </div>
-        </form>
-
-        <form class="col s12" action="indietro.jsp" method="get" name="previousform">
-            <div class="row">
-                <button class="waves-effect" type="submit" name="previouspage">previous</button>
-            </div>
-        </form>
-    </div>
-
-    <%--Last page reached--%>
-
-    <% } else { %>
-
-    <div>
-    <form class="col s12" action="indietro.jsp" method="get" name="previousform">
-        <div class="row">
-            <button class="waves-effect" type="submit" name="previouspage">previous</button>
-        </div>
-    </form>
-    </div>
-
-    <% };}%>
-    </tbody>
-</table>
-
-<form class="col s12" action="backToSearch.jsp" method="post">
-    <button class="waves-effect" name="backToSearchButton" id="backToSearchButton">Back to Search</button>
-</form>
+<br>
 
 <jsp:include page="footer.jsp"/>

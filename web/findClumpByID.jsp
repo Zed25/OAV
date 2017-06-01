@@ -28,14 +28,15 @@
 
 <div class="container">
 
-    <h5 style="color: slategray">Inserisci i parametri della ricerca: </h5>
+    <h5 style="color: slategray">Insert Clump ID: </h5>
 
     <br>
 
     <form class="col s12" action="#" method="post">
 
         <div class="input-field">
-            <input type="text" id="clumpID" name="clumpID" class="col s12 m6 l4">Insert clump ID
+            <i class="material-icons prefix">mode_edit</i>
+            <input placeholder="Clump ID" id="clumpID" name="clumpID" type="number" class="validate">
         </div>
 
         <br>

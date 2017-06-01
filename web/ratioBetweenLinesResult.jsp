@@ -13,26 +13,33 @@
 
 <% searchBean.ratioBetweenLines(resultBean); %>
 
-<table class="striped">
-    <thead>
-    <tr>
-        <th>Medium Value</th>
-        <th>Standard Deviation</th>
-        <th>Median</th>
-        <th>MAD</th>
-    </tr>
-    </thead>
+<div class="container center-align">
+    <table class="striped">
+        <thead>
+        <tr>
+            <th>Medium Value</th>
+            <th>Standard Deviation</th>
+            <th>Median</th>
+            <th>MAD</th>
+        </tr>
+        </thead>
 
-    <tbody>
+        <tbody>
 
-    <tr>
-        <td> <%=resultBean.getMediumValue()%> </td>
-        <td> <%=resultBean.getStandardDeviation()%> </td>
-        <td> <%=resultBean.getMedian()%> </td>
-        <td> <%=resultBean.getMAD()%> </td>
-    </tr>
+        <tr>
+            <td> <%=resultBean.getMediumValue()%> </td>
+            <td> <%=resultBean.getStandardDeviation()%> </td>
+            <td> <%=resultBean.getMedian()%> </td>
+            <td> <%=resultBean.getMAD()%> </td>
+        </tr>
 
-    </tbody>
-</table>
+        </tbody>
+    </table>
+
+    <br>
+
+    <a class="waves-effect waves-light btn" href="backToSearch.jsp">Back to Search</a>
+
+</div>
 
 <jsp:include page="footer.jsp"/>

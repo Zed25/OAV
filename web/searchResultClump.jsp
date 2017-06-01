@@ -11,41 +11,45 @@
 
 <jsp:include page="header.jsp"/>
 
-<table class="striped">
-    <thead>
-    <tr>
-        <th>Clump ID</th>
-        <th>Galactic Latitude</th>
-        <th>Galactic Longitude</th>
-        <th>Band Width</th>
-        <th>Flow Value</th>
-    </tr>
-    </thead>
+<div class="container center-align">
+    <table class="striped">
+        <thead>
+        <div class="container center-align">
+            <tr>
+                <th>Clump ID</th>
+                <th>Galactic Latitude</th>
+                <th>Galactic Longitude</th>
+                <th>Band Width</th>
+                <th>Flow Value</th>
+            </tr>
+        </div>
+        </thead>
 
-    <tbody>
+        <tbody>
 
-    <% for (resultBean.getCount(); resultBean.getCount()<resultBean.getClumpBeans().size(); resultBean.incrementCount()) {
-    %>
-    <tr>
-        <% if (resultBean.getCount() == 0) { %>
-        <td> <%out.println(resultBean.getClumpBeans().get(resultBean.getCount()).getClumpID());%> </td>
-        <td> <%out.println(resultBean.getClumpBeans().get(resultBean.getCount()).getGalLat());%> </td>
-        <td> <%out.println(resultBean.getClumpBeans().get(resultBean.getCount()).getGalLong());%> </td>
-        <% } else { %>
-        <td></td>
-        <td></td>
-        <td></td>
+        <% for (resultBean.getCount(); resultBean.getCount()<resultBean.getClumpBeans().size(); resultBean.incrementCount()) {
+        %>
+        <tr>
+            <% if (resultBean.getCount() == 0) { %>
+            <td> <%out.println(resultBean.getClumpBeans().get(resultBean.getCount()).getClumpID());%> </td>
+            <td> <%out.println(resultBean.getClumpBeans().get(resultBean.getCount()).getGalLat());%> </td>
+            <td> <%out.println(resultBean.getClumpBeans().get(resultBean.getCount()).getGalLong());%> </td>
+            <% } else { %>
+            <td></td>
+            <td></td>
+            <td></td>
+            <% } %>
+            <td> <%out.println(Float.toString(resultBean.getClumpBeans().get(resultBean.getCount()).getBand()));%> </td>
+            <td> <%out.println(Float.toString(resultBean.getClumpBeans().get(resultBean.getCount()).getFluxValue()));%> </td>
+        </tr>
         <% } %>
-        <td> <%out.println(Float.toString(resultBean.getClumpBeans().get(resultBean.getCount()).getBand()));%> </td>
-        <td> <%out.println(Float.toString(resultBean.getClumpBeans().get(resultBean.getCount()).getFluxValue()));%> </td>
-    </tr>
-    <% } %>
 
-    </tbody>
-</table>
+        </tbody>
+    </table>
 
-<form class="col s12" action="backToSearch.jsp" method="post">
-    <button class="waves-effect" name="backToSearchButton" id="backToSearchButton">Back to Search</button>
-</form>
+    <br>
+
+    <a class="waves-effect waves-light btn" href="backToSearch.jsp">Back to Search</a>
+</div>
 
 <jsp:include page="footer.jsp"/>
