@@ -54,29 +54,31 @@ public class UsersController {
 
         User user;
         try {
-            cachedRowSet.next();
-            user = new User(cachedRowSet.getString("name"),
-                    cachedRowSet.getString("surname"),
-                    cachedRowSet.getString("user_id"),
-                    cachedRowSet.getString("password"),
-                    cachedRowSet.getString("email"),
-                    cachedRowSet.getString("type"));
-            user.setLogged();
-            if(user.isLogged()) //a user is logged only if all his required attributes aren't empty
-                if(user.getType().equals("Admin"))
-                    user.setAdministrationRole(new Administration(
-                            user.getName(),
-                            user.getSurname(),
-                            user.getUserID(),
-                            user.getPassword(),
-                            user.getEmail(),
-                            user.getType()
-                    ));
-            return user;
+            if(cachedRowSet.next()) {
+                user = new User(cachedRowSet.getString("name"),
+                        cachedRowSet.getString("surname"),
+                        cachedRowSet.getString("user_id"),
+                        cachedRowSet.getString("password"),
+                        cachedRowSet.getString("email"),
+                        cachedRowSet.getString("type"));
+                user.setLogged();
+                if (user.isLogged()) //a user is logged only if all his required attributes aren't empty
+                    if (user.getType().equals("Admin"))
+                        user.setAdministrationRole(new Administration(
+                                user.getName(),
+                                user.getSurname(),
+                                user.getUserID(),
+                                user.getPassword(),
+                                user.getEmail(),
+                                user.getType()
+                        ));
+                return user;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
+        return null;
     }
 
     /**simple logout**/
@@ -85,9 +87,30 @@ public class UsersController {
         return ErrorType.NO_ERR;
     }
 
-    public ErrorType createNewUserRecord(UserBean user) {
-        UserDAO userDAO = new UserDAO();
-        return userDAO.createUserRecord(user);
+    /**View link function
+     * ask controller to create new user record in db
+     * @param userBean user info to db
+     * @param userType who try operation level
+     * @return error type. NO_ERR if the operation ends without problems**/
+    public ErrorType createNewUserRecord(UserBean userBean, String userType) {
+        User user = new User(userBean.getName(), userBean.getSurname(), userBean.getUserID(), userBean.getPassword(),
+                userBean.getEmail(), userBean.getType());
+        return insertNewUser(user, userType);
+    }
+
+    /**create new user record in db
+     * @param user user info to db
+     * @param userType who try operation level
+     * @return error type. NO_ERR if the operation ends without problems**/
+    public ErrorType insertNewUser(User user, String userType){
+        if(userType.equals("Admin")) {
+            if (user.hasAllInfoToInsert()) {
+                UserDAO userDAO = new UserDAO();
+                return userDAO.insert(user);
+            }
+            return ErrorType.MISS_VAL;
+        }
+        return ErrorType.NO_ADMIN;
     }
 
     public static synchronized UsersController getUsersControllerInstance() {

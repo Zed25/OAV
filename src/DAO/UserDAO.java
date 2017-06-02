@@ -5,6 +5,7 @@ import beans.login.UserBean;
 import com.sun.rowset.CachedRowSetImpl;
 import enumerations.ConnectionType;
 import enumerations.ErrorType;
+import model.User;
 
 import java.sql.*;
 
@@ -39,9 +40,10 @@ public class UserDAO extends SuperDAO{
         return cachedRowSetImpl;
     }
 
-    public ErrorType createUserRecord(UserBean user) {
+
+    public ErrorType insert(User user) {
         String checkUsernameEsistance = "SELECT User_id FROM Users WHERE User_id=?;";
-        System.out.println(checkUsernameEsistance);
+        System.out.println(checkUsernameEsistance); //DEBUG
 
         String query = "INSERT INTO users (user_id, password, name, surname, email, type) VALUES (?,?,?,?,?,?);";
 

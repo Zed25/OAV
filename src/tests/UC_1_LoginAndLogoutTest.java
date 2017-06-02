@@ -1,5 +1,4 @@
-package beans.login;
-
+import beans.login.UserBean;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,28 +16,28 @@ public class UC_1_LoginAndLogoutTest {
 
     @Parameterized.Parameters
     public static Collection<UserBean> data() {
-        UserBean user1 = new UserBean();
-        user1.setUserID("Zed");
-        user1.setPassword("root");
-        user1.login();
+        UserBean rightFilledUser= new UserBean();
+        rightFilledUser.setUserID("Zed");
+        rightFilledUser.setPassword("root");
+        rightFilledUser.login();
 
-        UserBean user2 = new UserBean();
-        user2.setUserID("Zed");
-        user2.setPassword("root");
-        user2.login();
-        user2.setPassword("");
+        UserBean userLoggedWithPasswordCleaned = new UserBean();
+        userLoggedWithPasswordCleaned.setUserID("Zed");
+        userLoggedWithPasswordCleaned.setPassword("root");
+        userLoggedWithPasswordCleaned.login();
+        userLoggedWithPasswordCleaned.setPassword("");
 
-        UserBean user3 = new UserBean();
-        user3.setUserID("Zed");
-        user3.setPassword("root");
-        user3.login();
-        user3.setName("");
-        user3.setEmail("");
+        UserBean userloggedWithSomeFieldCleaned = new UserBean();
+        userloggedWithSomeFieldCleaned.setUserID("Zed");
+        userloggedWithSomeFieldCleaned.setPassword("root");
+        userloggedWithSomeFieldCleaned.login();
+        userloggedWithSomeFieldCleaned.setName("");
+        userloggedWithSomeFieldCleaned.setEmail("");
 
         return Arrays.asList(
-                user1,
-                user2,
-                user3
+                rightFilledUser,
+                userLoggedWithPasswordCleaned,
+                userloggedWithSomeFieldCleaned
         ); //return an admin user logged
     }
 

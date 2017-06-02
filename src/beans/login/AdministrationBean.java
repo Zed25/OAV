@@ -21,6 +21,7 @@ public class AdministrationBean extends UserBean {
         this.setName(user.getName());
         this.setSurname(user.getSurname());
         this.setEmail(user.getEmail());
+        this.setType(user.getType());
     }
 
     /**
@@ -30,8 +31,8 @@ public class AdministrationBean extends UserBean {
      */
     public ErrorType newUserRegistration(UserBean user){
         if(user.isFull())
-            return UsersController.getUsersControllerInstance().createNewUserRecord(user);
-        return ErrorType.GEN_ERR;
+            return UsersController.getUsersControllerInstance().createNewUserRecord(user, this.getType());
+        return ErrorType.MISS_VAL;
     }
 
 }

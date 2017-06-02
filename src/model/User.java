@@ -26,6 +26,19 @@ public class User {
         this.type = type;
     }
 
+    /**check if the user object has all the info required to insert in db**/
+    public boolean hasAllInfoToInsert() {
+        if(this.getName().equals("") ||
+                this.getSurname().equals("") ||
+                this.getUserID().equals("") ||
+                this.getPassword().equals("") ||
+                this.getEmail().equals("") ||
+                this.getType().equals(""))
+            return false;
+
+        return true;
+    }
+
     public String getName() {
         return name;
     }
