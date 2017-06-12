@@ -21,7 +21,7 @@ create table  StarMaps(
 create table Instruments (
 	Name character varying (10) primary key,
 	Satallite character varying (10) references Satellites (Name) NOT NULL,
-	StarMap character varying (10) references StarMaps (Name) NOT NULL 
+	StarMap character varying (10) references StarMaps (Name) NOT NULL
 );
 
 create table Bands(
@@ -65,7 +65,7 @@ create table Clumps(
 create table S_C_Membership(
 	Source character varying (20) references Sources (SourceID) NOT NULL,
 	Clump integer references Clumps (ClumpID)  NOT NULL,
-	primary key (Source,Clump)
+  primary key (Source,Clump)
 );
 
 create table Ellipses (

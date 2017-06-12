@@ -15,9 +15,10 @@ import java.util.List;
 public class FileUpload extends HttpServlet {
 
     public String filescelto;
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        FileGetter c = FileGetter.getFileControllerInstance();
+        FileController c = FileController.getFileControllerInstance();
         filescelto = c.filescelto;
 
         ServletFileUpload sf = new ServletFileUpload(new DiskFileItemFactory());
@@ -42,7 +43,6 @@ public class FileUpload extends HttpServlet {
         } catch (Exception b) {
             b.printStackTrace();
         }
-
 
     }
 
@@ -69,11 +69,10 @@ public class FileUpload extends HttpServlet {
         if (allLines!= null){
             FileDAO fileDAO = new FileDAO();
             if (fileDAO.fillingTable(fileName, allLines))
+
                 return true;
         }
-
         return false;
-
     }
 }
 

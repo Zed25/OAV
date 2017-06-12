@@ -1,4 +1,4 @@
-<%@ page import="csvReader.FileGetter" %><%--
+<%@ page import="csvReader.FileController" %><%--
   Created by IntelliJ IDEA.
   User: dilettalagom
   Date: 04/04/17
@@ -94,7 +94,7 @@
         filescelto= request.getParameter("filescelto3");
     }
 
-    FileGetter c = FileGetter.getFileControllerInstance();
+    FileController c = FileController.getFileControllerInstance();
     c.filescelto = filescelto;
 
 %>

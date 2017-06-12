@@ -14,10 +14,10 @@ import java.util.List;
 
 public class FileDAO extends SuperDAO {
 
+    public Connection connection = connect(ConnectionType.COMPQUERY);
 
     public boolean fillingTable(String fileName, List<String[]> allLines) {
 
-        Connection connection = connect(ConnectionType.COMPQUERY);
         String[] tableNamesRight;
 
         switch (fileName) {
@@ -71,8 +71,8 @@ public class FileDAO extends SuperDAO {
 
             case "higal_additionalinfo.csv":
 
-                List<Integer> existingClump= GetOldClump(connection);
-                List<Integer> newClump= new ArrayList<>();
+                List<Integer> existingClump = GetOldClump(connection);
+                List<Integer> newClump = new ArrayList<>();
 
                 //Controllo  NOMI COLONNE prima riga
                 tableNamesRight = new String[]{"SOURCE_ID", "S70", "S160", "S250", "S350", "S500", "FW70_1", "FW70_2", "FW160_1", "FW160_2", "FW250_1",
@@ -85,15 +85,15 @@ public class FileDAO extends SuperDAO {
                     for (int i = 1; i < allLines.size(); i++) {
 
                         String[] line = allLines.get(i);
-                        if (!(existingClump.contains(Integer.parseInt(line[0])))&& !(newClump.contains(Integer.parseInt(line[0])))) {
+                        if (!(existingClump.contains(Integer.parseInt(line[0]))) && !(newClump.contains(Integer.parseInt(line[0])))) {
                             newClump.add(Integer.parseInt(line[0]));
                         }
                     }
 
 
                     try {//Aggiornamento tabella Clumps
-                        for (int j=0; j<newClump.size();j++){
-                            String queryNewClumps = "INSERT INTO Clumps (clumpid) Values (" + newClump.get(j) + ");";
+                        for (int j = 0; j < newClump.size(); j++) {
+                            String queryNewClumps = "INSERT INTO Clumps (clumpid, higalmaps) Values (" + newClump.get(j) + ",'HiGal');";
                             Statement statement = connection.createStatement();
 
                             statement.executeUpdate(queryNewClumps);
@@ -201,7 +201,7 @@ public class FileDAO extends SuperDAO {
 
             case "r08.csv":
 
-                tableNamesRight = new String[]{"SSTGLMC", "GLon", "GLat" ,"[3.6]G", "[4.5]G", "[5.8]G", "[8.0]G"};
+                tableNamesRight = new String[]{"SSTGLMC", "GLon", "GLat", "[3.6]G", "[4.5]G", "[5.8]G", "[8.0]G"};
 
                 if (!(FirstLineOK(allLines.get(0), tableNamesRight))) {
                     System.out.println("E' stato inserito un csv errato"); //STAMPARE ROBE A SCHERMO html
@@ -220,33 +220,33 @@ public class FileDAO extends SuperDAO {
 
                                 //Riempimento tabella SourcesGLIMPSE
                                 query = "INSERT INTO sources (sourceid, galacticLongitude, galacticLatitude) VALUES ('" +
-                                        line[0]+ "', " + Double.parseDouble(line[1])+ ", " + Double.parseDouble(line[2]) +");";
+                                        line[0] + "', " + Double.parseDouble(line[1]) + ", " + Double.parseDouble(line[2]) + ");";
 
                                 if (!(line[3].equals("     "))) {
                                     query2 = "INSERT INTO fluxes (value, band, source) VALUES (" +
-                                            Double.parseDouble(line[3])+ ", " +Double.parseDouble("3.6")+ ", '" + line[0] +"');";
+                                            Double.parseDouble(line[3]) + ", " + Double.parseDouble("3.6") + ", '" + line[0] + "');";
                                     queriesFluxes.add(query2);
                                 }
 
                                 if (!(line[4].equals("     "))) {
                                     query2 = "INSERT INTO fluxes (value, band, source) VALUES (" +
-                                            Double.parseDouble(line[4])+ ", " +Double.parseDouble("4.5")+ ", '" + line[0] +"');";
+                                            Double.parseDouble(line[4]) + ", " + Double.parseDouble("4.5") + ", '" + line[0] + "');";
                                     queriesFluxes.add(query2);
                                 }
 
-                                if (!(line[5].equals("     ")))  {
+                                if (!(line[5].equals("     "))) {
                                     query2 = "INSERT INTO fluxes (value, band, source) VALUES (" +
-                                            Double.parseDouble(line[5])+ ", " +Double.parseDouble("5.8")+ ", '" + line[0] +"');";
+                                            Double.parseDouble(line[5]) + ", " + Double.parseDouble("5.8") + ", '" + line[0] + "');";
                                     queriesFluxes.add(query2);
                                 }
 
-                                if ((line[6].equals("     ")))  {
+                                if ((line[6].equals("     "))) {
                                     query2 = "INSERT INTO fluxes (value, band, source) VALUES (" +
-                                            Double.parseDouble(line[6])+ ", " +Double.parseDouble("8.0")+ ", '" + line[0] +"');";
+                                            Double.parseDouble(line[6]) + ", " + Double.parseDouble("8.0") + ", '" + line[0] + "');";
                                     queriesFluxes.add(query2);
                                 }
 
-                                query3= "INSERT INTO collection (starmap, source) VALUES ('Glimpse', '"  +line[0]+"');";
+                                query3 = "INSERT INTO collection (starmap, source) VALUES ('Glimpse', '" + line[0] + "');";
                             } catch (NumberFormatException e) {
                                 //Controllo type sulle singole righe
                                 System.out.println("il formato del csv non è adatto a questa operazione"); //STAMPARE ROBE A SCHERMO html
@@ -276,8 +276,8 @@ public class FileDAO extends SuperDAO {
 
 
             case "mips.csv"://MANCANO ALCUNE CHIAVI
-                List<String> existingSources= GetOldSources(connection);
-                List<String> newSources= new ArrayList<>();
+                List<String> existingSources = GetOldSources(connection);
+                List<String> newSources = new ArrayList<>();
 
                 //Controllo  NOMI COLONNE prima rmiga
                 tableNamesRight = new String[]{"MIPSGAL", "GLON", "GLAT", "[24]", "e_[24]", "GLIMPSE"};
@@ -286,12 +286,11 @@ public class FileDAO extends SuperDAO {
                     System.out.println("E' stato inserito un csv errato"); //STAMPARE ROBE A SCHERMO html
                 } else {
 
-
                     for (int i = 1; i < allLines.size(); i++) {
 
                         String[] line = allLines.get(i); //OUT OF 5e
 
-                        if (line.length>5) {
+                        if (line.length > 5) {
                             if (!(existingSources.contains(line[5])) && !(newSources.contains(line[5]))) {
                                 newSources.add(line[5]);
                             }
@@ -300,7 +299,7 @@ public class FileDAO extends SuperDAO {
 
 
                     try {//Aggiornamento tabella Clumps
-                        for (int j=0; j<newSources.size();j++){
+                        for (int j = 0; j < newSources.size(); j++) {
                             String queryNewSources = "INSERT INTO sources (sourceid) Values ('" + newSources.get(j) + "');";
                             Statement statement = connection.createStatement();
                             statement.executeUpdate(queryNewSources);
@@ -320,21 +319,21 @@ public class FileDAO extends SuperDAO {
 
 
                             try {
-                                if (line.length==6) {
+                                if (line.length == 6) {
 
-                                //Riempimento tabella Sources
+                                    //Riempimento tabella Sources
                                     query = "INSERT INTO sources (sourceid, galacticLongitude, galacticLatitude, comparedSource) VALUES ('" +
-                                            line[0]+ "', " + Double.parseDouble(line[1])+ ", " + Double.parseDouble(line[2]) + ", '" + line[5]+"');";
-                                }else{
+                                            line[0] + "', " + Double.parseDouble(line[1]) + ", " + Double.parseDouble(line[2]) + ", '" + line[5] + "');";
+                                } else {
                                     query = "INSERT INTO sources (sourceid, galacticLongitude, galacticLatitude) VALUES ('" +
-                                            line[0]+ "', " + Double.parseDouble(line[1])+ ", " + Double.parseDouble(line[2])+");";
+                                            line[0] + "', " + Double.parseDouble(line[1]) + ", " + Double.parseDouble(line[2]) + ");";
 
                                 }
                                 //clRiempimento tabella fluxes
-                                query2 = "INSERT INTO fluxes (value, error, band, source) VALUES ("+
-                                        Double.parseDouble(line[3])+ ", " +  Double.parseDouble(line[4])+ ", " + Double.parseDouble("24.0")+ ", '"  + line[0]+"');";
+                                query2 = "INSERT INTO fluxes (value, error, band, source) VALUES (" +
+                                        Double.parseDouble(line[3]) + ", " + Double.parseDouble(line[4]) + ", " + Double.parseDouble("24.0") + ", '" + line[0] + "');";
 
-                                query3= "INSERT INTO collection (starmap, source) VALUES ('MIPS-GAL', '"  +line[0]+"');";
+                                query3 = "INSERT INTO collection (starmap, source) VALUES ('MIPS-GAL', '" + line[0] + "');";
 
                             } catch (NumberFormatException e) {
                                 //Controllo type sulle singole righe
@@ -359,12 +358,54 @@ public class FileDAO extends SuperDAO {
                             e1.printStackTrace();
                         }
                     }
+
+                    try {
+                        //if (notEmpty()) { //fino a qui ok
+
+                            Boolean a = new InsertSourceClump().membership();
+                            // System.out.println("tabelle non vuote e fillSCmemb");
+
+                           /* for (String[] res : result) {
+                                String query = "INSERT INTO s_c_membership(source, clump) Values ('" + res[0] + "'," + Integer.parseInt(res[1]) + ");";
+                                Statement statement = connection.createStatement();
+                                statement.executeUpdate(query);
+                            }*/
+                       // }
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
                 }
                 return true;
         }
+
         return false;
     }
 
+
+    public boolean notEmpty(){
+        try {
+            String[] queryNotEmpty = new String[]{
+                    "SELECT COUNT(*) AS NRecord FROM ellipses",
+                    "SELECT COUNT(*) AS NRecord FROM clumps"};
+
+
+            Statement statement = connection.createStatement();
+            for (String query: queryNotEmpty) {
+                ResultSet result = statement.executeQuery(query);
+                while (result.next()) {
+                    //System.out.println(result.getInt("NRecord"));
+                    if(result.getInt("NRecord")==0) {
+                        System.out.println("Tabella vuota");
+                        return false;
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
 
     private boolean FirstLineOK(String[] csvFirstLine, String[] expetedLine) {
         for (int j = 0; j < csvFirstLine.length; j++) {
