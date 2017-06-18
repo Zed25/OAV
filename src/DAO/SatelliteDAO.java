@@ -5,11 +5,11 @@ import beans.login.InstrumentBean;
 import beans.login.SatelliteBean;
 import com.sun.rowset.CachedRowSetImpl;
 import enumerations.ConnectionType;
+import enumerations.ErrorType;
+import model.Agency;
+import model.Satellite;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,59 +19,75 @@ import java.util.List;
 public class SatelliteDAO extends SuperDAO{
 
 
-    public boolean serializeSatellite(SatelliteBean satelliteBean, List<AgencyBean> newAgencies) {
-        String checkSatelliteExistence = "SELECT Name FROM Satellites WHERE Name = '" + satelliteBean.getName() +"';";
-        System.out.println(checkSatelliteExistence);
+    public ErrorType serializeSatellite(Satellite satellite, List<Agency> newAgencies) {
+
+        String checkSatelliteExistence = "SELECT Name FROM Satellites WHERE Name = ? ;";
+
+        System.out.println(checkSatelliteExistence); //DEBUG
 
         Connection connection = connect(ConnectionType.COMPQUERY);
         CachedRowSetImpl cachedRowSetImpl;
-        Statement statement;
+        PreparedStatement preparedStatement;
 
         try {
-            statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(checkSatelliteExistence);
+            preparedStatement = connection.prepareStatement(checkSatelliteExistence);
+            preparedStatement.setString(1, satellite.getName());
+            ResultSet resultSet = preparedStatement.executeQuery();
             if(resultSet.next()){
                 resultSet.close();
-                statement.close();
+                preparedStatement.close();
                 disconnect(connection);
-                System.out.println("Satellite's name already exists!");
-                return false;
+                System.out.println("Satellite's name already exists!"); //DEBUG
+                return ErrorType.ALREADY_EXISTS;
             }
+            preparedStatement.close();
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
             disconnect(connection);
-            return false;
+            return ErrorType.GEN_ERR;
         }
 
-        String query = "INSERT INTO Satellites (Name, StartMissionDate, EndMissionDate) VALUES ('" + satelliteBean.getName() + "', '" +
-                satelliteBean.getStartMissionDate() + "', '" + satelliteBean.getEndMissionDate() + "');";
+        String query = "INSERT INTO Satellites (Name, StartMissionDate, EndMissionDate) VALUES (?,?,?);";
 
         System.out.println(query); //DEBUG
 
+        System.out.println(satellite.getStartMissionDate());
+
 
         try {
-            statement.executeUpdate(query);
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, satellite.getName());
+            preparedStatement.setTimestamp(2, Timestamp.valueOf(satellite.getStartMissionDate()));
+            preparedStatement.setTimestamp(3, Timestamp.valueOf(satellite.getEndMissionDate()));
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+
             if(newAgencies != null) {
+                String newAgencyQuery = "INSERT INTO Agencies (Name) VALUES (?);";
+                preparedStatement = connection.prepareStatement(newAgencyQuery);
                 for (int i = 0; i < newAgencies.size(); i++) {
-                    String newAgencyQuery = "INSERT INTO Agencies (Name) VALUES ('" + newAgencies.get(i).getName() + "');";
-
+                    preparedStatement.setString(1, newAgencies.get(i).getName());
                     System.out.println(query); //DEBUG
-
-                    statement.executeUpdate(newAgencyQuery);
+                    preparedStatement.addBatch();
                 }
+                preparedStatement.executeBatch();
+                preparedStatement.close();
             }
-            for(int i = 0; i < satelliteBean.getAgencyPartecipationList().size(); i++){
-                String agencyQuery = "INSERT INTO MissionsJoined (Agency, Satellite) VALUES ('" + satelliteBean.getAgencyPartecipationList().get(i).getName() +"','" +
-                        satelliteBean.getName() + "');";
 
+            String agencyQuery = "INSERT INTO MissionsJoined (Agency, Satellite) VALUES (?,?);";
+            preparedStatement = connection.prepareStatement(agencyQuery);
+            for(int i = 0; i < satellite.getAgenciesLinked().size(); i++){
+                preparedStatement.setString(1, satellite.getAgenciesLinked().get(i).getName());
+                preparedStatement.setString(2, satellite.getName());
+                preparedStatement.addBatch();
                 System.out.println(agencyQuery); //DEBUG
-
-                statement.executeUpdate(agencyQuery);
             }
+            preparedStatement.executeBatch();
             connection.commit();
+            preparedStatement.close();
             disconnect(connection);
-            return true;
+            return ErrorType.NO_ERR;
         } catch (SQLException e) {
             e.printStackTrace();
             try {
@@ -83,7 +99,7 @@ public class SatelliteDAO extends SuperDAO{
             disconnect(connection);
         }
 
-        return false;
+        return ErrorType.GEN_ERR;
     }
 
     public List<String> getAllSatellitesNameFromDB() {

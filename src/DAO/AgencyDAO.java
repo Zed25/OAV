@@ -3,6 +3,8 @@ package DAO;
 import beans.login.AgencyBean;
 import com.sun.rowset.CachedRowSetImpl;
 import enumerations.ConnectionType;
+import enumerations.ErrorType;
+import model.Agency;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -16,12 +18,12 @@ import java.util.List;
  */
 public class AgencyDAO extends SuperDAO{
 
-    public List<AgencyBean> getAll(){
+    public List<Agency> getAll(){
         String query = "SELECT * FROM Agencies;";
 
         System.out.println(query); //DEBUG
 
-        List<AgencyBean> agencyBeanList = new ArrayList<>();
+        List<Agency> agencyList = new ArrayList<>();
 
         Connection connection = connect(ConnectionType.SINGLEQUERY);
 
@@ -42,17 +44,16 @@ public class AgencyDAO extends SuperDAO{
 
             try {
                 while (cachedRowSet.next()){
-                    AgencyBean agencyBean = new AgencyBean();
-                    agencyBean.setName(cachedRowSet.getString("Name"));
-                    System.out.println(agencyBean.getName());
-                    agencyBeanList.add(agencyBean);
+                    Agency agency = new Agency(cachedRowSet.getString("Name"));
+                    System.out.println(agency.getName()); //DEBUG
+                    agencyList.add(agency);
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
                 return null;
             }
 
-        return agencyBeanList;
+        return agencyList;
     }
 
     /*public void serializeAgency(AgencyBean agencyBean) {

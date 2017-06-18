@@ -107,8 +107,10 @@ public class User {
         return administrationRole;
     }
 
-    public void setAdministrationRole(Administration administrationRole) {
-        this.administrationRole = administrationRole;
+    public void setAdministrationRole() {
+        if(administrationRole == null) {
+            this.administrationRole = new Administration(this);
+        }
     }
 
     public boolean isAdmin(){

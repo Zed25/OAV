@@ -20,7 +20,7 @@
 <jsp:include page="header.jsp"/>
 
 <%if(!newUserBean.isFull()){%>
-<jsp:include page="registrationForm.jsp"/>
+<jsp:include page="forms/registrationForm.jsp"/>
 <%}else{
     if(loginBean.isAdmin()){
         ErrorType errorType = loginBean.newUserRegistration(newUserBean);
@@ -44,7 +44,7 @@
                     <h3 class="red-text">A problem occurred, try again please</h3>
                 </div>
                 <div class="row">
-                    <jsp:include page="registrationForm.jsp"/>
+                    <jsp:include page="forms/registrationForm.jsp"/>
                 </div>
                 <%break;
             case MISS_VAL:
@@ -53,16 +53,16 @@
                     <h3 class="red-text">Please insert all required values</h3>
                 </div>
                 <div class="row">
-                    <jsp:include page="registrationForm.jsp"/>
+                    <jsp:include page="forms/registrationForm.jsp"/>
                 </div>
                 <%break;
-            case USER_ALREADY_EXISTS:
+            case ALREADY_EXISTS:
                 newUserBean.emptyBean();%>
                 <div class="row">
                     <h3 class="red-text">The chosen username already exists</h3>
                 </div>
                 <div class="row">
-                    <jsp:include page="registrationForm.jsp"/>
+                    <jsp:include page="forms/registrationForm.jsp"/>
                 </div>
         <%}%>
 <%}}%>

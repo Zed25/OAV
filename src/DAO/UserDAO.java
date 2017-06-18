@@ -63,7 +63,7 @@ public class UserDAO extends SuperDAO{
                 preparedStatement.close();
                 resultSet.close();
                 disconnect(connection);
-                return ErrorType.USER_ALREADY_EXISTS;
+                return ErrorType.ALREADY_EXISTS;
             }
 
             resultSet.close();

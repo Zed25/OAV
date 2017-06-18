@@ -1,8 +1,10 @@
 package DAO;
 
 import enumerations.ConnectionType;
+import model.Agency;
 
 import java.sql.*;
+import java.util.List;
 
 /**
  * Created by simone on 06/04/17.
@@ -76,4 +78,6 @@ public abstract class SuperDAO {
     public String getDB_USER() {
         return DB_USER;
     }
+
+
 }

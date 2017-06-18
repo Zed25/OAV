@@ -55,7 +55,7 @@ public class UC_2_01_NewUserRegistration {
             newUser.setType("User");
 
             Assert.assertEquals("User with a userID already chosen added to db",
-                    ErrorType.USER_ALREADY_EXISTS, this.user.newUserRegistration(newUser));
+                    ErrorType.ALREADY_EXISTS, this.user.newUserRegistration(newUser));
 
             //user without some info
             newUser.setName("");

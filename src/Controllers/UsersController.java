@@ -64,14 +64,7 @@ public class UsersController {
                 user.setLogged();
                 if (user.isLogged()) //a user is logged only if all his required attributes aren't empty
                     if (user.getType().equals("Admin"))
-                        user.setAdministrationRole(new Administration(
-                                user.getName(),
-                                user.getSurname(),
-                                user.getUserID(),
-                                user.getPassword(),
-                                user.getEmail(),
-                                user.getType()
-                        ));
+                        user.setAdministrationRole();
                 return user;
             }
         } catch (SQLException e) {

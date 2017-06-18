@@ -5,8 +5,9 @@ package model;
  */
 public class Administration extends User{
 
-    public Administration(String name, String surname, String userID, String password, String email, String type){
-        super(name, surname, userID, password, email, type);
+    public Administration(User user){
+        super(user.getName(), user.getSurname(), user.getUserID(), user.getPassword(),
+                user.getEmail(), user.getType());
     }
 
 }

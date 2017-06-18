@@ -1,6 +1,8 @@
 package beans.login;
 
 import Controllers.SerializeController;
+import Controllers.SerializeSatelliteController;
+import enumerations.ErrorType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,8 +11,7 @@ import java.util.List;
  * Created by simone on 03/04/17.
  */
 public class SatelliteBean {
-    String name, startMissionDate, endMissionDate, agenciesConnected;
-    boolean toSerialize;
+    String name, startMissionDate, endMissionDate, agenciesLinked;
     List<AgencyBean> agencyPartecipationList;
 
     /**
@@ -29,7 +30,9 @@ public class SatelliteBean {
      * @return boolean
      */
     public boolean isFull(){
-        if(this.getName().equals("") || this.getStartMissionDate().equals("") || this.getAgenciesConnected().equals("") || this.getAgencyPartecipationList() == null)
+        if(this.getName().equals("") ||
+                this.getStartMissionDate().equals("") ||
+                this.getAgenciesLinked().equals(""))
             return false;
         return true;
     }
@@ -41,17 +44,18 @@ public class SatelliteBean {
         this.setName("");
         this.setStartMissionDate("");
         this.setEndMissionDate("");
-        this.setAgenciesConnected("");
+        this.setAgenciesLinked("");
         if(this.getAgencyPartecipationList() != null)
             this.agencyPartecipationList = null;
     }
 
     /**
      * calls the constructor and pass itself for serialization
+     * @param userBean who asks for
      * @return boolean
      */
-    public boolean serializeSatellite(){
-        return SerializeController.getSerializeControllerInstance().serializeSatellite(this);
+    public ErrorType serializeSatellite(UserBean userBean){
+        return SerializeSatelliteController.getSerializeSatelliteControllerinstance().serializeSatellite(this, userBean);
     }
 
 
@@ -81,47 +85,19 @@ public class SatelliteBean {
         this.endMissionDate = endMissionDate;
     }
 
+    public String getAgenciesLinked() {
+        return agenciesLinked;
+    }
+
+    public void setAgenciesLinked(String agenciesLinked) {
+        this.agenciesLinked = agenciesLinked;
+    }
+
     public List<AgencyBean> getAgencyPartecipationList() {
         return agencyPartecipationList;
     }
 
     public void setAgencyPartecipationList(List<AgencyBean> agencyPartecipationList) {
         this.agencyPartecipationList = agencyPartecipationList;
-    }
-
-    public String getAgenciesConnected() {
-        return agenciesConnected;
-    }
-
-    /**
-     * creates the agenciesConnected list from the srting filled by the jsp page
-     */
-    public void setAgenciesConnected(String agenciesConnected) {
-        this.agenciesConnected = agenciesConnected;
-
-        if(this.getAgencyPartecipationList() == null){
-            this.agencyPartecipationList = new ArrayList<>();
-        }
-
-        this.getAgencyPartecipationList().clear();
-
-        String[] agencies = this.getAgenciesConnected().split(",");
-
-        for(int i = 0; i < agencies.length - 1; i++){
-            if(!agencies[i].equals("")){
-                addAgencyToMission(agencies[i]);
-            }
-        }
-    }
-
-    /**
-     * insert a new agency in the agenciesConnected list
-     * @param agencyName
-     */
-    public void addAgencyToMission(String agencyName){
-        AgencyBean agency = new AgencyBean();
-        agency.setName(agencyName);
-        this.getAgencyPartecipationList().add(agency);
-        System.out.println("Agency " + agency.getName() + " added to mission's list"); //DEBUG
     }
 }

@@ -10,6 +10,7 @@ import beans.login.search.SearchBean;
 import beans.login.squareCircleSearchBean;
 import com.sun.rowset.CachedRowSetImpl;
 import enumerations.ErrorType;
+import model.Agency;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -136,7 +137,19 @@ public class SearchController {
 
     public List<AgencyBean> getAllAgencies(){
         AgencyDAO agencyDAO = new AgencyDAO();
-        return agencyDAO.getAll();
+        List<Agency> agencies = agencyDAO.getAll();
+
+        if(agencies != null && agencies.size() != 0){
+            List<AgencyBean> agencyBeanList = new ArrayList<>();
+            for(int i = 0; i < agencies.size(); i++){
+                AgencyBean agencyBean = new AgencyBean();
+                agencyBean.setName(agencies.get(i).getName());
+                agencyBeanList.add(agencyBean);
+            }
+            return agencyBeanList;
+        }
+
+        return null;
     }
 
     public int getMaxClumpSourcesNumber() {
