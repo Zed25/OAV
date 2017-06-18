@@ -9,6 +9,6 @@
 
 <jsp:include page="header.jsp"/>
 
-<h5 style="color: slategray">File inserito</h5>
+<h5 style="color: slategray">Sono arrivato qui (ma non t'ho mai caricato il file :) )</h5>
 
 <jsp:include page="footer.jsp"/>

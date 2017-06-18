@@ -359,18 +359,19 @@ public class FileDAO extends SuperDAO {
                         }
                     }
 
-                    try {
-                        //if (notEmpty()) { //fino a qui ok
 
-                            Boolean a = new InsertSourceClump().membership();
-                            // System.out.println("tabelle non vuote e fillSCmemb");
+                    try { //s_c_membership
 
-                           /* for (String[] res : result) {
-                                String query = "INSERT INTO s_c_membership(source, clump) Values ('" + res[0] + "'," + Integer.parseInt(res[1]) + ");";
-                                Statement statement = connection.createStatement();
-                                statement.executeUpdate(query);
-                            }*/
-                       // }
+                        String query = ("INSERT INTO s_c_membership(source, clump) SELECT sources.sourceid, clumps.clumpid "+
+                                "FROM sources INNER JOIN collection ON (sources.sourceid=collection.source) " +
+                                "NATURAL JOIN ellipses INNER JOIN clumps ON (ellipses.clump=clumps.clumpid) " +
+                                "WHERE (sqrt((sources.galacticlatitude - clumps.galacticlatitude)^2 +" +
+                                " (sources.galacticlongitude - clumps.galacticlongitude)^2) < " +
+                                "(ellipses.maxaxis * ellipses.band));");
+                        Statement statement = connection.createStatement();
+                        statement.executeUpdate(query);
+
+
 
                     } catch (SQLException e) {
                         e.printStackTrace();
@@ -382,30 +383,6 @@ public class FileDAO extends SuperDAO {
         return false;
     }
 
-
-    public boolean notEmpty(){
-        try {
-            String[] queryNotEmpty = new String[]{
-                    "SELECT COUNT(*) AS NRecord FROM ellipses",
-                    "SELECT COUNT(*) AS NRecord FROM clumps"};
-
-
-            Statement statement = connection.createStatement();
-            for (String query: queryNotEmpty) {
-                ResultSet result = statement.executeQuery(query);
-                while (result.next()) {
-                    //System.out.println(result.getInt("NRecord"));
-                    if(result.getInt("NRecord")==0) {
-                        System.out.println("Tabella vuota");
-                        return false;
-                    }
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return true;
-    }
 
     private boolean FirstLineOK(String[] csvFirstLine, String[] expetedLine) {
         for (int j = 0; j < csvFirstLine.length; j++) {
