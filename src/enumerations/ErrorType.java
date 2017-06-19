@@ -9,5 +9,10 @@ public enum ErrorType {
     NO_RESULTS, //no matches for the search parameters
     MISS_VAL, //some missing values
     NO_ADMIN, //the operation required administration privileges, but the caller isn't admin
-    ALREADY_EXISTS, //try to create new object record in db with a ID that already exists
+    USER_ALREADY_EXISTS, //try to create new user record with a userID have already taken
+    CATERPILLAR,    //error returning List<clumps> in UC9
+    BABOON, //error returning List<sources> in UC4
+    BOAR,   //error returning List<clumps> in UC5
+    CENTIPEDE,   //error returning list<clumps> in UC10
+    ALREADY_EXISTS //try to create new object record in db with a ID that already exists
 }

@@ -10,14 +10,14 @@
 <jsp:useBean id="searchBean" scope="session" class="beans.login.search.SearchBean"/>
 <jsp:setProperty name="searchBean" property="*"/>
 <jsp:useBean id="resultBean" scope="session" class="beans.login.search.ResultBean"/>
-<%  resultBean.reset();
+<%  if (searchBean.isResetflag())
+        searchBean.dropAllData();
+    resultBean.reset();
     if (searchBean.isFullSource()) {
-        if (searchBean.findObjectInMap(searchBean, resultBean)) {
+        searchBean.setResetflag(true);
 %>
 <jsp:forward page="searchResultSource.jsp"/>
-<%      } else { %>
-<jsp:forward page="noMatch.jsp"/>
-<%      }}
+<%      }
 %>
 
 <jsp:include page="header.jsp"/>

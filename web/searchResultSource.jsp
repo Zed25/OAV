@@ -1,4 +1,4 @@
-<%--
+<%@ page import="enumerations.ErrorType" %><%--
   Created by IntelliJ IDEA.
   User: andrea
   Date: 30/03/17
@@ -13,11 +13,23 @@
 
 <jsp:include page="header.jsp"/>
 
+<% ErrorType errorType = searchBean.findObjectInMap(searchBean, resultBean);
+    if (errorType == ErrorType.BABOON) {%>
+
+<div class="container center-align">
+    <br>
+    <h3>THERE WAS AN ERROR</h3>
+    <h5>(Baboon)</h5>
+    <h4>Sorry for the dust. Please try again</h4>
+    <br>
+    <a class="waves-effect waves-light btn" href="backToSearch.jsp">Back to Search</a>
+</div>
+
 <%--max 50 elementi visualizzati per pagina--%>
 
 <%--Sources case--%>
 
-<% if (!searchBean.getMapName().equals("HiGal")) {
+<% } else if (!searchBean.getMapName().equals("HiGal")) {
     request.setAttribute("Sources", resultBean.getSourceBeans());%>
     <div class="container center-align">
         <display:table name="Sources" pagesize="50">

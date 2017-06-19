@@ -5,10 +5,7 @@ import beans.login.squareCircleSearchBean;
 import com.sun.rowset.CachedRowSetImpl;
 import enumerations.ConnectionType;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 /**
  * Created by simone on 29/04/17.
@@ -19,7 +16,44 @@ public class ClumpDAO extends SuperDAO{
         String query = "SELECT clumpid, temperature, value FROM clumps " +
                 "INNER JOIN fluxes ON (clumps.clumpid = fluxes.clump) " +
                 "WHERE (band = 350) AND (temperature != 0);";
-        return executeQuery(query);
+        Connection connection = connect(ConnectionType.SINGLEQUERY);
+        try {
+            CachedRowSetImpl result = new CachedRowSetImpl();
+            PreparedStatement statementInsert = connection.prepareStatement(query);
+            ResultSet resultSet = statementInsert.executeQuery();
+            result.populate(resultSet);
+            statementInsert.close();
+            connection.close();
+            return result;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            disconnect(connection);
+            return null;
+        }
+    }
+
+    public CachedRowSetImpl searchClumpByID(int clumpID) {
+
+        String query;
+
+        query = "SELECT clumpid, galacticlatitude, galacticlongitude, band, value " +
+                "FROM clumps INNER JOIN fluxes ON (clumps.clumpid = fluxes.clump) " +
+                "WHERE (clumpid = ?);";
+        Connection connection = connect(ConnectionType.SINGLEQUERY);
+        try {
+            CachedRowSetImpl result = new CachedRowSetImpl();
+            PreparedStatement statementInsert = connection.prepareStatement(query);
+            statementInsert.setInt(1, clumpID);
+            ResultSet resultSet = statementInsert.executeQuery();
+            result.populate(resultSet);
+            statementInsert.close();
+            connection.close();
+            return result;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            disconnect(connection);
+            return null;
+        }
     }
 
     public CachedRowSetImpl getClumpsByDensity(float minD, float maxD) {
@@ -62,7 +96,7 @@ public class ClumpDAO extends SuperDAO{
         }
     }
 
-    public CachedRowSetImpl executeQuery(String query) {
+    public CachedRowSetImpl executeQueryMODIFIED(String query) {    //MODIFIED
 
         Connection connection = connect(ConnectionType.SINGLEQUERY);
         try {

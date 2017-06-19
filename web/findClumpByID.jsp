@@ -12,15 +12,14 @@
 <jsp:useBean id="searchBean" scope="session" class="beans.login.search.SearchBean"/>
 <jsp:setProperty name="searchBean" property="*"/>
 <jsp:useBean id="resultBean" scope="session" class="beans.login.search.ResultBean"/>
-<%  resultBean.reset();
+<%  if (searchBean.isResetflag())
+        searchBean.dropAllData();
+    resultBean.reset();
     if (searchBean.isFullClump()) {
-        if (searchBean.findClumpByID(searchBean, resultBean)) {
-            %>
-            <jsp:forward page="searchResultClump.jsp"/>
-<%      } else { %>
-            <jsp:forward page="noMatch.jsp"/>
-<%      }}
+        searchBean.setResetflag(true);
 %>
+        <jsp:forward page="searchResultClump.jsp"/>
+<% } %>
 
 <jsp:include page="header.jsp"/>
 

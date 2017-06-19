@@ -1,4 +1,4 @@
-<%--
+<%@ page import="enumerations.ErrorType" %><%--
   Created by IntelliJ IDEA.
   User: andrea
   Date: 24/05/17
@@ -11,7 +11,19 @@
 <jsp:useBean id="resultBean" scope="session" class="beans.login.search.ResultBean"/>
 <jsp:include page="header.jsp"/>
 
-<% searchBean.ratioBetweenLines(resultBean); %>
+<% ErrorType errorType = searchBean.ratioBetweenLines(resultBean);
+    if (errorType == ErrorType.CENTIPEDE) {%>
+
+<div class="container center-align">
+    <br>
+    <h3>THERE WAS AN ERROR</h3>
+    <h5>(Centipede)</h5>
+    <h4>Sorry for the dust. Please try again</h4>
+    <br>
+    <a class="waves-effect waves-light btn" href="backToSearch.jsp">Back to Search</a>
+</div>
+
+<% } else { %>
 
 <div class="container center-align">
     <table class="striped">
@@ -41,5 +53,6 @@
     <a class="waves-effect waves-light btn" href="backToSearch.jsp">Back to Search</a>
 
 </div>
+<% } %>
 
 <jsp:include page="footer.jsp"/>

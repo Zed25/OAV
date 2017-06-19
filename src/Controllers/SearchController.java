@@ -1,7 +1,7 @@
 package Controllers;
 
 import DAO.*;
-//import DAO.SearchDAO;
+//import DAO.SearchObjectDAO;
 import beans.login.AgencyBean;
 import beans.login.ClumpBean;
 import beans.login.SourceBean;
@@ -31,109 +31,6 @@ public class SearchController {
     private SearchController() {
     }
 
-    //UC 4
-    public boolean FindObjectInMap(SearchBean bean, ResultBean resBean) {  //band==0 -> 1 banda, else tutte
-        SearchDAO dao = new SearchDAO();
-        CachedRowSetImpl result = dao.searchObjectInMap(bean);
-        resBean.populateSourcesInMap(result, bean);
-        if (resBean.getClumpBeans().isEmpty() && resBean.getSourceBeans().isEmpty()) {
-            return false;
-        }
-        else return true;
-    }
-
-    //UC 5
-    public boolean findClumpByID(SearchBean bean, ResultBean resBean) {
-        SearchDAO dao = new SearchDAO();
-        CachedRowSetImpl result = dao.searchClumpByID(bean);
-        resBean.populateClumpsByID(result);
-        if (resBean.getClumpBeans().isEmpty()) {
-            return false;
-        }
-        else return true;
-    }
-
-    public double computeMass(ClumpBean clump) {
-        return 0.053*(clump.getFluxValue())*10*(exp(41.14/clump.getTemperature()) - 1);
-    }
-
-    //UC 9
-    public boolean getMassAllClumps(ResultBean resBean) {     // TODO compute with threads
-        ClumpDAO dao = new ClumpDAO();
-        CachedRowSetImpl result = dao.getMassAllClumps();
-        resBean.populateClumpsMass(result);
-        if (resBean.getClumpBeans().isEmpty()) {
-            return false;
-        }
-        else {
-            for (ClumpBean clump : resBean.getClumpBeans()) {   //for item i in resbean.getClumpsBean
-                clump.setMass(computeMass(clump));
-            }
-            return true;
-        }
-    }
-
-    public void computeMediumValue(ResultBean resBean) {
-        double mediumValue = 0.0;
-        for (ClumpBean clump : resBean.getClumpBeans()) {
-            mediumValue += clump.getMass();
-        }
-        resBean.setMediumValue(mediumValue /= resBean.getClumpBeans().size());
-        return;
-    }
-
-    public void computeStandardDeviation(ResultBean resBean) {
-        double standardDeviation = 0.0;
-        for (ClumpBean clump : resBean.getClumpBeans()) {
-            standardDeviation += Math.pow(clump.getMass() - resBean.getMediumValue(), 2.0);
-        }
-        standardDeviation /= resBean.getClumpBeans().size();
-        resBean.setStandardDeviation(Math.sqrt(standardDeviation));
-        return;
-    }
-
-    public double computeMedian(List<Double> list) {
-        Collections.sort(list);
-
-        //# of elements is odd
-        if (list.size() % 2 == 1)
-            return list.get((list.size() + 1)/2);
-
-        //# of elements is even
-        else
-            return  (list.get(list.size()/2) + list.get((list.size() + 1)/2))/2;
-    }
-
-    public void computeMAD(ResultBean resBean) {
-        List<Double> list = new ArrayList<>();
-        for (int i = 0; i < resBean.getClumpBeans().size(); i++) {
-            list.add(Math.abs(resBean.getClumpBeans().get(i).getMass() - resBean.getMedian()));
-        }
-        resBean.setMAD(computeMedian(list));
-        return;
-    }
-
-    //UC 10
-    public boolean ratioBetweenLines(ResultBean resBean) {    // TODO compute with threads
-        ClumpDAO dao = new ClumpDAO();
-        CachedRowSetImpl result = dao.getMassAllClumps();
-        resBean.populateClumpsMass(result);
-        if (resBean.getClumpBeans().isEmpty()) {
-            return false;
-        }
-        else {
-            List<Double> massValues = new ArrayList<>();
-            for (ClumpBean clump : resBean.getClumpBeans()) {
-                clump.setMass(computeMass(clump));
-                massValues.add(clump.getMass());
-            }
-            computeMediumValue(resBean);
-            computeStandardDeviation(resBean);
-            resBean.setMedian(computeMedian(massValues));
-            computeMAD(resBean);
-            return true;
-        }
-    }
 
     public List<AgencyBean> getAllAgencies(){
         AgencyDAO agencyDAO = new AgencyDAO();

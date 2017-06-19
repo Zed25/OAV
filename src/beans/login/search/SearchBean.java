@@ -1,7 +1,7 @@
 package beans.login.search;
 
-import Controllers.SearchController;
-import Controllers.SerializeController;
+import Controllers.*;
+import enumerations.ErrorType;
 
 import java.util.List;
 
@@ -15,10 +15,20 @@ public class SearchBean {
     private String band;    //for reading from html
     private Float realBand;     //for SQL query
     private int clumpID;
+    private boolean resetflag;  //to avoid session bean issues
 
     public SearchBean() {
         this.band = "";
-        this.mapName= "";
+        this.mapName = "";
+        this.resetflag = false;
+    }
+
+    public boolean isResetflag() {
+        return resetflag;
+    }
+
+    public void setResetflag(boolean resetflag) {
+        this.resetflag = resetflag;
     }
 
     public int getClumpID() { return clumpID; }
@@ -44,13 +54,14 @@ public class SearchBean {
     public void dropAllData() {
         this.setMapName("");
         this.setAllBands(false);
-        this.setBand("0.0");
+        this.setBand("");
         this.setRealBand(0.0f);
         this.setClumpID(0);
+        this.setResetflag(false);
     }
 
     public boolean isFullSource() {
-        if (this.getMapName() != "") {
+        if (this.getMapName() != "" && this.getBand() != "") {
             return true;
         }
         else return false;
@@ -63,16 +74,16 @@ public class SearchBean {
         else return false;
     }
 
-    public boolean findObjectInMap(SearchBean bean, ResultBean resBean) {
+    public ErrorType findObjectInMap(SearchBean bean, ResultBean resBean) {
         if (!this.getBand().equals("All"))
             this.setRealBand(Float.parseFloat(this.band));
         else
             this.setRealBand(0.0f);
-        return SearchController.getInstance().FindObjectInMap(this, resBean);
+        return SearchObjectInMapController.getInstance().FindObjectInMapFromBean(this, resBean);
     }
 
-    public boolean findClumpByID(SearchBean bean, ResultBean resBean) {
-        return SearchController.getInstance().findClumpByID(this, resBean);
+    public ErrorType findClumpByID(SearchBean bean, ResultBean resBean) {
+        return FindClumpByIDController.getInstance().findClumpByIDFromBean(this, resBean);
     }
 
     public List<String> getAllBandsFromDB() {
@@ -81,12 +92,12 @@ public class SearchBean {
         return bands;
     }
 
-    public boolean getMassAllClumps(ResultBean resBean) {
-        return SearchController.getInstance().getMassAllClumps(resBean);
+    public ErrorType getMassAllClumps(ResultBean resBean) {
+        return GetMassAllClumpController.getInstance().getMassAllClumpsFromBean(resBean);
     }
 
-    public boolean ratioBetweenLines(ResultBean resBean) {
-        return SearchController.getInstance().ratioBetweenLines(resBean);
+    public ErrorType ratioBetweenLines(ResultBean resBean) {
+        return RatioBetweenLinesController.getInstance().ratioBetweenLinesFromBean(resBean);
     }
 
     public List<String> getAllStarMapsNameFromDB() {
