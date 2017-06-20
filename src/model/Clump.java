@@ -9,24 +9,47 @@ import static java.lang.Math.exp;
  */
 public class Clump {
 
-    private int clumpID;
+    private int clumpID, type;
     private float density;
-    private double galLat, galLong, distance, mass;
+    private double galLat, galLong, distance, mass, lmRatio;
     private float band, fluxValue, temperature;
 
-    public Clump(){
+
+    public Clump(int clumpID, double galLong, double galLat, float temperature, double lmRatio, float density , int type){
+        this.clumpID=clumpID;
+        this.galLat=galLat;
+        this.galLong=galLong;
+        this.temperature=temperature;
+        this.lmRatio=lmRatio;
+        this.density=density;
+        this.type=type;
     }
 
     public Clump(int clumpID, float temperature, float fluxValue) {
         this.clumpID = clumpID;
         this.temperature = temperature;
         this.fluxValue = fluxValue;
+
+    }
+    public Clump(int clumpID, float temperature, float fluxValue, int type) {
+        this.clumpID = clumpID;
+        this.temperature = temperature;
+        this.fluxValue = fluxValue;
+        this.type = type;
+
+    }
+    public Clump(){
+
     }
 
     public double computeMass(Clump clump) {
         return 0.053*(clump.getFluxValue())*10*(exp(41.14/clump.getTemperature()) - 1);
     }
 
+
+    public Integer getType() { return type; }
+
+    public void setType(Integer  type) { this.type=type;}
 
     public float getBand() { return band; }
 
@@ -83,5 +106,11 @@ public class Clump {
     public void setMass(double mass) {
         this.mass = mass;
     }
+
+    public double getLmRatio() { return lmRatio;}
+
+    public void setLmRatio(double lmRatio) { this.lmRatio = lmRatio; }
+
+
 
 }

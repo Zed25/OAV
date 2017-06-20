@@ -1,7 +1,7 @@
 INSERT INTO s_c_membership(source, clump) SELECT sources.sourceid, clumps.clumpid
 								  													FROM sources INNER JOIN collection ON (sources.sourceid=collection.source)
 																						NATURAL JOIN ellipses INNER JOIN clumps ON (ellipses.clump=clumps.clumpid)
-																					WHERE (sqrt((sources.galacticlatitude - clumps.galacticlatitude)^2 +
+																					  WHERE (sqrt((sources.galacticlatitude - clumps.galacticlatitude)^2 +
 																											(sources.galacticlongitude - clumps.galacticlongitude)^2) <
 																								 (ellipses.maxaxis * ellipses.band));
 create table Agencies (

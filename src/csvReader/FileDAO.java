@@ -2,9 +2,13 @@ package csvReader;
 
 import DAO.SuperDAO;
 import enumerations.ConnectionType;
+import model.Clump;
+import model.Ellipse;
+import model.Flux;
+import model.Source;
+
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -20,6 +24,8 @@ public class FileDAO extends SuperDAO {
 
         String[] tableNamesRight;
 
+        FileController controller = FileController.getFileControllerInstance();
+
         switch (fileName) {
 
             case "higal.csv":
@@ -34,15 +40,19 @@ public class FileDAO extends SuperDAO {
                         for (int i = 1; i < allLines.size(); i++) {
 
                             String[] line = allLines.get(i);
-                            String query;
 
+
+                            Clump clump = controller.createClump(Integer.parseInt(line[0]),Double.parseDouble(line[1]), Double.parseDouble(line[2]),
+                                    Float.parseFloat(line[3]),Float.parseFloat(line[4]),Float.parseFloat(line[5]),Integer.parseInt(line[6]));
+
+                            String query;
                             try {
 
-                                Double mass = Double.parseDouble(line[3]) / Double.parseDouble(line[4]);
                                 query = "INSERT INTO Clumps( ClumpID, GalacticLongitude, GalacticLatitude, Temperature, LMRatio, Mass, surfacedensity , Type, higalmaps)" +
-                                        " VALUES(" + Integer.parseInt(line[0]) + ", " + Double.parseDouble(line[1]) + ", " + Double.parseDouble(line[2]) + ", " +
-                                        Double.parseDouble(line[3]) + ", " + Double.parseDouble(line[4]) + ", " + Double.parseDouble(line[5])
-                                        + ", " + mass + ", " + Integer.parseInt(line[6]) + ",'HiGal');";
+                                        " VALUES(" + clump.getClumpID() + ", " + clump.getGalLong() + ", " + clump.getGalLat() + ", " +
+                                        clump.getTemperature() + ", " + clump.getLmRatio() + ", " + clump.getMass() + ", " + clump.getDensity()+
+                                        ", " + clump.getType() + ",'HiGal');";
+
 
                             } catch (NumberFormatException e) {
                                 //Controllo type sulle singole righe
@@ -90,7 +100,6 @@ public class FileDAO extends SuperDAO {
                         }
                     }
 
-
                     try {//Aggiornamento tabella Clumps
                         for (int j = 0; j < newClump.size(); j++) {
                             String queryNewClumps = "INSERT INTO Clumps (clumpid, higalmaps) Values (" + newClump.get(j) + ",'HiGal');";
@@ -101,7 +110,6 @@ public class FileDAO extends SuperDAO {
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
-
 
                     try {
                         for (int i = 1; i < allLines.size(); i++) {
@@ -114,59 +122,94 @@ public class FileDAO extends SuperDAO {
 
                             try {
 
-                                String query; //Riempimento tabella Ellipses
+                                String query; //Riempimento tabella Ellipse
                                 String query2; //Riempimento tabella Fluxes
+
 
                                 if (Double.parseDouble(line[1]) != 0.0) { //BANDA 70
 
-                                    query = "INSERT INTO Ellipses (Clump, Band, Maxaxis, Minaxis, PositionAngle) VALUES (" +
-                                            Integer.parseInt(line[0]) + ", " + Double.parseDouble("70.0") + ", " + Double.parseDouble(line[6]) + ", " +
-                                            Double.parseDouble(line[7]) + ", " + Double.parseDouble(line[16]) + ");";
+                                    Ellipse ellipse = controller.createEllipse(Integer.parseInt(line[0]), Double.parseDouble("70.0"), Double.parseDouble(line[6]),
+                                            Double.parseDouble(line[7]), Double.parseDouble(line[16]));
+
+                                    query = "INSERT INTO Ellipses (Clump, Band, Maxaxis, Minaxis, PositionAngle) " +
+                                            "VALUES ('" + ellipse.getClump() + "', '" + ellipse.getBand() + "', '" + ellipse.getMaxaxis() + "', '" +
+                                            ellipse.getMinaxis() + "', '" + ellipse.getPositionangle() + "');";
                                     queriesEllipses.add(query);
 
-                                    query2 = "INSERT INTO fluxes(Value, Band, Clump) VALUES(" + Double.parseDouble(line[1]) + ", " +
-                                            Double.parseDouble("70.0") + ", " + Integer.parseInt(line[0]) + ");";
-                                    queriesFluxes.add(query2);
+                                    Flux flux = controller.createFlux(Float.parseFloat(line[1]), Float.parseFloat("0"), Float.parseFloat("70.0"));
 
+                                    query2 = "INSERT INTO fluxes(Value, Band, Clump) VALUES('" + flux.getValue() + "', '" +
+                                            flux.getBand() + "', '" + ellipse.getClump() + "');";
+                                    queriesFluxes.add(query2);
                                 }
+
+
                                 if (Double.parseDouble(line[2]) != 0.0) { //BANDA 160
-                                    query = "INSERT INTO Ellipses (Clump, Band, Maxaxis, Minaxis, PositionAngle) VALUES (" +
-                                            Integer.parseInt(line[0]) + ", " + Double.parseDouble("160.0") + ", " + Double.parseDouble(line[8]) + ", " +
-                                            Double.parseDouble(line[9]) + ", " + Double.parseDouble(line[17]) + ");";
+
+                                    Ellipse ellipse = controller.createEllipse(Integer.parseInt(line[0]), Double.parseDouble("160.0"), Double.parseDouble(line[8]),
+                                            Double.parseDouble(line[9]), Double.parseDouble(line[17]));
+
+                                    query = "INSERT INTO Ellipses (Clump, Band, Maxaxis, Minaxis, PositionAngle) " +
+                                            "VALUES ('" + ellipse.getClump() + "', '" + ellipse.getBand() + "', '" + ellipse.getMaxaxis() + "', '" +
+                                            ellipse.getMinaxis() + "', '" + ellipse.getPositionangle() + "');";
                                     queriesEllipses.add(query);
 
-                                    query2 = "INSERT INTO fluxes( Value, Band, Clump) VALUES(" + Double.parseDouble(line[2]) + ", " +
-                                            Double.parseDouble("160.0") + ", " + Integer.parseInt(line[0]) + ");";
+                                    Flux flux = controller.createFlux(Float.parseFloat(line[2]), Float.parseFloat("0"), Float.parseFloat("160.0"));
+
+                                    query2 = "INSERT INTO fluxes(Value, Band, Clump) VALUES('" + flux.getValue() + "', '" +
+                                            flux.getBand() + "', '" + ellipse.getClump() + "');";
                                     queriesFluxes.add(query2);
                                 }
+
                                 if (Double.parseDouble(line[3]) != 0.0) { //BANDA 250
-                                    query = "INSERT INTO Ellipses (Clump, Band, Maxaxis, Minaxis, PositionAngle) VALUES (" +
-                                            Integer.parseInt(line[0]) + ", " + Double.parseDouble("250.0") + ", " + Double.parseDouble(line[10]) + ", " +
-                                            Double.parseDouble(line[11]) + ", " + Double.parseDouble(line[18]) + ");";
+
+                                    Ellipse ellipse = controller.createEllipse(Integer.parseInt(line[0]), Double.parseDouble("250.0"), Double.parseDouble(line[10]),
+                                            Double.parseDouble(line[11]), Double.parseDouble(line[18]));
+                                    query = "INSERT INTO Ellipses (Clump, Band, Maxaxis, Minaxis, PositionAngle) " +
+                                            "VALUES ('" + ellipse.getClump() + "', '" + ellipse.getBand() + "', '" + ellipse.getMaxaxis() + "', '" +
+                                            ellipse.getMinaxis() + "', '" + ellipse.getPositionangle() + "');";
                                     queriesEllipses.add(query);
 
-                                    query2 = "INSERT INTO fluxes(Value, Band, Clump) VALUES(" + Double.parseDouble(line[3]) + ", " +
-                                            Double.parseDouble("250.0") + ", " + Integer.parseInt(line[0]) + ");";
+                                    Flux flux = controller.createFlux(Float.parseFloat(line[3]), Float.parseFloat("0"), Float.parseFloat("250.0"));
+
+                                    query2 = "INSERT INTO fluxes(Value, Band, Clump) VALUES('" + flux.getValue() + "', '" +
+                                            flux.getBand() + "', '" + ellipse.getClump() + "');";
+
                                     queriesFluxes.add(query2);
                                 }
+
                                 if (Double.parseDouble(line[4]) != 0.0) { //BANDA 350
-                                    query = "INSERT INTO Ellipses (Clump, Band, Maxaxis, Minaxis, PositionAngle) VALUES (" +
-                                            Integer.parseInt(line[0]) + ", " + Double.parseDouble("350.0") + ", " + Double.parseDouble(line[12]) + ", " +
-                                            Double.parseDouble(line[13]) + ", " + Double.parseDouble(line[19]) + ");";
+
+                                    Ellipse ellipse = controller.createEllipse(Integer.parseInt(line[0]), Double.parseDouble("350.0"), Double.parseDouble(line[12]),
+                                            Double.parseDouble(line[13]), Double.parseDouble(line[19]));
+                                    query = "INSERT INTO Ellipses (Clump, Band, Maxaxis, Minaxis, PositionAngle) " +
+                                            "VALUES ('" + ellipse.getClump() + "', '" + ellipse.getBand() + "', '" + ellipse.getMaxaxis() + "', '" +
+                                            ellipse.getMinaxis() + "', '" + ellipse.getPositionangle() + "');";
+
                                     queriesEllipses.add(query);
 
-                                    query2 = "INSERT INTO fluxes(Value, Band, Clump) VALUES(" + Double.parseDouble(line[4]) + ", " +
-                                            Double.parseDouble("350.0") + ", " + Integer.parseInt(line[0]) + ");";
+                                    Flux flux = controller.createFlux(Float.parseFloat(line[4]), Float.parseFloat("0"), Float.parseFloat("350.0"));
+
+                                    query2 = "INSERT INTO fluxes(Value, Band, Clump) VALUES('" + flux.getValue() + "', '" +
+                                            flux.getBand() + "', '" + ellipse.getClump() + "');";
+
                                     queriesFluxes.add(query2);
                                 }
+
                                 if (Double.parseDouble(line[5]) != 0.0) { //BANDA 500
-                                    query = "INSERT INTO Ellipses (Clump, Band, Maxaxis, Minaxis, PositionAngle) VALUES (" +
-                                            Integer.parseInt(line[0]) + ", " + Double.parseDouble("500.0") + ", " + Double.parseDouble(line[14]) + ", " +
-                                            Double.parseDouble(line[15]) + ", " + Double.parseDouble(line[20]) + ");";
+
+                                    Ellipse ellipse = controller.createEllipse(Integer.parseInt(line[0]), Double.parseDouble("500.0"), Double.parseDouble(line[14]),
+                                            Double.parseDouble(line[15]), Double.parseDouble(line[20]));
+                                    query = "INSERT INTO Ellipses (Clump, Band, Maxaxis, Minaxis, PositionAngle) " +
+                                            "VALUES ('" + ellipse.getClump() + "', '" + ellipse.getBand() + "', '" + ellipse.getMaxaxis() + "', '" +
+                                            ellipse.getMinaxis() + "', '" + ellipse.getPositionangle() + "');";
                                     queriesEllipses.add(query);
 
-                                    query2 = "INSERT INTO fluxes(Value, Band, Clump) VALUES(" + Double.parseDouble(line[5]) + ", " +
-                                            Double.parseDouble("500.0") + ", " + Integer.parseInt(line[0]) + ");";
+                                    Flux flux = controller.createFlux(Float.parseFloat(line[5]), Float.parseFloat("0"), Float.parseFloat("500.0"));
+
+                                    query2 = "INSERT INTO fluxes(Value, Band, Clump) VALUES('" + flux.getValue() + "', '" +
+                                            flux.getBand() + "', '" + ellipse.getClump() + "');";
+
                                     queriesFluxes.add(query2);
                                 }
 
@@ -185,6 +228,7 @@ public class FileDAO extends SuperDAO {
                             for (String s : queriesFluxes) statement.executeUpdate(s);
 
                         }
+
                         connection.commit();
                         disconnect(connection);
 
@@ -218,35 +262,44 @@ public class FileDAO extends SuperDAO {
 
                             try {
 
+                                Source source = controller.createSource(line[0],Double.parseDouble(line[1]),Double.parseDouble(line[2]), "");
+
                                 //Riempimento tabella SourcesGLIMPSE
                                 query = "INSERT INTO sources (sourceid, galacticLongitude, galacticLatitude) VALUES ('" +
-                                        line[0] + "', " + Double.parseDouble(line[1]) + ", " + Double.parseDouble(line[2]) + ");";
+                                        source.getSourceID() + "', " + source.getGalLong() + ", " + source.getGalLat() + ");";
 
+                                //Riempimento tabelle flusso
                                 if (!(line[3].equals("     "))) {
+
+                                    Flux flux= controller.createFlux(Float.parseFloat(line[3]),Float.parseFloat("0"), Float.parseFloat("3.6"));
                                     query2 = "INSERT INTO fluxes (value, band, source) VALUES (" +
-                                            Double.parseDouble(line[3]) + ", " + Double.parseDouble("3.6") + ", '" + line[0] + "');";
+                                            flux.getValue() + ", " + flux.getBand() + ", '" + source.getSourceID() + "');";
                                     queriesFluxes.add(query2);
                                 }
 
                                 if (!(line[4].equals("     "))) {
+                                    Flux flux= controller.createFlux(Float.parseFloat(line[4]),Float.parseFloat("0"), Float.parseFloat("4.5"));
                                     query2 = "INSERT INTO fluxes (value, band, source) VALUES (" +
-                                            Double.parseDouble(line[4]) + ", " + Double.parseDouble("4.5") + ", '" + line[0] + "');";
+                                            flux.getValue() + ", " + flux.getBand() + ", '" + source.getSourceID() + "');";
                                     queriesFluxes.add(query2);
                                 }
 
                                 if (!(line[5].equals("     "))) {
+                                    Flux flux= controller.createFlux(Float.parseFloat(line[5]),Float.parseFloat("0"), Float.parseFloat("5.8"));
                                     query2 = "INSERT INTO fluxes (value, band, source) VALUES (" +
-                                            Double.parseDouble(line[5]) + ", " + Double.parseDouble("5.8") + ", '" + line[0] + "');";
+                                            flux.getValue() + ", " + flux.getBand() + ", '" + source.getSourceID() + "');";
                                     queriesFluxes.add(query2);
                                 }
 
-                                if ((line[6].equals("     "))) {
+                                if (!(line[6].equals("     "))) {
+                                    Flux flux= controller.createFlux(Float.parseFloat(line[6]),Float.parseFloat("0"), Float.parseFloat("8.0"));
                                     query2 = "INSERT INTO fluxes (value, band, source) VALUES (" +
-                                            Double.parseDouble(line[6]) + ", " + Double.parseDouble("8.0") + ", '" + line[0] + "');";
+                                            flux.getValue() + ", " + flux.getBand() + ", '" + source.getSourceID() + "');";
                                     queriesFluxes.add(query2);
                                 }
 
-                                query3 = "INSERT INTO collection (starmap, source) VALUES ('Glimpse', '" + line[0] + "');";
+                                //Riempimento tabella Mappe
+                                query3 = "INSERT INTO collection (starmap, source) VALUES ('Glimpse', '" + source.getSourceID() + "');";
                             } catch (NumberFormatException e) {
                                 //Controllo type sulle singole righe
                                 System.out.println("il formato del csv non è adatto a questa operazione"); //STAMPARE ROBE A SCHERMO html
@@ -279,7 +332,7 @@ public class FileDAO extends SuperDAO {
                 List<String> existingSources = GetOldSources(connection);
                 List<String> newSources = new ArrayList<>();
 
-                //Controllo  NOMI COLONNE prima rmiga
+                //Controllo  NOMI COLONNE prima riga
                 tableNamesRight = new String[]{"MIPSGAL", "GLON", "GLAT", "[24]", "e_[24]", "GLIMPSE"};
 
                 if (!(FirstLineOK(allLines.get(0), tableNamesRight))) {
@@ -288,7 +341,7 @@ public class FileDAO extends SuperDAO {
 
                     for (int i = 1; i < allLines.size(); i++) {
 
-                        String[] line = allLines.get(i); //OUT OF 5e
+                        String[] line = allLines.get(i);
 
                         if (line.length > 5) {
                             if (!(existingSources.contains(line[5])) && !(newSources.contains(line[5]))) {
@@ -298,7 +351,7 @@ public class FileDAO extends SuperDAO {
                     }
 
 
-                    try {//Aggiornamento tabella Clumps
+                    try {//Aggiornamento tabella Sources
                         for (int j = 0; j < newSources.size(); j++) {
                             String queryNewSources = "INSERT INTO sources (sourceid) Values ('" + newSources.get(j) + "');";
                             Statement statement = connection.createStatement();
@@ -319,21 +372,25 @@ public class FileDAO extends SuperDAO {
 
 
                             try {
-                                if (line.length == 6) {
+                                Source source;
 
+                                if (line.length == 6) {
                                     //Riempimento tabella Sources
+                                    source= controller.createSource(line[0],Double.parseDouble(line[1]),Double.parseDouble(line[2]),line[5]);
                                     query = "INSERT INTO sources (sourceid, galacticLongitude, galacticLatitude, comparedSource) VALUES ('" +
-                                            line[0] + "', " + Double.parseDouble(line[1]) + ", " + Double.parseDouble(line[2]) + ", '" + line[5] + "');";
+                                            source.getSourceID() + "', " + source.getGalLong() + ", " + source.getGalLat() + ", '" + source.getComparedSource() + "');";
                                 } else {
+                                    source= controller.createSource(line[0],Double.parseDouble(line[2]),Double.parseDouble(line[1]), "");
                                     query = "INSERT INTO sources (sourceid, galacticLongitude, galacticLatitude) VALUES ('" +
-                                            line[0] + "', " + Double.parseDouble(line[1]) + ", " + Double.parseDouble(line[2]) + ");";
+                                            source.getSourceID() + "', " + source.getGalLong() + ", " + source.getGalLat() + ");";
 
                                 }
-                                //clRiempimento tabella fluxes
-                                query2 = "INSERT INTO fluxes (value, error, band, source) VALUES (" +
-                                        Double.parseDouble(line[3]) + ", " + Double.parseDouble(line[4]) + ", " + Double.parseDouble("24.0") + ", '" + line[0] + "');";
+                                //Riempimento tabella fluxes
+                                Flux flux = controller.createFlux(Float.parseFloat(line[3]), Float.parseFloat(line[4]), Float.parseFloat("24.0"));
+                                query2 = "INSERT INTO fluxes (value, error, band, source) VALUES (" + flux.getValue() + ", " + flux.getError() +
+                                        ", " + flux.getBand() + ", '" + source.getSourceID() + "');";
 
-                                query3 = "INSERT INTO collection (starmap, source) VALUES ('MIPS-GAL', '" + line[0] + "');";
+                                query3 = "INSERT INTO collection (starmap, source) VALUES ('MIPS-GAL', '" + source.getSourceID() + "');";
 
                             } catch (NumberFormatException e) {
                                 //Controllo type sulle singole righe
@@ -370,8 +427,6 @@ public class FileDAO extends SuperDAO {
                                 "(ellipses.maxaxis * ellipses.band));");
                         Statement statement = connection.createStatement();
                         statement.executeUpdate(query);
-
-
 
                     } catch (SQLException e) {
                         e.printStackTrace();
