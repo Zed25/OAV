@@ -1,5 +1,6 @@
 package beans.login;
 
+import Controllers.SerializeInstrumentController;
 import Controllers.UsersController;
 import DAO.UserDAO;
 import enumerations.ErrorType;
@@ -34,5 +35,15 @@ public class AdministrationBean extends UserBean {
             return UsersController.getUsersControllerInstance().createNewUserRecord(user, this.getType());
         return ErrorType.MISS_VAL;
     }
+
+    /**
+     * it gets all the information to serialize controller in order to insert a new instrument into db
+     * @return boolean value
+     */
+    public ErrorType serializeInstrument(InstrumentBean instrumentBean) {
+        return SerializeInstrumentController.getSerializeInstrumentControllerInstance().serializeInstrument(this,
+                instrumentBean);
+    }
+
 
 }

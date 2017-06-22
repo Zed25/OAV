@@ -18,14 +18,6 @@ public class SerializeController {
     private SerializeController() {
     }
 
-
-
-    public boolean serializeInstrument(InstrumentBean instrumentBean) {
-        InstrumentDAO instrumentDAO = new InstrumentDAO();
-
-        return instrumentDAO.serializeInstrument(instrumentBean);
-    }
-
     public List<String> getAllSatellitesNameFromDB() {
         SatelliteDAO satelliteDAO = new SatelliteDAO();
         return satelliteDAO.getAllSatellitesNameFromDB();
@@ -40,6 +32,8 @@ public class SerializeController {
         BandDAO bandDAO = new BandDAO();
         return bandDAO.getAllBandsFromDB();
     }
+
+
     //it will return a boolean
     /*private void serializeAgency(AgencyBean agencyBean) {
         AgencyDAO agencyDAO = new AgencyDAO();

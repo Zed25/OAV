@@ -1,6 +1,8 @@
 package beans.login;
 
 import Controllers.SerializeController;
+import Controllers.SerializeInstrumentController;
+import enumerations.ErrorType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +54,7 @@ public class InstrumentBean {
      * @return List of Strings
      */
     public List<String> getAllSatellitesNameFromDB() {
-        return SerializeController.getSerializeControllerInstance().getAllSatellitesNameFromDB();
+        return SerializeInstrumentController.getSerializeInstrumentControllerInstance().getAllSatellitesNameFromDB();
     }
 
     /**
@@ -61,7 +63,7 @@ public class InstrumentBean {
      * @return List of Strings
      */
     public List<String> getAllStarMapsNameFromDB() {
-        return SerializeController.getSerializeControllerInstance().getAllStarMapsNameFromDB();
+        return SerializeInstrumentController.getSerializeInstrumentControllerInstance().getAllStarMapsNameFromDB();
     }
 
     /**
@@ -70,16 +72,7 @@ public class InstrumentBean {
      * @return List of Strings
      */
     public List<String> getAllBandsFromDB() {
-        return SerializeController.getSerializeControllerInstance().getAllBandsFromDB();
-    }
-
-
-    /**
-     * it gets all the information to serialize controller in order to insert a new instrument into db
-     * @return boolean value
-     */
-    public boolean serializeInstrument() {
-        return SerializeController.getSerializeControllerInstance().serializeInstrument(this);
+        return SerializeInstrumentController.getSerializeInstrumentControllerInstance().getAllBandsFromDB();
     }
 
     /**GETTER AND SETTER**/

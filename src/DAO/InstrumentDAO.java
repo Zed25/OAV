@@ -2,8 +2,11 @@ package DAO;
 
 import beans.login.InstrumentBean;
 import enumerations.ConnectionType;
+import enumerations.ErrorType;
+import model.Instrument;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -13,35 +16,40 @@ import java.sql.Statement;
 public class InstrumentDAO extends SuperDAO{
 
 
-    public boolean serializeInstrument(InstrumentBean instrumentBean) {
+    public ErrorType serializeInstrument(Instrument instrument) {
 
-        String query = "INSERT INTO instruments(name, satallite, starmap) VALUES ('" +
-                instrumentBean.getName() + "', '" + instrumentBean.getSatellite() +
-        "', '" + instrumentBean.getMap() + "')";
+        String query = "INSERT INTO instruments(name, satallite, starmap) VALUES (?,?,?)";
 
         System.out.println(query);
 
         Connection connection = connect(ConnectionType.COMPQUERY);
 
         try {
-            Statement statement = connection.createStatement();
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
 
-            statement.executeUpdate(query);
+            preparedStatement.setString(1, instrument.getName());
+            preparedStatement.setString(2, instrument.getSatellite());
+            preparedStatement.setString(3, instrument.getMap());
 
-            String instrumentBandConnectionQuery;
-            String instrumentName = instrumentBean.getName();
-            for (int i = 0; i < instrumentBean.getBands().size(); i++){
-                instrumentBandConnectionQuery = "INSERT INTO s_bsurbay(instrument, band) VALUES ('" +
-                        instrumentName + "', '" + instrumentBean.getBands().get(i) + "')";
-                System.out.println(instrumentBandConnectionQuery);
+            preparedStatement.executeUpdate();
 
-                statement.executeUpdate(instrumentBandConnectionQuery);
+            preparedStatement.close();
+
+            String instrumentBandConnectionQuery = "INSERT INTO s_bsurbay(instrument, band) VALUES (?,?)";
+            String instrumentName = instrument.getName();
+            preparedStatement = connection.prepareStatement(instrumentBandConnectionQuery);
+            for (int i = 0; i < instrument.getBands().size(); i++){
+
+                preparedStatement.setString(1, instrumentName);
+                preparedStatement.setDouble(2, instrument.getBands().get(i).getResolution());
+                preparedStatement.addBatch();
             }
+            preparedStatement.executeBatch();
 
             connection.commit();
-            statement.close();
+            preparedStatement.close();
             disconnect(connection);
-            return true;
+            return ErrorType.NO_ERR;
         } catch (SQLException e) {
             e.printStackTrace();
             try {
@@ -51,7 +59,7 @@ public class InstrumentDAO extends SuperDAO{
             }
             finally {
                 disconnect(connection);
-                return false;
+                return ErrorType.GEN_ERR;
             }
         }
 

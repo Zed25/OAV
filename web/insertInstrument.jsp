@@ -12,9 +12,13 @@
 <jsp:setProperty name="newInstrument" property="satellite" param="new_instr_satellite"/>
 <jsp:setProperty name="newInstrument" property="map" param="new_instr_map"/>
 <jsp:setProperty name="newInstrument" property="bandsFromFormString" param="new_instr_bands"/>
+<jsp:useBean id="loginBean" scope="session" class="beans.login.UserBean"/>
 
 <jsp:include page="header.jsp"/>
-<%if(!newInstrument.isFull()){%>
+<%if(!loginBean.isAdmin()){
+    out.println("<h2>Error: You must be an admin in order to perform this action!</h2>");
+}else{
+    if(!newInstrument.isFull()){%>
 <h4>Instrument's data</h4>
 <div class="row">
     <form id="new_instrument_form" action="#" method="post">
@@ -29,23 +33,23 @@
                 <select id="new_instr_satellite" name="new_instr_satellite" class="col s12 m6 l4">
                     <option value="" disabled selected>Choose satellite's name</option>
                     <%List<String> satellites = newInstrument.getAllSatellitesNameFromDB();
-                    if(satellites != null){
-                        for(int i = 0; i < satellites.size(); i++){%>
-                            <option value="<%=satellites.get(i)%>" name="new_instr_satellite"><%=satellites.get(i)%></option>
-                        <%}}%>
+                        if(satellites != null){
+                            for(int i = 0; i < satellites.size(); i++){%>
+                    <option value="<%=satellites.get(i)%>" name="new_instr_satellite"><%=satellites.get(i)%></option>
+                    <%}}%>
                     <label>Satellite's name</label><span></span>
                 </select>
             </div>
             <div class="input-field">
                 <select id="new_instr_map" name="new_instr_map" class="col s12 m6 l4">
                     <option value="" disabled selected>Choose maps's name</option>
-                        <%
+                    <%
                         List<String> maps = newInstrument.getAllStarMapsNameFromDB();
                         if(maps != null){
                             for(int i = 0; i < maps.size(); i++){%>
-                                <option value="<%=maps.get(i)%>" name="new_instr_satellite"><%=maps.get(i)%></option>
-                                        <%}}%>
-                        <label>Map's name</label><span></span>
+                    <option value="<%=maps.get(i)%>" name="new_instr_satellite"><%=maps.get(i)%></option>
+                    <%}}%>
+                    <label>Map's name</label><span></span>
                 </select>
             </div>
         </div>
@@ -102,5 +106,6 @@
         Back
     </button>
 </form>
-<%}%>
+<%}
+}%>
 <jsp:include page="footer.jsp"/>
