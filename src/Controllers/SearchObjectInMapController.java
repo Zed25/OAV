@@ -79,6 +79,8 @@ public class SearchObjectInMapController {
             e.printStackTrace();
             return null;
         }
+        if (sources.isEmpty())
+            sources = null;
         return sources;
     }
 
@@ -99,6 +101,8 @@ public class SearchObjectInMapController {
             e.printStackTrace();
             return null;
         }
+        if (clumps.isEmpty())
+            clumps = null;
         return clumps;
     }
 

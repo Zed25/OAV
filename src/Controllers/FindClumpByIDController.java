@@ -25,9 +25,9 @@ public class FindClumpByIDController {
     //Adapter
     public ErrorType findClumpByIDFromBean(SearchBean searchBean, ResultBean resultBean) {
         List<Clump> clumps = findClumpByID(searchBean.getClumpID());
-        if (clumps == null)
+        if (clumps == null) {
             return ErrorType.BOAR;
-        else {
+        } else {
             List<ClumpBean> clumpBeans = new ArrayList<>();
             for (Clump clump : clumps) {
                 ClumpBean clumpBean = new ClumpBean();
@@ -63,6 +63,8 @@ public class FindClumpByIDController {
             e.printStackTrace();
             return null;
         }
+        if (clumps.isEmpty())
+            clumps = null;
         return clumps;
     }
 

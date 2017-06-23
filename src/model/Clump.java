@@ -3,6 +3,7 @@ package model;
 import beans.login.ClumpBean;
 
 import static java.lang.Math.exp;
+import static java.lang.Math.pow;
 
 /**
  * Created by andrea on 01/06/17.
@@ -43,7 +44,7 @@ public class Clump {
     }
 
     public double computeMass(Clump clump) {
-        return 0.053*(clump.getFluxValue())*10*(exp(41.14/clump.getTemperature()) - 1);
+        return 0.053*(clump.getFluxValue())*pow(10, 2)*(exp(41.14/clump.getTemperature()) - 1);
     }
 
 

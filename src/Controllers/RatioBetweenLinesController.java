@@ -57,6 +57,8 @@ public class RatioBetweenLinesController {
             e.printStackTrace();
             return null;
         }
+        if (clumps.isEmpty())
+            clumps = null;
         return clumps;
     }
 
