@@ -40,6 +40,12 @@ public class Clump {
 
     }
 
+    public Clump(int clumpID, double galLat, double galLong) {
+        this.clumpID = clumpID;
+        this.galLat = galLat;
+        this.galLong = galLong;
+    }
+
     public Clump(int clumpID, float density) {
         this.clumpID = clumpID;
         this.density = density;

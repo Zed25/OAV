@@ -1,6 +1,7 @@
 package beans.login;
 
 import Controllers.SearchController;
+import Controllers.SearchInSquareOrCirclesController;
 import enumerations.ErrorType;
 
 import java.util.List;
@@ -48,7 +49,7 @@ public class squareCircleSearchBean {
     }
 
     public ErrorType searchElementsInArea() {
-        return SearchController.getInstance().searchElementsInArea(this);
+        return SearchInSquareOrCirclesController.getSearchInSquareOrCirclesController().searchElementsInArea(this);
     }
 
     public String getnElements() {
