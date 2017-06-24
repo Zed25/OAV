@@ -57,15 +57,20 @@ public class ClumpDAO extends SuperDAO{
     }
 
     public CachedRowSetImpl getClumpsByDensity(float minD, float maxD) {
-        String query = "SELECT clumpid, surfacedensity FROM clumps WHERE (surfacedensity > 0.1 AND surfacedensity < 1.0);";
+        String query = "SELECT clumpid, surfacedensity FROM clumps WHERE (surfacedensity > ? AND surfacedensity < ?);";
         Connection connection = connect(ConnectionType.SINGLEQUERY);
         try {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(query);
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+
+            preparedStatement.setFloat(1, minD);
+            preparedStatement.setFloat(2, maxD);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
             CachedRowSetImpl cachedRowSet = new CachedRowSetImpl();
             cachedRowSet.populate(resultSet);
             resultSet.close();
-            statement.close();
+            preparedStatement.close();
             disconnect(connection);
             return cachedRowSet;
         } catch (SQLException e) {

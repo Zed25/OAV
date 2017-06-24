@@ -39,6 +39,12 @@ public class Clump {
         this.type = type;
 
     }
+
+    public Clump(int clumpID, float density) {
+        this.clumpID = clumpID;
+        this.density = density;
+    }
+
     public Clump(){
 
     }

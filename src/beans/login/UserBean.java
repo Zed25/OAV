@@ -1,7 +1,10 @@
 package beans.login;
 
+import Controllers.SearchClumpByDencityController;
 import Controllers.UsersController;
 import enumerations.ErrorType;
+
+import java.util.List;
 
 /**
  * Created by simone on 26/03/17.
@@ -74,6 +77,11 @@ public class UserBean {
             return this.getAdministrationRole().newUserRegistration(newUser);
         }
         return ErrorType.NO_ADMIN;
+    }
+
+    public ErrorType getClumpsByDensity(List<ClumpBean> results){
+        ErrorType errorType = SearchClumpByDencityController.getSearchClumpByDencityController().searchPossibleClumpHosts(results);
+        return errorType;
     }
 
     /**GETTER AND SETTER**/

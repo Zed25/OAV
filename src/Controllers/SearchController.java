@@ -60,28 +60,6 @@ public class SearchController {
         return Math.max(nClump, nSource);
     }
 
-    public List<ClumpBean> getClumpsByDensity(float minD, float maxD) {
-        ClumpDAO clumpDAO = new ClumpDAO();
-        CachedRowSetImpl cachedRowSet = clumpDAO.getClumpsByDensity(minD, maxD);
-
-        List<ClumpBean> clumps = new ArrayList<>();
-        try {
-            while(cachedRowSet.next()){
-                ClumpBean clump = new ClumpBean();
-                clump.setClumpID(cachedRowSet.getInt("clumpid"));
-                clump.setDensity(cachedRowSet.getFloat("surfacedensity"));
-                clumps.add(clump);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
-        if(clumps.size() == 0)
-            return null;
-
-        return clumps;
-    }
-
 
     public ErrorType searchElementsInArea(squareCircleSearchBean squareCircleSearchBean) {
         switch (squareCircleSearchBean.getElementType()){

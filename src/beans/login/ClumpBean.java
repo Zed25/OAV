@@ -1,7 +1,9 @@
 package beans.login;
 
+import Controllers.SearchClumpByDencityController;
 import Controllers.SearchController;
 import com.sun.beans.util.Cache;
+import enumerations.ErrorType;
 
 import java.lang.reflect.Array;
 import java.math.BigDecimal;
@@ -24,11 +26,6 @@ public class ClumpBean {
 
     public ClumpBean() {
 
-    }
-
-    public List<ClumpBean> getClumpsByDensity(float minD, float maxD){
-        List<ClumpBean> clumps = SearchController.getInstance().getClumpsByDensity(minD, maxD);
-        return clumps;
     }
 
     public float getBand() { return band; }

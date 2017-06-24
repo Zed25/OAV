@@ -1,5 +1,7 @@
 <%@ page import="java.util.List" %>
-<%@ page import="beans.login.ClumpBean" %><%--
+<%@ page import="beans.login.ClumpBean" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="enumerations.ErrorType" %><%--
   Created by IntelliJ IDEA.
   User: simone
   Date: 28/04/17
@@ -14,31 +16,33 @@
     <h2>Error: this action can't be performed without logging in!</h2>
     <h4>Please, log in with a valid username to continue</h4>
 <%}else {
-    ClumpBean clump = new ClumpBean();
-    List<ClumpBean> clumpBeans = clump.getClumpsByDensity(0.1F, 1.0F);
-    if (clumpBeans.size() == 0){
-        out.println("<h4 class=\"red-text\">Something went wrong! There aren't results. We are sorry for it!</h4>");
-}else{
-    %>
-     <table>
-        <thead>
-          <tr>
-              <th>Clump's ID</th>
-              <th>Density</th>
-              <th>Population's fraction</th>
-          </tr>
-        </thead>
-        <tbody>
-        <%for(int i = 0; i < clumpBeans.size(); i ++){%>
-          <tr>
-            <td><%=clumpBeans.get(i).getClumpID()%></td>
-            <td><%=clumpBeans.get(i).getDensity()%></td>
-            <td>0</td>
-          </tr>
-        <%}%>
-        </tbody>
-     </table>
-  <%}%>
+    List<ClumpBean> searchResults = new ArrayList<>();
+    ErrorType errorType = loginBean.getClumpsByDensity(searchResults);
+    switch (errorType){
+        case GEN_ERR:
+            out.println("<h4 class=\"red-text\">Something went wrong! There aren't results. We are sorry for it!</h4>");
+            break;
+        case NO_ERR:%>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Clump's ID</th>
+                        <th>Density</th>
+                        <th>Population's fraction</th>
+                    </tr>
+                </thead>
+            <tbody>
+            <%for(int i = 0; i < searchResults.size(); i ++){%>
+              <tr>
+                <td><%=searchResults.get(i).getClumpID()%></td>
+                <td><%=searchResults.get(i).getDensity()%></td>
+                <td>0</td>
+              </tr>
+            <%}%>
+            </tbody>
+            </table>
+          <%break;
+    }%>
  <div class="row">
      <form action="index.jsp" method="get">
          <button class="waves-effect waves-light blue left-align" type="submit">
