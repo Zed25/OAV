@@ -1,7 +1,7 @@
 package beans.login.search;
 
 import Controllers.*;
-import csvReader.SourceClumpController;
+import Controllers.SourceClumpController;
 import enumerations.ErrorType;
 
 import java.util.List;
