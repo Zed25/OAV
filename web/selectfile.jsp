@@ -6,9 +6,14 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<jsp:useBean id="loginBean" class="beans.login.UserBean" scope="session"/>
 <jsp:include page="header.jsp"/>
 
+<%if(!loginBean.isAdmin()){%>
+<h2>Error: this action can't be performed as generic user!</h2>
+<h4>Please, log in with a valid account to continue</h4>
+<%}else{
+%>
 <div class="row" style="margin-top: 3%">
 
     <div class="col s11" style="margin-left: 10%">
@@ -60,13 +65,14 @@
 
                 // Test: System.out.println("selectfile" + filescelto);
         %>
-                <jsp:forward page="csvInsert.jsp"/>
+        <jsp:forward page="csvInsert.jsp"/>
         <%
-            }
+                }
 
         /*if (request.getParameter("validateform")== on)
         response.sendRedirect("upload.jsp");*/
-        //System.out.println(request.getParameter("validate"));
+                //System.out.println(request.getParameter("validate"));
+            }
         %>
     </div>
 

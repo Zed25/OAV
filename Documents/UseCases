@@ -28,7 +28,7 @@
     Il risultato sarà ordinato rispetto alla distanza dal punto centrale.
     Per il cerchio l’utente inserirà il raggio, mentre per il quadrato la lunghezza del cateto.
 
--UC8 Ricerca di un oggetto MIPSGAL all'interno di un clump:     USER    [Diletta - in progress]
+-UC8 Ricerca di un oggetto MIPSGAL all'interno di un clump:     USER    [Diletta]
     Trovare tra le sorgenti all’interno della mappa MIPSGAL, tutte quelle che sono all’interno di uno specifico clump
     e per una specifica banda. Un oggetto si dice che appartiene a un clump
     se la distanza tra la posizione della sorgente  e quella del clump è minore dell’asse maggiore dell’ellisse

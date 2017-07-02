@@ -58,6 +58,7 @@
     <li><a href="insertInstrument.jsp"><i class="material-icons black-text">add</i>New Instrument</a></li>
     <li><a href="clumpByDensitySearch.jsp"><i class="material-icons black-text">search</i>Search clump for density</a></li>
     <li><a href="searchInSquareOrCircle.jsp"><i class="material-icons black-text">search</i>Search elements in circles or squares</a></li>
+    <br>
     <li><a href="sourceInClump.jsp"><i class="material-icons black-text">search</i>Search sources in Clump</a></li>
 
     <br>
@@ -80,9 +81,10 @@
     <li><a href="findObjInMap.jsp"><i class="material-icons black-text">add</i>Search Source</a></li>
     <li><a href="clumpByDensitySearch.jsp"><i class="material-icons black-text">search</i>Search clump for density</a></li>
     <li><a href="searchInSquareOrCircle.jsp"><i class="material-icons black-text">search</i>Search elements in circles or squares</a></li>
-    <li><a href="#!">Second Link</a></li>
+    <br>
+    <li><a href="sourceInClump.jsp"><i class="material-icons black-text">search</i>Search sources in Clump</a></li>
     <li><div class="divider"></div></li>
     <li><a class="subheader">Subheader</a></li>
-    <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
+
 </ul>
 <%}%>
