@@ -1,10 +1,8 @@
 package csvReader;
 
 
-import model.Clump;
-import model.Ellipse;
-import model.Flux;
-import model.Source;
+import enumerations.ErrorType;
+import model.*;
 
 /**
  * Created by dilettalagom on 16/04/17.
@@ -13,24 +11,33 @@ public class FileController {
 
 
     private static FileController fileControllerInstance = null;
+    private FileController(){}
+
     public static synchronized FileController getFileControllerInstance() {
         if(fileControllerInstance == null)
             fileControllerInstance = new FileController();
         return fileControllerInstance;
     }
     public String filescelto;
+    public ErrorType errorToShow=ErrorType.NO_ERR;
+
+
+    public Band createBand(double resolution){
+        Band band= new Band(resolution);
+        return band;
+    }
 
     public Clump createClump(int clumpID, double galLong, double galLat, float temperature, double lmRatio, float density , int type){
         Clump clump = new Clump(clumpID,galLong,galLat,temperature,lmRatio,density,type);
         return clump;
     }
 
-    public Flux createFlux(Float value, Float error, Float band){
+    public Flux createFlux(Float value, Float error, Band band){
         Flux flux = new Flux(value,error,band);
         return flux;
     }
 
-    public Ellipse createEllipse(Integer clump, double band, double maxaxis, double minaxis, double positionangle){
+    public Ellipse createEllipse(Integer clump, Band band, double maxaxis, double minaxis, double positionangle){
         Ellipse ellipse = new Ellipse(clump, band, maxaxis, minaxis,positionangle);
         return  ellipse;
     }

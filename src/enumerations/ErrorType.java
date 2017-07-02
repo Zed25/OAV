@@ -14,5 +14,12 @@ public enum ErrorType {
     BABOON, //error returning List<sources> in UC4
     BOAR,   //error returning List<clumps> in UC5
     CENTIPEDE,   //error returning list<clumps> in UC10
+    //COCKROACH,
+    DIFFERENTCHOOSEFILE, //E' stato selezionato un csv errato
+    DIFFERENTTABLEFILE, //il file non coincide con il formato delle colonne richieste
+    UNFORMATFILE, //the file has different expected values
+    READINGFILEERR, //error in reading file
+
     ALREADY_EXISTS //try to create new object record in db with a ID that already exists
+
 }

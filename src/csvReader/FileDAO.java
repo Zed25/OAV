@@ -2,13 +2,12 @@ package csvReader;
 
 import DAO.SuperDAO;
 import enumerations.ConnectionType;
-import model.Clump;
-import model.Ellipse;
-import model.Flux;
-import model.Source;
+import enumerations.ErrorType;
+import model.*;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -18,10 +17,11 @@ import java.util.List;
 
 public class FileDAO extends SuperDAO {
 
-    public Connection connection = connect(ConnectionType.COMPQUERY);
+
 
     public boolean fillingTable(String fileName, List<String[]> allLines) {
 
+        Connection connection = connect(ConnectionType.COMPQUERY);
         String[] tableNamesRight;
 
         FileController controller = FileController.getFileControllerInstance();
@@ -33,7 +33,7 @@ public class FileDAO extends SuperDAO {
                 //Controllo  NOMI COLONNE prima riga
                 tableNamesRight = new String[]{"ID", "GLON", "GLAT", "TEMP", "L/M", "SURF_DENS", "EVOL_FLAG"};
                 if (!(FirstLineOK(allLines.get(0), tableNamesRight))) {
-                    System.out.println("E' stato inserito un csv errato"); //STAMPARE ROBE A SCHERMO html
+                    controller.errorToShow=ErrorType.DIFFERENTTABLEFILE;
                 } else {
 
                     try {
@@ -56,7 +56,8 @@ public class FileDAO extends SuperDAO {
 
                             } catch (NumberFormatException e) {
                                 //Controllo type sulle singole righe
-                                System.out.println("il formato del csv non è adatto a questa operazione"); //STAMPARE ROBE A SCHERMO html
+                                //System.out.println("il formato del csv non è adatto a questa operazione");
+                                controller.errorToShow=ErrorType.UNFORMATFILE;
                                 return false;
 
                             }
@@ -89,7 +90,7 @@ public class FileDAO extends SuperDAO {
                         "FW250_2", "FW350_1", "FW350_2", "FW500_1", "FW500_2", "PA70", "PA160", "PA250", "PA350", "PA500"};
 
                 if (!(FirstLineOK(allLines.get(0), tableNamesRight))) {
-                    System.out.println("E' stato inserito un csv errato");//STAMPARE ROBE A SCHERMO html
+                    controller.errorToShow=ErrorType.DIFFERENTTABLEFILE;
                 } else {
 
                     for (int i = 1; i < allLines.size(); i++) {
@@ -127,88 +128,96 @@ public class FileDAO extends SuperDAO {
 
 
                                 if (Double.parseDouble(line[1]) != 0.0) { //BANDA 70
+                                    Band band = controller.createBand(Double.parseDouble("70.0"));
 
-                                    Ellipse ellipse = controller.createEllipse(Integer.parseInt(line[0]), Double.parseDouble("70.0"), Double.parseDouble(line[6]),
+                                    Ellipse ellipse = controller.createEllipse(Integer.parseInt(line[0]), band, Double.parseDouble(line[6]),
                                             Double.parseDouble(line[7]), Double.parseDouble(line[16]));
 
                                     query = "INSERT INTO Ellipses (Clump, Band, Maxaxis, Minaxis, PositionAngle) " +
-                                            "VALUES ('" + ellipse.getClump() + "', '" + ellipse.getBand() + "', '" + ellipse.getMaxaxis() + "', '" +
+                                            "VALUES ('" + ellipse.getClump() + "', '" + ellipse.getBand().getResolution() + "', '" + ellipse.getMaxaxis() + "', '" +
                                             ellipse.getMinaxis() + "', '" + ellipse.getPositionangle() + "');";
                                     queriesEllipses.add(query);
 
-                                    Flux flux = controller.createFlux(Float.parseFloat(line[1]), Float.parseFloat("0"), Float.parseFloat("70.0"));
+
+                                    Flux flux = controller.createFlux(Float.parseFloat(line[1]), Float.parseFloat("0"), band);
 
                                     query2 = "INSERT INTO fluxes(Value, Band, Clump) VALUES('" + flux.getValue() + "', '" +
-                                            flux.getBand() + "', '" + ellipse.getClump() + "');";
+                                            flux.getBand().getResolution() + "', '" + ellipse.getClump() + "');";
                                     queriesFluxes.add(query2);
                                 }
 
 
                                 if (Double.parseDouble(line[2]) != 0.0) { //BANDA 160
+                                    Band band = controller.createBand(Double.parseDouble("160.0"));
 
-                                    Ellipse ellipse = controller.createEllipse(Integer.parseInt(line[0]), Double.parseDouble("160.0"), Double.parseDouble(line[8]),
+                                    Ellipse ellipse = controller.createEllipse(Integer.parseInt(line[0]), band, Double.parseDouble(line[8]),
                                             Double.parseDouble(line[9]), Double.parseDouble(line[17]));
 
                                     query = "INSERT INTO Ellipses (Clump, Band, Maxaxis, Minaxis, PositionAngle) " +
-                                            "VALUES ('" + ellipse.getClump() + "', '" + ellipse.getBand() + "', '" + ellipse.getMaxaxis() + "', '" +
+                                            "VALUES ('" + ellipse.getClump() + "', '" + ellipse.getBand().getResolution() + "', '" + ellipse.getMaxaxis() + "', '" +
                                             ellipse.getMinaxis() + "', '" + ellipse.getPositionangle() + "');";
                                     queriesEllipses.add(query);
 
-                                    Flux flux = controller.createFlux(Float.parseFloat(line[2]), Float.parseFloat("0"), Float.parseFloat("160.0"));
+                                    Flux flux = controller.createFlux(Float.parseFloat(line[2]), Float.parseFloat("0"), band);
 
                                     query2 = "INSERT INTO fluxes(Value, Band, Clump) VALUES('" + flux.getValue() + "', '" +
-                                            flux.getBand() + "', '" + ellipse.getClump() + "');";
+                                            flux.getBand().getResolution() + "', '" + ellipse.getClump() + "');";
                                     queriesFluxes.add(query2);
                                 }
 
                                 if (Double.parseDouble(line[3]) != 0.0) { //BANDA 250
+                                    Band band = controller.createBand(Double.parseDouble("250.0"));
 
-                                    Ellipse ellipse = controller.createEllipse(Integer.parseInt(line[0]), Double.parseDouble("250.0"), Double.parseDouble(line[10]),
+                                    Ellipse ellipse = controller.createEllipse(Integer.parseInt(line[0]), band, Double.parseDouble(line[10]),
                                             Double.parseDouble(line[11]), Double.parseDouble(line[18]));
+
                                     query = "INSERT INTO Ellipses (Clump, Band, Maxaxis, Minaxis, PositionAngle) " +
-                                            "VALUES ('" + ellipse.getClump() + "', '" + ellipse.getBand() + "', '" + ellipse.getMaxaxis() + "', '" +
+                                            "VALUES ('" + ellipse.getClump() + "', '" + ellipse.getBand().getResolution() + "', '" + ellipse.getMaxaxis() + "', '" +
                                             ellipse.getMinaxis() + "', '" + ellipse.getPositionangle() + "');";
                                     queriesEllipses.add(query);
 
-                                    Flux flux = controller.createFlux(Float.parseFloat(line[3]), Float.parseFloat("0"), Float.parseFloat("250.0"));
-
+                                    Flux flux = controller.createFlux(Float.parseFloat(line[3]), Float.parseFloat("0"), band);
                                     query2 = "INSERT INTO fluxes(Value, Band, Clump) VALUES('" + flux.getValue() + "', '" +
-                                            flux.getBand() + "', '" + ellipse.getClump() + "');";
+                                            flux.getBand().getResolution() + "', '" + ellipse.getClump() + "');";
 
                                     queriesFluxes.add(query2);
                                 }
 
                                 if (Double.parseDouble(line[4]) != 0.0) { //BANDA 350
+                                    Band band = controller.createBand(Double.parseDouble("350.0"));
 
-                                    Ellipse ellipse = controller.createEllipse(Integer.parseInt(line[0]), Double.parseDouble("350.0"), Double.parseDouble(line[12]),
+                                    Ellipse ellipse = controller.createEllipse(Integer.parseInt(line[0]), band, Double.parseDouble(line[12]),
                                             Double.parseDouble(line[13]), Double.parseDouble(line[19]));
+
                                     query = "INSERT INTO Ellipses (Clump, Band, Maxaxis, Minaxis, PositionAngle) " +
-                                            "VALUES ('" + ellipse.getClump() + "', '" + ellipse.getBand() + "', '" + ellipse.getMaxaxis() + "', '" +
+                                            "VALUES ('" + ellipse.getClump() + "', '" + ellipse.getBand().getResolution() + "', '" + ellipse.getMaxaxis() + "', '" +
                                             ellipse.getMinaxis() + "', '" + ellipse.getPositionangle() + "');";
 
                                     queriesEllipses.add(query);
 
-                                    Flux flux = controller.createFlux(Float.parseFloat(line[4]), Float.parseFloat("0"), Float.parseFloat("350.0"));
+                                    Flux flux = controller.createFlux(Float.parseFloat(line[4]), Float.parseFloat("0"), band);
 
                                     query2 = "INSERT INTO fluxes(Value, Band, Clump) VALUES('" + flux.getValue() + "', '" +
-                                            flux.getBand() + "', '" + ellipse.getClump() + "');";
+                                            flux.getBand().getResolution() + "', '" + ellipse.getClump() + "');";
 
                                     queriesFluxes.add(query2);
                                 }
 
                                 if (Double.parseDouble(line[5]) != 0.0) { //BANDA 500
+                                    Band band = controller.createBand(Double.parseDouble("500.0"));
 
-                                    Ellipse ellipse = controller.createEllipse(Integer.parseInt(line[0]), Double.parseDouble("500.0"), Double.parseDouble(line[14]),
+                                    Ellipse ellipse = controller.createEllipse(Integer.parseInt(line[0]), band, Double.parseDouble(line[14]),
                                             Double.parseDouble(line[15]), Double.parseDouble(line[20]));
+
                                     query = "INSERT INTO Ellipses (Clump, Band, Maxaxis, Minaxis, PositionAngle) " +
-                                            "VALUES ('" + ellipse.getClump() + "', '" + ellipse.getBand() + "', '" + ellipse.getMaxaxis() + "', '" +
+                                            "VALUES ('" + ellipse.getClump() + "', '" + ellipse.getBand().getResolution() + "', '" + ellipse.getMaxaxis() + "', '" +
                                             ellipse.getMinaxis() + "', '" + ellipse.getPositionangle() + "');";
                                     queriesEllipses.add(query);
 
-                                    Flux flux = controller.createFlux(Float.parseFloat(line[5]), Float.parseFloat("0"), Float.parseFloat("500.0"));
+                                    Flux flux = controller.createFlux(Float.parseFloat(line[5]), Float.parseFloat("0"), band);
 
                                     query2 = "INSERT INTO fluxes(Value, Band, Clump) VALUES('" + flux.getValue() + "', '" +
-                                            flux.getBand() + "', '" + ellipse.getClump() + "');";
+                                            flux.getBand().getResolution() + "', '" + ellipse.getClump() + "');";
 
                                     queriesFluxes.add(query2);
                                 }
@@ -217,7 +226,8 @@ public class FileDAO extends SuperDAO {
 
                             } catch (NumberFormatException e) {
                                 //Controllo type sulle singole righe
-                                System.out.println("il formato del csv non è adatto a questa operazione"); //STAMPARE ROBE A SCHERMO html
+                                //System.out.println("il formato del csv non è adatto a questa operazione");
+                                controller.errorToShow=ErrorType.UNFORMATFILE;
                                 return false;
 
                             }
@@ -248,7 +258,7 @@ public class FileDAO extends SuperDAO {
                 tableNamesRight = new String[]{"SSTGLMC", "GLon", "GLat", "[3.6]G", "[4.5]G", "[5.8]G", "[8.0]G"};
 
                 if (!(FirstLineOK(allLines.get(0), tableNamesRight))) {
-                    System.out.println("E' stato inserito un csv errato"); //STAMPARE ROBE A SCHERMO html
+                    controller.errorToShow=ErrorType.DIFFERENTTABLEFILE;
                 } else {
 
                     try {
@@ -271,30 +281,37 @@ public class FileDAO extends SuperDAO {
                                 //Riempimento tabelle flusso
                                 if (!(line[3].equals("     "))) {
 
-                                    Flux flux= controller.createFlux(Float.parseFloat(line[3]),Float.parseFloat("0"), Float.parseFloat("3.6"));
+                                    Band band = controller.createBand(Double.parseDouble("3.6"));
+                                    Flux flux= controller.createFlux(Float.parseFloat(line[3]),Float.parseFloat("0"), band);
                                     query2 = "INSERT INTO fluxes (value, band, source) VALUES (" +
-                                            flux.getValue() + ", " + flux.getBand() + ", '" + source.getSourceID() + "');";
+                                            flux.getValue() + ", " + flux.getBand().getResolution() + ", '" + source.getSourceID() + "');";
                                     queriesFluxes.add(query2);
                                 }
 
                                 if (!(line[4].equals("     "))) {
-                                    Flux flux= controller.createFlux(Float.parseFloat(line[4]),Float.parseFloat("0"), Float.parseFloat("4.5"));
+
+                                    Band band = controller.createBand(Double.parseDouble("4.5"));
+                                    Flux flux= controller.createFlux(Float.parseFloat(line[4]),Float.parseFloat("0"), band);
                                     query2 = "INSERT INTO fluxes (value, band, source) VALUES (" +
-                                            flux.getValue() + ", " + flux.getBand() + ", '" + source.getSourceID() + "');";
+                                            flux.getValue() + ", " + flux.getBand().getResolution() + ", '" + source.getSourceID() + "');";
                                     queriesFluxes.add(query2);
                                 }
 
                                 if (!(line[5].equals("     "))) {
-                                    Flux flux= controller.createFlux(Float.parseFloat(line[5]),Float.parseFloat("0"), Float.parseFloat("5.8"));
+
+                                    Band band = controller.createBand(Double.parseDouble("5.8"));
+                                    Flux flux= controller.createFlux(Float.parseFloat(line[5]),Float.parseFloat("0"), band);
                                     query2 = "INSERT INTO fluxes (value, band, source) VALUES (" +
-                                            flux.getValue() + ", " + flux.getBand() + ", '" + source.getSourceID() + "');";
+                                            flux.getValue() + ", " + flux.getBand().getResolution() + ", '" + source.getSourceID() + "');";
                                     queriesFluxes.add(query2);
                                 }
 
                                 if (!(line[6].equals("     "))) {
-                                    Flux flux= controller.createFlux(Float.parseFloat(line[6]),Float.parseFloat("0"), Float.parseFloat("8.0"));
+
+                                    Band band = controller.createBand(Double.parseDouble("8.0"));
+                                    Flux flux= controller.createFlux(Float.parseFloat(line[6]),Float.parseFloat("0"), band);
                                     query2 = "INSERT INTO fluxes (value, band, source) VALUES (" +
-                                            flux.getValue() + ", " + flux.getBand() + ", '" + source.getSourceID() + "');";
+                                            flux.getValue() + ", " + flux.getBand().getResolution() + ", '" + source.getSourceID() + "');";
                                     queriesFluxes.add(query2);
                                 }
 
@@ -302,7 +319,8 @@ public class FileDAO extends SuperDAO {
                                 query3 = "INSERT INTO collection (starmap, source) VALUES ('Glimpse', '" + source.getSourceID() + "');";
                             } catch (NumberFormatException e) {
                                 //Controllo type sulle singole righe
-                                System.out.println("il formato del csv non è adatto a questa operazione"); //STAMPARE ROBE A SCHERMO html
+                                //System.out.println("il formato del csv non è adatto a questa operazione");
+                                controller.errorToShow=ErrorType.UNFORMATFILE;
                                 return false;
 
                             }
@@ -336,7 +354,7 @@ public class FileDAO extends SuperDAO {
                 tableNamesRight = new String[]{"MIPSGAL", "GLON", "GLAT", "[24]", "e_[24]", "GLIMPSE"};
 
                 if (!(FirstLineOK(allLines.get(0), tableNamesRight))) {
-                    System.out.println("E' stato inserito un csv errato"); //STAMPARE ROBE A SCHERMO html
+                    controller.errorToShow=ErrorType.DIFFERENTTABLEFILE;
                 } else {
 
                     for (int i = 1; i < allLines.size(); i++) {
@@ -386,18 +404,21 @@ public class FileDAO extends SuperDAO {
 
                                 }
                                 //Riempimento tabella fluxes
-                                Flux flux = controller.createFlux(Float.parseFloat(line[3]), Float.parseFloat(line[4]), Float.parseFloat("24.0"));
+                                Band band = controller.createBand(Double.parseDouble("24.0"));
+                                Flux flux = controller.createFlux(Float.parseFloat(line[3]), Float.parseFloat(line[4]), band);
                                 query2 = "INSERT INTO fluxes (value, error, band, source) VALUES (" + flux.getValue() + ", " + flux.getError() +
-                                        ", " + flux.getBand() + ", '" + source.getSourceID() + "');";
+                                        ", " + flux.getBand().getResolution() + ", '" + source.getSourceID() + "');";
 
                                 query3 = "INSERT INTO collection (starmap, source) VALUES ('MIPS-GAL', '" + source.getSourceID() + "');";
 
                             } catch (NumberFormatException e) {
                                 //Controllo type sulle singole righe
-                                System.out.println("il formato del csv non è adatto a questa operazione"); //STAMPARE ROBE A SCHERMO html
+                                //System.out.println("il formato del csv non è adatto a questa operazione");
+                                controller.errorToShow=ErrorType.UNFORMATFILE;
                                 return false;
 
                             }
+
                             Statement statement = connection.createStatement();
                             statement.executeUpdate(query);
                             statement.executeUpdate(query2);
@@ -415,22 +436,8 @@ public class FileDAO extends SuperDAO {
                             e1.printStackTrace();
                         }
                     }
-
-
-                    try { //s_c_membership
-
-                        String query = ("INSERT INTO s_c_membership(source, clump) SELECT sources.sourceid, clumps.clumpid "+
-                                "FROM sources INNER JOIN collection ON (sources.sourceid=collection.source) " +
-                                "NATURAL JOIN ellipses INNER JOIN clumps ON (ellipses.clump=clumps.clumpid) " +
-                                "WHERE (sqrt((sources.galacticlatitude - clumps.galacticlatitude)^2 +" +
-                                " (sources.galacticlongitude - clumps.galacticlongitude)^2) < " +
-                                "(ellipses.maxaxis * ellipses.band));");
-                        Statement statement = connection.createStatement();
-                        statement.executeUpdate(query);
-
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
+                    //ArrayList<String[]> result= new ArrayList<>();
+                    SC_membership();
                 }
                 return true;
         }
@@ -438,6 +445,32 @@ public class FileDAO extends SuperDAO {
         return false;
     }
 
+    private void SC_membership(){
+        Connection connection = connect(ConnectionType.COMPQUERY);
+        try { //s_c_membership
+
+            Statement statement = connection.createStatement();
+            String query = ("SELECT sources.sourceid " +
+                            "FROM sources INNER JOIN collection ON (sources.sourceid=collection.source)"+
+                            "NATURAL JOIN ellipses INNER JOIN clumps ON (ellipses.clump=clumps.clumpid) "+
+                            "WHERE ((ellipses.clump = ?) AND (ellipses.band = ?) AND (collection.starmap= 'MIPS-GAL') AND "+
+                            "(sqrt((sources.galacticlatitude - clumps.galacticlatitude)^2 +" +
+                            "(sources.galacticlongitude - clumps.galacticlongitude)^2) <" +
+                            "(ellipses.maxaxis * ellipses.band)));");
+
+            statement.executeUpdate(query);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            try {
+                connection.rollback();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+
+        }
+
+    }
 
     private boolean FirstLineOK(String[] csvFirstLine, String[] expetedLine) {
         for (int j = 0; j < csvFirstLine.length; j++) {

@@ -1,6 +1,7 @@
 package beans.login.search;
 
 import Controllers.*;
+import csvReader.SourceClumpController;
 import enumerations.ErrorType;
 
 import java.util.List;
@@ -60,6 +61,14 @@ public class SearchBean {
         this.setResetflag(false);
     }
 
+    public boolean isFullSourceinClump() {
+        if (this.getClumpID() != 0 && this.getBand() != "" ) {
+            return true;
+        }
+        else return false;
+    }
+
+
     public boolean isFullSource() {
         if (this.getMapName() != "" && this.getBand() != "") {
             return true;
@@ -74,16 +83,20 @@ public class SearchBean {
         else return false;
     }
 
+    public ErrorType findClumpByID(SearchBean bean, ResultBean resBean) {
+        return FindClumpByIDController.getInstance().findClumpByIDFromBean(this, resBean);
+    }
+
+    public ErrorType getElementsFromBean(SearchBean searchBean, ResultBean resultBean){
+        return SourceClumpController.getInstance().getElementsFromBean(searchBean,resultBean);
+    }
+
     public ErrorType findObjectInMap(SearchBean bean, ResultBean resBean) {
         if (!this.getBand().equals("All"))
             this.setRealBand(Float.parseFloat(this.band));
         else
             this.setRealBand(0.0f);
         return SearchObjectInMapController.getInstance().FindObjectInMapFromBean(this, resBean);
-    }
-
-    public ErrorType findClumpByID(SearchBean bean, ResultBean resBean) {
-        return FindClumpByIDController.getInstance().findClumpByIDFromBean(this, resBean);
     }
 
     public List<String> getAllBandsFromDB() {

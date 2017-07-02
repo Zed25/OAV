@@ -6,9 +6,10 @@ package model;
 public class Ellipse {
 
     private Integer clump;
-    private double band, maxaxis, minaxis, positionangle;
+    private double maxaxis, minaxis, positionangle;
+    private Band band;
 
-    public Ellipse(Integer clump, double band, double maxaxis, double minaxis, double positionangle) {
+    public Ellipse(Integer clump, Band band, double maxaxis, double minaxis, double positionangle) {
         this.clump=clump;
         this.band=band;
         this.maxaxis=maxaxis;
@@ -24,11 +25,11 @@ public class Ellipse {
         this.clump = clump;
     }
 
-    public double getBand() {
+    public Band getBand() {
         return band;
     }
 
-    public void setBand(double band) {
+    public void setBand(Band band) {
         this.band = band;
     }
 

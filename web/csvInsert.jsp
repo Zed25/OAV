@@ -1,5 +1,9 @@
 <%@ page import="csvReader.FileController" %>
-<%@ page import="java.util.List" %><%--
+<%@ page import="enumerations.ErrorType" %>
+<%@ page import="java.io.BufferedWriter" %>
+<%@ page import="java.io.FileWriter" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%--
   Created by IntelliJ IDEA.
   User: dilettalagom
   Date: 04/04/17
@@ -11,89 +15,49 @@
 <jsp:include page="header.jsp"/>
 
 <div class="row" style="margin-top: 3%">
+    <div class="col s11" style="margin-left: 10%;">
 
-    <div class="col s11" style="margin-left: 10%">
-        <div class="white">
+        <h5 style="color:darkslategray" >Please, select here: </h5>
 
-            <h5 style="color:darkslategray" >Scegli il file da inserire: </h5>
+        <form action="upload" method="post" enctype="multipart/form-data">
+            <div class="row" style="margin-left:5%; margin-top: 10%">
+                <div class="col s12">
+                    <div class="col s7">
+                        <div class="file-field input-field" >
 
+                            <div class="btn">
+                                <span>File</span>
+                                <input type="file" name="file" accept=".csv"/>
+                            </div>
 
-            <div class="" style="margin-left: 26%">
-
-                <form>
-                    <p>
-                        <input class="with-gap" type="radio" name="filescelto" id="higal" value="higal.csv"/>
-                        <label for="higal" id="filescelto" style="color: darkslategray" data-error="wrong" data-success="ok" >Higal</label>
-                    </p>
-
-                    <p>
-                        <input class="with-gap" type="radio" name="filescelto" id="higal_additionalinfo" value="higal_additionalinfo.csv"/>
-                        <label for="higal_additionalinfo" style="color: darkslategray">Higal_additionalinfo</label>
-
-                    </p>
-
-                    <p>
-                        <input class="with-gap" type="radio" name="filescelto" id="mips"  value="mips.csv"/>
-                        <label for="mips" style="color: darkslategray">Mips</label>
-                    </p>
-
-                    <p>
-                        <input class="with-gap" type="radio" name="filescelto" id="r08" value="r08.csv"/>
-                        <label for="r08" style="color: darkslategray">R08</label>
-                    </p>
+                            <div class="file-path-wrapper">
+                                <input class="file-path validate" type="text">
+                            </div>
+                        </div>
+                    </div>
 
 
-                    <button class="btn waves-effect waves-light blue" type="submit" style="margin-top:2%" value="validate">Submit
+                    <button class="btn waves-effect waves-light blue" type="submit" style="margin-top:2%" name="validate" value="OK">Submit
                         <i class="material-icons right">send</i>
                     </button>
 
-                </form>
+                </div>
 
             </div>
-
-
-            <form action="upload" method="post" enctype="multipart/form-data">
-                <div class="row">
-                    <div class="col s12">
-                        <div class="col s7">
-                            <div class="file-field input-field" >
-
-                                <div class="btn">
-                                    <span>File</span>
-                                    <input type="file" name="file" accept=".csv"/>
-                                </div>
-
-                                <div class="file-path-wrapper">
-                                    <input class="file-path validate" type="text">
-                                </div>
-                            </div>
-                        </div>
-
-                        <button class="btn waves-effect waves-light blue" type="submit" style="margin-top:2%" name="validate" value="OK">Submit
-                            <i class="material-icons right">send</i>
-                        </button>
-
-                    </div>
-                </div>
-            </form>
-        </div>
+        </form>
 
     </div>
 </div>
 
-<%
-    String filescelto = "";
-    if (request.getParameter("filescelto")!=null){
-        filescelto= request.getParameter("filescelto");
-    }
-
+<%/*
     FileController c = FileController.getFileControllerInstance();
-    c.filescelto = filescelto;
+    if (c.errorToShow==ErrorType.DIFFERENTCHOOSEFILE) {
 
-    /*if (request.getParameter("validateform")== on)
-        response.sendRedirect("upload.jsp");*/
-    //System.out.println(request.getParameter("validate"));
+<jsp:forward page="upload.jsp"/>
+}*/%>
 
-%>
+
+
+
 <jsp:include page="footer.jsp"/>
 

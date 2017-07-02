@@ -5,15 +5,16 @@ package model;
  */
 public class Flux {
 
-    private Float value, error, band;
+    private Float value, error;
+    private Band band;
 
-    public Flux(Float value, Float band){
+    public Flux(Float value, Band band){
         this.value=value;
         this.band=band;
     }
 
 
-    public Flux(Float value, Float error, Float band){
+    public Flux(Float value, Float error, Band band){
         this.value=value;
         this.error=error;
         this.band=band;
@@ -25,11 +26,11 @@ public class Flux {
         this.value = value;
     }
 
-    public Float getBand() {
+    public Band getBand() {
         return band;
     }
 
-    public void setBand(Float band) {
+    public void setBand(Band band) {
         this.band = band;
     }
 
