@@ -55,7 +55,6 @@ public class SourceClumpController {
                 Source source = new Source();
                 source.setSourceID(resultFound.getString("sourceid"));
                 sourcesfound.add(source);
-
             }
 
         } catch (SQLException e) {

@@ -83,6 +83,10 @@ public class SearchBean {
         else return false;
     }
 
+    public ErrorType findYoungSuorce(SearchBean bean, ResultBean resultBean){
+        return YoungSourceController.getInstance().getYoungSource(this, resultBean);
+    }
+
     public ErrorType findClumpByID(SearchBean bean, ResultBean resBean) {
         return FindClumpByIDController.getInstance().findClumpByIDFromBean(this, resBean);
     }

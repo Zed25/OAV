@@ -453,7 +453,7 @@ public class FileDAO extends SuperDAO {
             String query = ("SELECT sources.sourceid " +
                             "FROM sources INNER JOIN collection ON (sources.sourceid=collection.source)"+
                             "NATURAL JOIN ellipses INNER JOIN clumps ON (ellipses.clump=clumps.clumpid) "+
-                            "WHERE ((ellipses.clump = ?) AND (ellipses.band = ?) AND (collection.starmap= 'MIPS-GAL') AND "+
+                            "WHERE ((collection.starmap= 'MIPS-GAL') AND "+
                             "(sqrt((sources.galacticlatitude - clumps.galacticlatitude)^2 +" +
                             "(sources.galacticlongitude - clumps.galacticlongitude)^2) <" +
                             "(ellipses.maxaxis * ellipses.band)));");

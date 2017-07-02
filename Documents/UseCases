@@ -50,7 +50,7 @@
     Un utente registrato potrà richiedere il valore medio, la deviazione standard,
     la mediana e la deviazione media assoluta delle masse di tutti i clumps.
 
--UC11 Valore dei rapporti delle righe per gruppo spettrale:     USER
+-UC11 Valore dei rapporti delle righe per gruppo spettrale:     USER [Diletta]
     Un utente registrato potrà selezionare un clump e successivamente trovare tutte le sorgenti che sono nella mappa MIPSGAL
     e che sono classificate come stelle giovani di classe I.
     Una sorgente infrarossa è considerata una stella giovane di classe I (Young Source Object I YSO I)
