@@ -28,7 +28,10 @@
 <jsp:include page="header.jsp"/>
 
 <div class="row">
-    <h4 style="margin-top: 2%;margin-left: 2%"> Insert the Clump and the Band</h4>
+    <br>
+    <h4 style="margin-top: 2%;margin-left: 2%"> Insert the ClumpID and the band value </h4>
+
+    <br>
 
     <form action="#" method="post" style="margin-left: 1%">
 

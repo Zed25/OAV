@@ -28,15 +28,17 @@ public class YoungSourceController {
     //Adapter
     public ErrorType getYoungSource(SearchBean searchBean, ResultBean resultBean) {
 
-        List<Source> sources = findYoungSource(searchBean.getClumpID());
-        if (sources == null) {
+        List<Source> resultSources = findYoungSource(searchBean.getClumpID());
+        if (resultSources == null) {
             return ErrorType.NO_RESULTS;
         } else {
             List<SourceBean> finalSourceList = new ArrayList<>();
-            for (Source source : sources) {
+            for (Source source : resultSources) {
                 SourceBean sourceBean = new SourceBean();
                 sourceBean.setSourceID(source.getSourceID());
                 finalSourceList.add(sourceBean);
+
+                System.out.println(sourceBean.getSourceID());
             }
             resultBean.setSourceBeans(finalSourceList);
 
@@ -51,9 +53,11 @@ public class YoungSourceController {
         List<Source> youngSources = new ArrayList<>();
         try {
             while (result.next()) {
-                Source sorgente = new Source();
-                sorgente.setSourceID(result.getString("sourceid")); //?????
-                youngSources.add(sorgente);
+                Source source = new Source();
+                source.setSourceID(result.getString("V1source"));
+                youngSources.add(source);
+
+                System.out.println(source.getSourceID());
             }
 
         } catch (SQLException e) {

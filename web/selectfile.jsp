@@ -17,12 +17,12 @@
 <div class="row" style="margin-top: 3%">
 
     <div class="col s11" style="margin-left: 10%">
+
         <div class="white">
 
             <h5 style="color:darkslategray" >Which file do you want to insert? </h5>
 
-
-            <div class="" style="margin-left: 26%; margin-top: 5%">
+            <div class="row" style="margin-left: 26%; margin-top: 5%">
 
                 <form>
                     <p>
@@ -47,9 +47,7 @@
                     </p>
 
 
-
-
-                    <button class="btn waves-effect waves-light blue" type="submit" style="margin-top:2%" value="validate" >Submit
+                    <button class="btn waves-effect waves-light blue" type="submit" style="margin-top:2%;margin-left: 26%" value="validate" >Submit
                         <i class="material-icons right">send</i>
                     </button>
                 </form>
@@ -64,16 +62,11 @@
 
                 FileController c = FileController.getFileControllerInstance();
                 c.filescelto = filescelto;
-
                 // Test: System.out.println("selectfile" + filescelto);
         %>
         <jsp:forward page="csvInsert.jsp"/>
         <%
                 }
-
-        /*if (request.getParameter("validateform")== on)
-        response.sendRedirect("upload.jsp");*/
-                //System.out.println(request.getParameter("validate"));
             }
         %>
     </div>

@@ -26,9 +26,11 @@
 <% } %>
 
 <jsp:include page="header.jsp"/>
+<br>
 
 <div class="row">
     <h4 style="margin-top: 2%;margin-left: 2%"> Insert the Clump for the Young Source Object</h4>
+    <br>
 
     <form action="#" method="post" style="margin-left: 1%">
 
@@ -47,9 +49,7 @@
     </form>
 
 <%
-        //TEST:
-        System.out.println("CLUMP FROM VIEW: "+searchBean.getClumpID());
-
+        //TEST:System.out.println("CLUMP FROM VIEW: "+searchBean.getClumpID());
     }
 %>
 

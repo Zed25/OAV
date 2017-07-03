@@ -20,14 +20,16 @@ To change this template use File | Settings | File Templates.
     <a class="waves-effect waves-light btn" href="sourceInClump.jsp">Back to Search</a>
 </div>
    <% } else { %>
-
 <div class="container center-align">
-    <table class="striped">
+
+    <br>
+    <h5> The sources for the selected ClumpID <%=searchBean.getClumpID()%> at <%=searchBean.getBand()%> band are: </h5>
+
+    <table class="striped ">
         <thead>
         <div class="container center-align">
             <tr>
-                <th>Clump ID</th>
-                <th>Sources</th>
+                <th class="center-align">Sources</th>
             </tr>
         </div>
         </thead>
@@ -39,9 +41,7 @@ To change this template use File | Settings | File Templates.
 
         <tr>
             <% if (resultBean.getCount() >= 0) { %>
-            <td> <%out.println(searchBean.getClumpID());%> </td>
-            <td> <%out.println(resultBean.getSourceBeans().get(resultBean.getCount()).getSourceID());%> </td>
-            <td></td>
+            <td class="center-align"> <%out.println(resultBean.getSourceBeans().get(resultBean.getCount()).getSourceID());%> </td>
             <% } %>
         </tr>
         <% } %>
