@@ -18,11 +18,13 @@ public class SourceinClumpDAO extends SuperDAO{
 
 
         String query = "SELECT sources.sourceid " +
-                        "FROM sources INNER JOIN collection ON (sources.sourceid=collection.source)" +
-                        "NATURAL JOIN ellipses INNER JOIN clumps ON (ellipses.clump=clumps.clumpid)" +
+                        "FROM sources INNER JOIN collection ON (sources.sourceid=collection.source) " +
+                        "NATURAL JOIN ellipses INNER JOIN clumps ON (ellipses.clump=clumps.clumpid) " +
                         "WHERE (sqrt((sources.galacticlatitude - clumps.galacticlatitude)^2 +" +
                         "(sources.galacticlongitude - clumps.galacticlongitude)^2) <" +
-                         "(ellipses.maxaxis * ellipses.band) AND (clumps.clumpid = ?) AND (ellipses.band = ?) );";
+                        "(ellipses.maxaxis * ellipses.band) AND (clumps.clumpid = ?) AND (ellipses.band = ?) " +
+                        "AND clumps.galacticlongitude>0 AND clumps.galacticlatitude>0 " +
+                        "AND sources.galacticlongitude>0 AND sources.galacticlatitude>0 );";
 
         Connection connection = connect(ConnectionType.COMPQUERY);
 

@@ -450,15 +450,26 @@ public class FileDAO extends SuperDAO {
         try { //s_c_membership
 
             Statement statement = connection.createStatement();
-            String query = ("INSERT INTO s_c_membership SELECT sources.sourceid, clumps.clumpid " +
-                            "FROM sources INNER JOIN collection ON (sources.sourceid=collection.source)"+
+            /*String query = ("INSERT INTO s_c_membership SELECT sources.sourceid, clumps.clumpid " +
+                            "FROM sources INNER JOIN collection ON (sources.sourceid=collection.source) "+
                             "NATURAL JOIN ellipses INNER JOIN clumps ON (ellipses.clump=clumps.clumpid) "+
                             "WHERE ((collection.starmap= 'MIPS-GAL') AND "+
                             "(sqrt((sources.galacticlatitude - clumps.galacticlatitude)^2 +" +
                             "(sources.galacticlongitude - clumps.galacticlongitude)^2) <" +
-                            "(ellipses.maxaxis * ellipses.band)));");
+                            "(ellipses.maxaxis * ellipses.band)));");*/
+
+            String query = ("INSERT INTO s_c_membership SELECT DISTINCT sources.sourceid, clumps.clumpid" +
+                    "            FROM sources CROSS JOIN clumps" +
+                    "            INNER JOIN ellipses ON (clumps.clumpid=ellipses.clump)" +
+                    "            WHERE ( (sqrt((sources.galacticlatitude - clumps.galacticlatitude)^2 +" +
+                    "                            (sources.galacticlongitude - clumps.galacticlongitude)^2) <" +
+                    "                            (ellipses.maxaxis * ellipses.band))" +
+                    "                    AND clumps.galacticlongitude>0 AND clumps.galacticlatitude>0" +
+                    "                    AND sources.galacticlongitude>0 AND sources.galacticlatitude>0);");
 
             statement.executeUpdate(query);
+            connection.commit();
+            disconnect(connection);
 
         } catch (SQLException e) {
             e.printStackTrace();

@@ -37,14 +37,16 @@
                     </p>
 
                     <p>
+                        <input class="with-gap" type="radio" name="filescelto" id="r08" value="r08.csv"/>
+                        <label for="r08" style="color: darkslategray">R08</label>
+                    </p>
+
+                    <p>
                         <input class="with-gap" type="radio" name="filescelto" id="mips"  value="mips.csv"/>
                         <label for="mips" style="color: darkslategray">Mips</label>
                     </p>
 
-                    <p>
-                        <input class="with-gap" type="radio" name="filescelto" id="r08" value="r08.csv"/>
-                        <label for="r08" style="color: darkslategray">R08</label>
-                    </p>
+
 
 
                     <button class="btn waves-effect waves-light blue" type="submit" style="margin-top:2%" value="validate" >Submit

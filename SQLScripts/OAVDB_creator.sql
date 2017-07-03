@@ -49,7 +49,6 @@ create table Collection (
   primary key (StarMap, Source)
 );
 
-
 create table Clumps(
   ClumpID integer primary key,
   GalacticLongitude double precision DEFAULT 0.0,
@@ -64,11 +63,9 @@ create table Clumps(
 
 create table S_C_Membership(
   Source character varying (20) references Sources (SourceID) NOT NULL,
-  Clump integer references Clumps (ClumpID)  NOT NULL
-
+  Clump integer references Clumps (ClumpID)  NOT NULL,
+  primary key (Source , Clump)
 );
-
---!  primary key (Source,Clump)--
 
 create table Ellipses (
   Clump integer not null,
