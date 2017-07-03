@@ -23,6 +23,7 @@ public class SourceinClumpDAO extends SuperDAO{
                         "WHERE (sqrt((sources.galacticlatitude - clumps.galacticlatitude)^2 +" +
                         "(sources.galacticlongitude - clumps.galacticlongitude)^2) <" +
                         "(ellipses.maxaxis * ellipses.band) AND (clumps.clumpid = ?) AND (ellipses.band = ?) " +
+                        "AND (collection.starmap= 'MIPS-GAL')" +
                         "AND clumps.galacticlongitude>0 AND clumps.galacticlatitude>0 " +
                         "AND sources.galacticlongitude>0 AND sources.galacticlatitude>0 );";
 
