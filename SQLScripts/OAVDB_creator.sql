@@ -85,3 +85,14 @@ create table Fluxes (
   Clump integer references Clumps (ClumpID)
 );
 
+CREATE VIEW V1 AS
+  SELECT f1.source AS V1source, (f1.value-f2.value) AS difvalue4558
+  FROM fluxes AS f1 INNER JOIN fluxes AS f2 ON f1.source=f2.source
+  WHERE ( ((f1.band=4.5) OR (f2.band=5.8)) AND ((f1.value-f2.value)>0.7) );
+
+CREATE VIEW V2 AS
+  SELECT f1.source AS V2source, (f1.value-f2.value) AS difvalue3645
+  FROM fluxes AS f1 INNER JOIN fluxes AS f2 ON f1.source=f2.source
+  WHERE ( ((f1.band=3.6) OR (f2.band=4.5)) AND ((f1.value-f2.value)>0.7) );
+
+
