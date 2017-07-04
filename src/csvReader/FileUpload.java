@@ -18,47 +18,49 @@ import java.util.List;
 public class FileUpload extends HttpServlet {
 
     public String filescelto;
+    FileController c = FileController.getFileControllerInstance();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        FileController c = FileController.getFileControllerInstance();
         filescelto = c.filescelto;
-
-       //TEST: System.out.println("FileUpload " +filescelto);
 
         ServletFileUpload sf = new ServletFileUpload(new DiskFileItemFactory());
         String savePath = request.getServletContext().getRealPath("");         //System.out.print(savePath); =*/OAV/out/artifacts/OAV_war_exploded/
 
-        try {
-            List<FileItem> multifiles = sf.parseRequest(request);
 
-            //System.out.println(Arrays.toString(new List[]{multifiles}));
+            try {
+                List<FileItem> multifiles = sf.parseRequest(request);
 
-            FileItem item = multifiles.get(0);
-            String fileName = item.getName();
-            if (fileName.equals(filescelto)){
-                item.write(new File(savePath + fileName));
+                //System.out.println(Arrays.toString(new List[]{multifiles}));
 
-                if (!(getSplitted(savePath, fileName))) {
+                FileItem item = multifiles.get(0);
+                String fileName = item.getName();
+                if (fileName.equals(filescelto)) {
+                    item.write(new File(savePath + fileName));
+
+                    ErrorType error = getSplitted(savePath, fileName);
+
                     //System.out.println("errore durante la lettura del file");
-                    c.errorToShow= ErrorType.READINGFILEERR;
+                    c.errorToShow = error;
+
                 }
+               /* }else{
+                    //System.out.println("Hai inserito il file "+fileName+", ma hai selezionato il file "+filescelto+". Riprova");
+                    c.errorToShow=ErrorType.DIFFERENTCHOOSEFILE;
+                }*/
 
-            }else{
-                System.out.println("Hai inserito il file "+fileName+", ma hai selezionato il file "+filescelto+". Riprova");
-                c.errorToShow=ErrorType.DIFFERENTCHOOSEFILE;
+            } catch (Exception b) {
+                b.printStackTrace();
+
             }
-
-        } catch (Exception b) {
-            b.printStackTrace();
+        request.getRequestDispatcher("/resultUpload.jsp").forward(request, response);
 
         }
 
-    }
 
+    private ErrorType getSplitted(String path, String fileName) throws SQLException, ClassNotFoundException {
 
-    private boolean getSplitted(String path, String fileName) throws SQLException, ClassNotFoundException {
-
+        ErrorType error = ErrorType.NO_ERR;
         List<String[]> allLines = null;
         try{
             List<String> lines = Files.readAllLines(Paths.get(path+fileName));
@@ -76,13 +78,13 @@ public class FileUpload extends HttpServlet {
             e.printStackTrace();
         }
 
-        if (allLines!= null){
+        if (allLines!= null) {
             FileDAO fileDAO = new FileDAO();
-            if (fileDAO.fillingTable(fileName, allLines))
+            error = fileDAO.fillingTable(fileName, allLines);
 
-                return true;
+            System.out.println(error.toString());
         }
-        return false;
+        return error;
     }
 }
 

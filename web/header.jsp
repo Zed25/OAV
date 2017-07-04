@@ -60,9 +60,8 @@
     <li><a href="searchInSquareOrCircle.jsp"><i class="material-icons black-text">search</i>Search elements in circles or squares</a></li>
     <br>
     <li><a href="sourceInClump.jsp"><i class="material-icons black-text">search</i>Search sources in Clump</a></li>
-    <li><a href="youngSourceObject.jsp"><i class="material-icons black-text">search</i>Search Young Source Object</a></li>
+    <li><a href="youngSourceObject.jsp"><i class="material-icons black-text">search</i>Search Young Source</a></li>
     <br>
-
     <li><div class="divider"></div></li>
     <li><a class="subheader">Subheader</a></li>
     <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
@@ -83,9 +82,8 @@
     <li><a href="searchInSquareOrCircle.jsp"><i class="material-icons black-text">search</i>Search elements in circles or squares</a></li>
     <br>
     <li><a href="sourceInClump.jsp"><i class="material-icons black-text">search</i>Search sources in Clump</a></li>
-    <li><a href="youngSourceObject.jsp"><i class="material-icons black-text">search</i>Search Young Source Object</a></li>
+    <li><a href="youngSourceObject.jsp"><i class="material-icons black-text">search</i>Search Young Source</a></li>
     <li><div class="divider"></div></li>
-    <br>
     <li><a class="subheader">Subheader</a></li>
 
 </ul>

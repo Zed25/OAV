@@ -18,8 +18,9 @@ import java.util.List;
 public class FileDAO extends SuperDAO {
 
 
+    public ErrorType fillingTable(String fileName, List<String[]> allLines) {
 
-    public boolean fillingTable(String fileName, List<String[]> allLines) {
+        ErrorType error = ErrorType.NO_ERR;
 
         Connection connection = connect(ConnectionType.COMPQUERY);
         String[] tableNamesRight;
@@ -33,7 +34,7 @@ public class FileDAO extends SuperDAO {
                 //Controllo  NOMI COLONNE prima riga
                 tableNamesRight = new String[]{"ID", "GLON", "GLAT", "TEMP", "L/M", "SURF_DENS", "EVOL_FLAG"};
                 if (!(FirstLineOK(allLines.get(0), tableNamesRight))) {
-                    controller.errorToShow=ErrorType.DIFFERENTTABLEFILE;
+                    error=ErrorType.DIFFERENTTABLEFILE;
                 } else {
 
                     try {
@@ -57,8 +58,8 @@ public class FileDAO extends SuperDAO {
                             } catch (NumberFormatException e) {
                                 //Controllo type sulle singole righe
                                 //System.out.println("il formato del csv non è adatto a questa operazione");
-                                controller.errorToShow=ErrorType.UNFORMATFILE;
-                                return false;
+                                error=ErrorType.UNFORMATFILE;
+                                return error;
 
                             }
                             Statement statement = connection.createStatement();
@@ -77,7 +78,7 @@ public class FileDAO extends SuperDAO {
                         }
                     }
                 }
-                return true;
+                return error;
 
 
             case "higal_additionalinfo.csv":
@@ -90,7 +91,7 @@ public class FileDAO extends SuperDAO {
                         "FW250_2", "FW350_1", "FW350_2", "FW500_1", "FW500_2", "PA70", "PA160", "PA250", "PA350", "PA500"};
 
                 if (!(FirstLineOK(allLines.get(0), tableNamesRight))) {
-                    controller.errorToShow=ErrorType.DIFFERENTTABLEFILE;
+                    error=ErrorType.DIFFERENTTABLEFILE;
                 } else {
 
                     for (int i = 1; i < allLines.size(); i++) {
@@ -108,7 +109,7 @@ public class FileDAO extends SuperDAO {
 
                             statement.executeUpdate(queryNewClumps);
                         }
-                    } catch (SQLException e) {
+                    }catch (SQLException e) {
                         e.printStackTrace();
                     }
 
@@ -226,11 +227,10 @@ public class FileDAO extends SuperDAO {
 
                             } catch (NumberFormatException e) {
                                 //Controllo type sulle singole righe
-                                //System.out.println("il formato del csv non è adatto a questa operazione");
-                                controller.errorToShow=ErrorType.UNFORMATFILE;
-                                return false;
-
+                                //System.out.println("il formato del csv non è adatto a questa operazione" + error);
+                                error=ErrorType.UNFORMATFILE;
                             }
+
                             Statement statement = connection.createStatement();
 
                             for (String s : queriesEllipses) statement.executeUpdate(s);
@@ -251,14 +251,15 @@ public class FileDAO extends SuperDAO {
                         }
                     }
                 }
-                return true;
+
+                return error;
 
             case "r08.csv":
 
                 tableNamesRight = new String[]{"SSTGLMC", "GLon", "GLat", "[3.6]G", "[4.5]G", "[5.8]G", "[8.0]G"};
 
                 if (!(FirstLineOK(allLines.get(0), tableNamesRight))) {
-                    controller.errorToShow=ErrorType.DIFFERENTTABLEFILE;
+                    error=ErrorType.DIFFERENTTABLEFILE;
                 } else {
 
                     try {
@@ -320,8 +321,8 @@ public class FileDAO extends SuperDAO {
                             } catch (NumberFormatException e) {
                                 //Controllo type sulle singole righe
                                 //System.out.println("il formato del csv non è adatto a questa operazione");
-                                controller.errorToShow=ErrorType.UNFORMATFILE;
-                                return false;
+                                error=ErrorType.UNFORMATFILE;
+                                return error;
 
                             }
                             Statement statement = connection.createStatement();
@@ -343,7 +344,7 @@ public class FileDAO extends SuperDAO {
                         }
                     }
                 }
-                return true;
+                return error;
 
 
             case "mips.csv"://MANCANO ALCUNE CHIAVI
@@ -354,7 +355,7 @@ public class FileDAO extends SuperDAO {
                 tableNamesRight = new String[]{"MIPSGAL", "GLON", "GLAT", "[24]", "e_[24]", "GLIMPSE"};
 
                 if (!(FirstLineOK(allLines.get(0), tableNamesRight))) {
-                    controller.errorToShow=ErrorType.DIFFERENTTABLEFILE;
+                    error=ErrorType.DIFFERENTTABLEFILE;
                 } else {
 
                     for (int i = 1; i < allLines.size(); i++) {
@@ -367,7 +368,6 @@ public class FileDAO extends SuperDAO {
                             }
                         }
                     }
-
 
                     try {//Aggiornamento tabella Sources
                         for (int j = 0; j < newSources.size(); j++) {
@@ -414,8 +414,8 @@ public class FileDAO extends SuperDAO {
                             } catch (NumberFormatException e) {
                                 //Controllo type sulle singole righe
                                 //System.out.println("il formato del csv non è adatto a questa operazione");
-                                controller.errorToShow=ErrorType.UNFORMATFILE;
-                                return false;
+                                error=ErrorType.UNFORMATFILE;
+                                return error;
 
                             }
 
@@ -436,18 +436,17 @@ public class FileDAO extends SuperDAO {
                             e1.printStackTrace();
                         }
                     }
-                    //ArrayList<String[]> result= new ArrayList<>();
+                    //Riempimento s_c_membership
                     SC_membership();
                 }
-                return true;
+                return error;
         }
-
-        return false;
+        return error;
     }
 
     private void SC_membership(){
         Connection connection = connect(ConnectionType.COMPQUERY);
-        try { //s_c_membership
+        try {
 
             Statement statement = connection.createStatement();
             /*String query = ("INSERT INTO s_c_membership SELECT sources.sourceid, clumps.clumpid " +

@@ -1,7 +1,5 @@
-<%@ page import="Controllers.FileController" %>
 <%@ page import="enumerations.ErrorType" %>
-<%@ page import="java.io.BufferedWriter" %>
-<%@ page import="java.io.FileWriter" %>
+<%@ page import="Controllers.FileController" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
@@ -49,12 +47,10 @@
     </div>
 </div>
 
-<%/*
-    FileController c = FileController.getFileControllerInstance();
-    if (c.errorToShow==ErrorType.DIFFERENTCHOOSEFILE) {
-
-<jsp:forward page="upload.jsp"/>
-}*/%>
+<%
+  /*  FileController c = FileController.getFileControllerInstance();
+    c.errorToShow=ErrorType.NO_ERR;*/
+%>
 
 
 
