@@ -3,6 +3,7 @@ package DAO;
 import beans.login.search.SearchBean;
 import beans.login.squareCircleSearchBean;
 import com.sun.rowset.CachedRowSetImpl;
+import com.sun.xml.internal.ws.developer.EPRRecipe;
 import enumerations.ConnectionType;
 
 import java.sql.*;
@@ -57,7 +58,10 @@ public class ClumpDAO extends SuperDAO{
     }
 
     public CachedRowSetImpl getClumpsByDensity(float minD, float maxD) {
-        String query = "SELECT clumpid, surfacedensity FROM clumps WHERE (surfacedensity > ? AND surfacedensity < ?);";
+        String query = "SELECT clumpid, surfacedensity " +
+                "FROM clumps " +
+                "WHERE (surfacedensity > ? AND surfacedensity < ?) " +
+                "ORDER BY clumpid;";
         Connection connection = connect(ConnectionType.SINGLEQUERY);
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -123,5 +127,34 @@ public class ClumpDAO extends SuperDAO{
             disconnect(connection);
             return null;
         }
+    }
+
+
+    public CachedRowSetImpl getSourcesPerClumpByDencity(float minD, float maxD) {
+
+        String query = "SELECT clumpid, count(*)" +
+                "FROM clumps JOIN s_c_membership ON clumps.clumpid = s_c_membership.clump " +
+                "WHERE (clumps.surfacedensity > ? AND clumps.surfacedensity < ?)" +
+                "GROUP BY clumpid " +
+                "ORDER BY clumpid;";
+        Connection connection = connect(ConnectionType.SINGLEQUERY);
+
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setDouble(1, minD);
+            preparedStatement.setDouble(2, maxD);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            CachedRowSetImpl cachedRowSet = new CachedRowSetImpl();
+            cachedRowSet.populate(resultSet);
+            resultSet.close();
+            preparedStatement.close();
+            disconnect(connection);
+            return cachedRowSet;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            disconnect(connection);
+            return null;
+        }
+
     }
 }

@@ -47,7 +47,7 @@ public abstract class SuperDAO {
 
     public int getTableEntryNumber(String tableName) {
 
-        String query = "SELECT COUNT(*) FROM " + tableName + ";";
+        String query = "SELECT COUNT(*) FROM "+ tableName + ";";
 
         Connection connection = connect(ConnectionType.SINGLEQUERY);
 

@@ -14,6 +14,7 @@ public class Clump {
     private float density;
     private double galLat, galLong, distance, mass, lmRatio;
     private float band, fluxValue, temperature;
+    private double percPop; ////percentage of the total sources population
 
 
     public Clump(int clumpID, double galLong, double galLat, float temperature, double lmRatio, float density , int type){
@@ -124,6 +125,11 @@ public class Clump {
 
     public void setLmRatio(double lmRatio) { this.lmRatio = lmRatio; }
 
+    public double getPercPop() {
+        return percPop;
+    }
 
-
+    public void setPercPop(double percPop) {
+        this.percPop = percPop;
+    }
 }

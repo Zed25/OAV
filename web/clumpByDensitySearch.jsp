@@ -28,7 +28,7 @@
                     <tr>
                         <th>Clump's ID</th>
                         <th>Density</th>
-                        <th>Population's fraction</th>
+                        <th>Population's fraction (%)</th>
                     </tr>
                 </thead>
             <tbody>
@@ -36,7 +36,11 @@
               <tr>
                 <td><%=searchResults.get(i).getClumpID()%></td>
                 <td><%=searchResults.get(i).getDensity()%></td>
-                <td>0</td>
+                  <%if(searchResults.get(i).getPercPop() != 0.0){%>
+                <td><%=searchResults.get(i).getPercPop()*100%></td>
+                  <%}else{%>
+                      <td>N/A</td>
+                  <%}%>
               </tr>
             <%}%>
             </tbody>

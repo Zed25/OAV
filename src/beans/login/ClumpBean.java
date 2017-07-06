@@ -22,6 +22,7 @@ public class ClumpBean {
     private float fluxValue;
     private float temperature;
     private double mass;
+    private double percPop; //percentage of the total sources population
 
 
     public ClumpBean() {
@@ -82,5 +83,13 @@ public class ClumpBean {
 
     public void setMass(double mass) {
         this.mass = mass;
+    }
+
+    public double getPercPop() {
+        return percPop;
+    }
+
+    public void setPercPop(double percPop) {
+        this.percPop = percPop;
     }
 }

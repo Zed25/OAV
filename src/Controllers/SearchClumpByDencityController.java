@@ -30,6 +30,7 @@ public class SearchClumpByDencityController {
             ClumpBean clumpBean = new ClumpBean();
             clumpBean.setClumpID(searchResults.get(i).getClumpID());
             clumpBean.setDensity(searchResults.get(i).getDensity());
+            clumpBean.setPercPop(searchResults.get(i).getPercPop());
             clumpBeans.add(clumpBean);
         }
 
@@ -55,7 +56,29 @@ public class SearchClumpByDencityController {
         if(clumps.size() == 0)
             return null;
 
-        return clumps;
+        double totalSources, percentage;
+
+        totalSources = clumpDAO.getTableEntryNumber("sources");
+        System.out.println(totalSources);
+
+        cachedRowSet = clumpDAO.getSourcesPerClumpByDencity(minD, maxD);
+
+        try {
+            while(cachedRowSet.next()){
+                for (int i = 0; i < clumps.size(); i++){
+                    if(clumps.get(i).getClumpID() == cachedRowSet.getInt("clumpid")){
+                        System.out.println(cachedRowSet.getInt("count"));
+                        percentage = cachedRowSet.getInt("count")/totalSources;
+                        clumps.get(i).setPercPop(percentage);
+                        break;
+                    }
+                }
+            }
+            return clumps;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public static synchronized SearchClumpByDencityController getSearchClumpByDencityController() {
