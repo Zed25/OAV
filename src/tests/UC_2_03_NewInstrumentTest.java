@@ -46,7 +46,7 @@ public class UC_2_03_NewInstrumentTest {
     }
 
     @Test
-    public void insertSatellite() throws Exception {
+    public void insertInstrument() throws Exception {
 
         InstrumentBean instrumentBean = new InstrumentBean();
         instrumentBean.setName("XINS");
