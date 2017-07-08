@@ -47,7 +47,7 @@ public class YoungSourceController {
     }
 
     //UC11
-    private List<Source> findYoungSource (int clumpID){
+    public List<Source> findYoungSource (int clumpID){
         YoungSourceDAO dao = new YoungSourceDAO();
         CachedRowSetImpl result = dao.searchYoungSource(clumpID);
         List<Source> youngSources = new ArrayList<>();

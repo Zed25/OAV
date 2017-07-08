@@ -52,3 +52,18 @@ FROM V1 INNER JOIN V2 ON (V1.V1source=V2.V2source)
   INNER JOIN s_c_membership ON (V1.V1source=s_c_membership.source)
 WHERE ( (V2.difvalue3645 > 1.4* (V1.difvalue4558 -0.7) +0.15) AND (s_c_membership.clump=181599) );
 
+--UCSourcesquarecircle--
+
+--circle--
+
+SELECT sources.sourceid, count(*)<=n
+  FROM sources
+  WHERE ( sqrt( (sources.galacticlatitude - latinput)^2 +
+                (sources.galacticlongitude - longinput)^2 ) <= raggio );
+--square--
+
+SELECT sources.sourceid, count(*)<=n
+FROM sources
+WHERE ( sqrt( (sources.galacticlatitude - latinput)^2 +
+              (sources.galacticlongitude - longinput)^2 ) <= raggio );
+

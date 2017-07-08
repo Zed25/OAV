@@ -10,7 +10,7 @@ To change this template use File | Settings | File Templates.
 
 <jsp:include page="header.jsp"/>
 
-<% ErrorType errorType = searchBean.getElementsFromBean(searchBean, resultBean);
+<% ErrorType errorType = searchBean.sourceInClump(searchBean, resultBean);
     if (errorType == ErrorType.NO_RESULTS) {%>
 <div class="container center-align">
     <br>

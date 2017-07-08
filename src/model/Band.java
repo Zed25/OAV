@@ -7,6 +7,7 @@ public class Band {
 
     double resolution;
 
+    public Band(){}
     public Band(double resolution) {
         this.resolution = resolution;
     }

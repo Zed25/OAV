@@ -29,7 +29,7 @@ public class SourceClumpController {
     //Adapter
     public ErrorType getElementsFromBean(SearchBean searchBean, ResultBean resultBean) {
 
-        List<Source> sources = findSourceinClump(searchBean.getClumpID(),Float.parseFloat(searchBean.getBand()));
+        List<Source> sources = findSourceinClump(searchBean.getClumpID(), Float.parseFloat(searchBean.getBand()));
         if (sources == null) {
             return ErrorType.NO_RESULTS;
         } else {
@@ -46,7 +46,7 @@ public class SourceClumpController {
     }
 
     //UC8
-    private List<Source> findSourceinClump (int clumpID, Float band){
+    public List<Source> findSourceinClump (int clumpID, Float band){
         SourceinClumpDAO querydao = new SourceinClumpDAO();
         CachedRowSetImpl resultFound = querydao.searchSource(clumpID, band);
         List<Source> sourcesfound = new ArrayList<>();
