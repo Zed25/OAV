@@ -19,7 +19,7 @@ import java.util.List;
  * Created by simone on 18/06/17.
  */
 @RunWith(value = Parameterized.class)
-public class UC_2_02_NewSatellite {
+public class UC_2_02_NewSatelliteTest {
     private UserBean user;
 
     @Parameterized.Parameters
@@ -43,7 +43,7 @@ public class UC_2_02_NewSatellite {
         );
     }
 
-    public UC_2_02_NewSatellite(UserBean user) {
+    public UC_2_02_NewSatelliteTest(UserBean user) {
         this.user = user;
     }
 

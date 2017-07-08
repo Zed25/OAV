@@ -14,7 +14,7 @@ import java.util.Collection;
  * Created by simone on 02/06/17.
  */
 @RunWith(value = Parameterized.class)
-public class UC_2_01_NewUserRegistration {
+public class UC_2_01_NewUserRegistrationTest {
 
     private UserBean user;
 
@@ -38,7 +38,7 @@ public class UC_2_01_NewUserRegistration {
         );
     }
 
-    public UC_2_01_NewUserRegistration(UserBean user) {
+    public UC_2_01_NewUserRegistrationTest(UserBean user) {
         this.user = user;
     }
 

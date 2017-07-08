@@ -123,7 +123,7 @@ public class InstrumentBean {
 
             String[] bands = this.getBandsFromFormString().split(",");
 
-            for (int i = 0; i < bands.length - 1; i++) {
+            for (int i = 0; i < bands.length; i++) {
                 if (!bands[i].equals("")) {
                     this.getBands().add(bands[i]);
                 }
