@@ -1,9 +1,6 @@
 package DAO;
 
-import beans.login.search.SearchBean;
-import beans.login.squareCircleSearchBean;
 import com.sun.rowset.CachedRowSetImpl;
-import com.sun.xml.internal.ws.developer.EPRRecipe;
 import enumerations.ConnectionType;
 
 import java.sql.*;

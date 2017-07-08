@@ -57,7 +57,7 @@
     <li><a href="selectfile.jsp"><i class="material-icons black-text">add</i>Add csv</a></li>
     <li><a href="insertInstrument.jsp"><i class="material-icons black-text">add</i>New Instrument</a></li>
     <li><a href="clumpByDensitySearch.jsp"><i class="material-icons black-text">search</i>Search clump for density</a></li>
-    <li><a href="searchInSquareOrCircle.jsp"><i class="material-icons black-text">search</i>Search elements in circles or squares</a></li>
+    <li><a href="searchInSquareOrCircle.jsp"><i class="material-icons black-text">search</i>Search elements in area</a></li>
     <br>
     <li><a href="sourceInClump.jsp"><i class="material-icons black-text">search</i>Search sources in Clump</a></li>
     <li><a href="youngSourceObject.jsp"><i class="material-icons black-text">search</i>Search Young Source</a></li>
@@ -79,7 +79,7 @@
     <li><a href="#!"><i class="material-icons black-text">add</i>First Link With Icon</a></li>
     <li><a href="findObjInMap.jsp"><i class="material-icons black-text">add</i>Search Source</a></li>
     <li><a href="clumpByDensitySearch.jsp"><i class="material-icons black-text">search</i>Search clump for density</a></li>
-    <li><a href="searchInSquareOrCircle.jsp"><i class="material-icons black-text">search</i>Search elements in circles or squares</a></li>
+    <li><a href="searchInSquareOrCircle.jsp"><i class="material-icons black-text">search</i>Search elements in area</a></li>
     <br>
     <li><a href="sourceInClump.jsp"><i class="material-icons black-text">search</i>Search sources in Clump</a></li>
     <li><a href="youngSourceObject.jsp"><i class="material-icons black-text">search</i>Search Young Source</a></li>

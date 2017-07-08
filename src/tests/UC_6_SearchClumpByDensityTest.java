@@ -39,7 +39,7 @@ public class UC_6_SearchClumpByDensityTest {
     }
 
     @Test
-    public void insertInstrument() throws Exception {
+    public void searchClumpByDensity() throws Exception {
 
         List<ClumpBean> clumpBeans = new ArrayList<>();
 

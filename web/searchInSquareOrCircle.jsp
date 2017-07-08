@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="loginBean" class="beans.login.UserBean" scope="session"/>
-<jsp:useBean id="searchSquareOrCircleBean" class="beans.login.squareCircleSearchBean" scope="session"/>
+<jsp:useBean id="searchSquareOrCircleBean" class="beans.login.SquareCircleSearchBean" scope="session"/>
 <jsp:setProperty name="searchSquareOrCircleBean" property="nElements" param="n_element"/>
 <jsp:setProperty name="searchSquareOrCircleBean" property="elementType" param="elem_type"/>
 <jsp:setProperty name="searchSquareOrCircleBean" property="areaType" param="area_type"/>

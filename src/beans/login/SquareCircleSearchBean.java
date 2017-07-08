@@ -9,13 +9,13 @@ import java.util.List;
 /**
  * Created by simone on 02/05/17.
  */
-public class squareCircleSearchBean {
+public class SquareCircleSearchBean {
 
     private String nElements, elementType, areaType, baseLenght, galLat, galLong;
     private List<ClumpBean> resultClumps;
     private List<SourceBean> resultSources;
 
-    public squareCircleSearchBean() {
+    public SquareCircleSearchBean() {
         this.nElements = "300";
         this.elementType = "";
         this.areaType = "";

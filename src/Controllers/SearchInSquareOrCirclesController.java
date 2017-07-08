@@ -4,7 +4,7 @@ import DAO.ClumpDAO;
 import DAO.SourceDAO;
 import beans.login.ClumpBean;
 import beans.login.SourceBean;
-import beans.login.squareCircleSearchBean;
+import beans.login.SquareCircleSearchBean;
 import com.sun.rowset.CachedRowSetImpl;
 import enumerations.ErrorType;
 import model.Clump;
@@ -22,7 +22,7 @@ public class SearchInSquareOrCirclesController {
 
     private SearchInSquareOrCirclesController() {}
 
-    public ErrorType searchElementsInArea(squareCircleSearchBean squareCircleSearchBean) {
+    public ErrorType searchElementsInArea(SquareCircleSearchBean squareCircleSearchBean) {
         ErrorType errorType;
         switch (squareCircleSearchBean.getElementType()){
             case "Sources":
