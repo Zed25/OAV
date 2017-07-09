@@ -1,5 +1,18 @@
 package DAO;
 
+CREATE VIEW sorgenti AS
+SELECT DISTINCT sources.sourceid, sources.galacticlatitude, sources.galacticlongitude
+FROM sources
+WHERE sources.galacticlongitude!=0 AND sources.galacticlatitude!=0
+ORDER BY sources.sourceid;
+
+CREATE VIEW clumpC AS
+SELECT DISTINCT clumps.clumpid, clumps.galacticlongitude, clumps.galacticlatitude, ellipses.band, ellipses.maxaxis
+FROM clumps INNER JOIN ellipses ON (clumps.clumpid=ellipses.clump)
+WHERE clumps.galacticlatitude!=0 AND clumps.galacticlongitude!=0
+ORDER BY clumps.clumpid;
+
+
 /**
  * Created by andrea on 28/03/17.
  */

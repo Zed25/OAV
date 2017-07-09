@@ -39,7 +39,6 @@ create table Sources (
   SourceID character varying (20) primary key,
   GalacticLongitude double precision DEFAULT 0.0,
   GalacticLatitude double precision DEFAULT 0.0,
-  Type character varying (10) DEFAULT '',
   ComparedSource character varying (20) references Sources(SourceID)
 );
 
@@ -55,7 +54,6 @@ create table Clumps(
   GalacticLatitude double precision DEFAULT 0.0,
   Temperature real DEFAULT 0.0,
   LMRatio real DEFAULT 0.0,
-  Mass real DEFAULT 0.0,
   SurfaceDensity real DEFAULT 0.0,
   Type decimal DEFAULT 0,
   HigalMaps character varying (10) references StarMaps (Name)

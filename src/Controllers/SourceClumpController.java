@@ -53,7 +53,7 @@ public class SourceClumpController {
         try {
             while (resultFound.next()) {
                 Source source = new Source();
-                source.setSourceID(resultFound.getString("sourceid"));
+                source.setSourceID(resultFound.getString("source"));
                 sourcesfound.add(source);
             }
 

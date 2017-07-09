@@ -31,14 +31,13 @@ public class UC_8_FindSourceInClump {
 
         SearchBean successBean = new SearchBean();
         successBean.setClumpID(179761);
-        successBean.setBand("250"); //clump with sources [179761, 250.0]*/
+        successBean.setBand("250"); //clump with sources [179761, 250.0]
 
         SearchBean errorBean = new SearchBean();
         errorBean.setClumpID(179761);
         errorBean.setBand("160"); //clump with no sources [179761,160,0]
 
-       //return Arrays.asList(successBean, errorBean);//, nullBean);*/
-     return Arrays.asList(successBean, errorBean);
+        return Arrays.asList(successBean, errorBean);
     }
 
 

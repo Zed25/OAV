@@ -39,15 +39,9 @@ public class FileUpload extends HttpServlet {
                     item.write(new File(savePath + fileName));
 
                     ErrorType error = getSplitted(savePath, fileName);
-
-                    //System.out.println("errore durante la lettura del file");
                     c.errorToShow = error;
 
                 }
-               /* }else{
-                    //System.out.println("Hai inserito il file "+fileName+", ma hai selezionato il file "+filescelto+". Riprova");
-                    c.errorToShow=ErrorType.DIFFERENTCHOOSEFILE;
-                }*/
 
             } catch (Exception b) {
                 b.printStackTrace();
@@ -82,7 +76,7 @@ public class FileUpload extends HttpServlet {
             FileDAO fileDAO = new FileDAO();
             error = fileDAO.fillingTable(fileName, allLines);
 
-            System.out.println(error.toString());
+           //TEST: ErrorType=System.out.println(error.toString());
         }
         return error;
     }

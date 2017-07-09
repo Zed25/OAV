@@ -38,6 +38,7 @@ public class FileDAO extends SuperDAO {
                 } else {
 
                     try {
+                        List<Integer> existingClump = GetOldClump(connection);
                         for (int i = 1; i < allLines.size(); i++) {
 
                             String[] line = allLines.get(i);
@@ -46,13 +47,25 @@ public class FileDAO extends SuperDAO {
                             Clump clump = controller.createClump(Integer.parseInt(line[0]),Double.parseDouble(line[1]), Double.parseDouble(line[2]),
                                     Float.parseFloat(line[3]),Float.parseFloat(line[4]),Float.parseFloat(line[5]),Integer.parseInt(line[6]));
 
+
                             String query;
                             try {
+                                if (existingClump.contains(clump.getClumpID())){
+                                    query= "UPDATE clumps " +
+                                            "SET galacticlatitude = " + clump.getGalLat()+", " +
+                                            "galacticlongitude = "+clump.getGalLong()+", " +
+                                            "temperature = "+ clump.getTemperature()+", " +
+                                            "lmratio = "+ clump.getLmRatio()+", " +
+                                            "surfacedensity = "+clump.getDensity()+", " +
+                                            "type ="+clump.getType()+" " +
+                                            "WHERE (clumpid = "+clump.getClumpID()+");";
+                                }else {
 
-                                query = "INSERT INTO Clumps( ClumpID, GalacticLongitude, GalacticLatitude, Temperature, LMRatio, Mass, surfacedensity , Type, higalmaps)" +
-                                        " VALUES(" + clump.getClumpID() + ", " + clump.getGalLong() + ", " + clump.getGalLat() + ", " +
-                                        clump.getTemperature() + ", " + clump.getLmRatio() + ", " + clump.getMass() + ", " + clump.getDensity()+
-                                        ", " + clump.getType() + ",'HiGal');";
+
+                                    query = "INSERT INTO Clumps( ClumpID, GalacticLongitude, GalacticLatitude, Temperature, LMRatio, surfacedensity , Type, higalmaps)" +
+                                            " VALUES(" + clump.getClumpID() + ", " + clump.getGalLong() + ", " + clump.getGalLat() + ", " +
+                                            clump.getTemperature() + ", " + clump.getLmRatio() + ", " + clump.getDensity() + ", " + clump.getType() + ",'HiGal');";
+                                }
 
 
                             } catch (NumberFormatException e) {
@@ -270,15 +283,25 @@ public class FileDAO extends SuperDAO {
                             String query2;
                             String query3;
                             List<String> queriesFluxes = new ArrayList<>();
+                            List<String> existingSources = GetOldSources(connection);
+
 
                             try {
 
                                 Source source = controller.createSource(line[0],Double.parseDouble(line[1]),Double.parseDouble(line[2]), "");
 
                                 //Riempimento tabella SourcesGLIMPSE
-                                query = "INSERT INTO sources (sourceid, galacticLongitude, galacticLatitude) VALUES ('" +
-                                        source.getSourceID() + "', " + source.getGalLong() + ", " + source.getGalLat() + ");";
+                                if (existingSources.contains(source.getSourceID())) {
 
+                                    query = "UPDATE sources " +
+                                            "SET  galacticlongitude = "+ source.getGalLong()+ ",  galacticlatitude= " + source.getGalLat()+
+                                            " WHERE (sourceid ='"+ source.getSourceID()+"');";
+                                }else {
+
+                                    query = "INSERT INTO sources (sourceid, galacticLongitude, galacticLatitude) " +
+                                            "VALUES ('" + source.getSourceID() + "', " + source.getGalLong() + ", " + source.getGalLat() + ");";
+
+                                }
                                 //Riempimento tabelle flusso
                                 if (!(line[3].equals("     "))) {
 
@@ -347,7 +370,7 @@ public class FileDAO extends SuperDAO {
                 return error;
 
 
-            case "mips.csv"://MANCANO ALCUNE CHIAVI
+            case "mips.csv":
                 List<String> existingSources = GetOldSources(connection);
                 List<String> newSources = new ArrayList<>();
 
@@ -436,6 +459,7 @@ public class FileDAO extends SuperDAO {
                             e1.printStackTrace();
                         }
                     }
+
                     //Riempimento s_c_membership
                     SC_membership();
                 }
@@ -449,22 +473,24 @@ public class FileDAO extends SuperDAO {
         try {
 
             Statement statement = connection.createStatement();
-            /*String query = ("INSERT INTO s_c_membership SELECT sources.sourceid, clumps.clumpid " +
-                            "FROM sources INNER JOIN collection ON (sources.sourceid=collection.source) "+
-                            "NATURAL JOIN ellipses INNER JOIN clumps ON (ellipses.clump=clumps.clumpid) "+
-                            "WHERE ((collection.starmap= 'MIPS-GAL') AND "+
-                            "(sqrt((sources.galacticlatitude - clumps.galacticlatitude)^2 +" +
-                            "(sources.galacticlongitude - clumps.galacticlongitude)^2) <" +
-                            "(ellipses.maxaxis * ellipses.band)));");*/
+
+           /* String query = ("INSERT INTO s_c_membership SELECT DISTINCT sources.sourceid, clumps.clumpid" +
+                    "            FROM sources CROSS JOIN " +
+                    "            clumps INNER JOIN ellipses ON (clumps.clumpid=ellipses.clump)" +
+                    "            WHERE ( (3600* sqrt((sources.galacticlatitude - clumps.galacticlatitude)^2 +" +
+                    "                            (sources.galacticlongitude - clumps.galacticlongitude)^2) <" +
+                    "                            ellipses.maxaxis)" +
+                    "                    AND clumps.galacticlongitude != 0 AND clumps.galacticlatitude != 0" +
+                    "                    AND sources.galacticlongitude != 0 AND sources.galacticlatitude != 0);");*/
 
             String query = ("INSERT INTO s_c_membership SELECT DISTINCT sources.sourceid, clumps.clumpid" +
-                    "            FROM sources CROSS JOIN clumps" +
-                    "            INNER JOIN ellipses ON (clumps.clumpid=ellipses.clump)" +
+                    "            FROM sources CROSS JOIN " +
+                    "            clumps INNER JOIN ellipses ON (clumps.clumpid=ellipses.clump)" +
                     "            WHERE ( (sqrt((sources.galacticlatitude - clumps.galacticlatitude)^2 +" +
                     "                            (sources.galacticlongitude - clumps.galacticlongitude)^2) <" +
-                    "                            (ellipses.maxaxis * ellipses.band))" +
-                    "                    AND clumps.galacticlongitude>0 AND clumps.galacticlatitude>0" +
-                    "                    AND sources.galacticlongitude>0 AND sources.galacticlatitude>0);");
+                    "                            3600*ellipses.maxaxis)" +
+                    "                    AND clumps.galacticlongitude != 0 AND clumps.galacticlatitude != 0" +
+                    "                    AND sources.galacticlongitude != 0 AND sources.galacticlatitude != 0);");
 
             statement.executeUpdate(query);
             connection.commit();
