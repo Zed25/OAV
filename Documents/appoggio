@@ -11,7 +11,7 @@ SELECT DISTINCT clumps.clumpid, clumps.galacticlongitude, clumps.galacticlatitud
 FROM clumps INNER JOIN ellipses ON (clumps.clumpid=ellipses.clump)
 WHERE clumps.galacticlatitude!=0 AND clumps.galacticlongitude!=0
 ORDER BY clumps.clumpid;
-
+si
 
 /**
  * Created by andrea on 28/03/17.

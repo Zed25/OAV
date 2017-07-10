@@ -14,7 +14,7 @@ import java.sql.SQLException;
 /**
  * Created by simone on 29/03/17.
  */
-public class UsersController {
+public class  UsersController {
 
     private static UsersController usersControllerInstance = null;
 

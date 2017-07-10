@@ -1,13 +1,14 @@
 --NEW SCmemb query
-INSERT INTO s_c_membership
-SELECT DISTINCT sources.sourceid, clumps.clumpid
+
+SELECT DISTINCT sources.sourceid, clumps.clumpid, sources.galacticlatitude,sources.galacticlongitude,
+  clumps.galacticlatitude, clumps.galacticlongitude, ellipses.maxaxis
 FROM sources CROSS JOIN
      clumps INNER JOIN ellipses ON (clumps.clumpid=ellipses.clump)
 WHERE ( ( sqrt((sources.galacticlatitude - clumps.galacticlatitude)^2 +
         (sources.galacticlongitude - clumps.galacticlongitude)^2) <
         ellipses.maxaxis*3600)
         AND clumps.galacticlongitude!=0 AND clumps.galacticlatitude!=0
-        AND sources.galacticlongitude!=0 AND sources.galacticlatitude!=0);
+        AND sources.galacticlongitude!=0 AND sources.galacticlatitude!=0));
 
 
 --UC11--
@@ -40,6 +41,21 @@ SELECT sources.sourceid, count(*)<=n
 FROM sources
 WHERE ( sqrt( (sources.galacticlatitude - latinput)^2 +
               (sources.galacticlongitude - longinput)^2 ) <= raggio );
+
+
+
+--dencityClump--
+
+SELECT *
+FROM clumps JOIN s_c_membership ON clumps.clumpid = s_c_membership.clump
+WHERE (clumps.surfacedensity > 0.1 AND clumps.surfacedensity < 1.0
+AND clumps.clumpid = 181578);
+
+SELECT *
+FROM s_c_membership
+WHERE s_c_membership.clump=181578;
+
+
 
 
 
