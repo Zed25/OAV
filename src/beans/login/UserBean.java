@@ -1,6 +1,6 @@
 package beans.login;
 
-import Controllers.SearchClumpByDencityController;
+import Controllers.SearchClumpByDensityController;
 import Controllers.UsersController;
 import enumerations.ErrorType;
 
@@ -80,7 +80,7 @@ public class UserBean {
     }
 
     public ErrorType getClumpsByDensity(List<ClumpBean> results){
-        ErrorType errorType = SearchClumpByDencityController.getSearchClumpByDencityController().searchPossibleClumpHosts(results);
+        ErrorType errorType = SearchClumpByDensityController.getSearchClumpByDensityController().searchPossibleClumpHosts(results);
         return errorType;
     }
 

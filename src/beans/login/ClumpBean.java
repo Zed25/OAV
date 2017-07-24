@@ -1,14 +1,5 @@
 package beans.login;
 
-import Controllers.SearchClumpByDencityController;
-import Controllers.SearchController;
-import com.sun.beans.util.Cache;
-import enumerations.ErrorType;
-
-import java.lang.reflect.Array;
-import java.math.BigDecimal;
-import java.util.*;
-
 /**
  * Created by simone on 29/04/17.
  */

@@ -13,11 +13,11 @@ import java.util.List;
 /**
  * Created by simone on 24/06/17.
  */
-public class SearchClumpByDencityController {
+public class SearchClumpByDensityController {
 
-    private static SearchClumpByDencityController searchClumpByDencityController;
+    private static SearchClumpByDensityController searchClumpByDensityController;
 
-    private SearchClumpByDencityController() {}
+    private SearchClumpByDensityController() {}
 
     public ErrorType searchPossibleClumpHosts(List<ClumpBean> clumpBeans){
 
@@ -81,9 +81,9 @@ public class SearchClumpByDencityController {
         }
     }
 
-    public static synchronized SearchClumpByDencityController getSearchClumpByDencityController() {
-        if (searchClumpByDencityController == null)
-            searchClumpByDencityController = new SearchClumpByDencityController();
-        return searchClumpByDencityController;
+    public static synchronized SearchClumpByDensityController getSearchClumpByDensityController() {
+        if (searchClumpByDensityController == null)
+            searchClumpByDensityController = new SearchClumpByDensityController();
+        return searchClumpByDensityController;
     }
 }
