@@ -44,7 +44,7 @@ public class UC_2_01_NewUserRegistrationTest {
 
     @Test
     public void newUserRegistration() throws Exception {
-        if(this.user.getType().equals("Admin")){
+        if(this.user.getType().equals("Admin")) {
             //user with a userID already chosen
             UserBean newUser = new UserBean();
             newUser.setName("Luigi");
@@ -54,15 +54,18 @@ public class UC_2_01_NewUserRegistrationTest {
             newUser.setEmail("luigi.verdi@gmail.com");
             newUser.setType("User");
 
+            Assert.assertEquals("no error",
+                    ErrorType.NO_ERR, this.user.getAdministrationRole().newUserRegistration(newUser));
+
             Assert.assertEquals("User with a userID already chosen added to db",
-                    ErrorType.ALREADY_EXISTS, this.user.newUserRegistration(newUser));
+                    ErrorType.ALREADY_EXISTS, this.user.getAdministrationRole().newUserRegistration(newUser));
 
             //user without some info
             newUser.setName("");
             newUser.setEmail("");
 
             Assert.assertEquals("User insert in db without some info",
-                    ErrorType.MISS_VAL, this.user.newUserRegistration(newUser));
+                    ErrorType.MISS_VAL, this.user.getAdministrationRole().newUserRegistration(newUser));
 
             //user with right info
             newUser.setName("Luigi");
@@ -71,21 +74,10 @@ public class UC_2_01_NewUserRegistrationTest {
             newUser.setEmail("luigi.verdi@gmail.com");
 
             Assert.assertEquals("not realized insertion, it returned a error",
-                    ErrorType.NO_ERR, this.user.newUserRegistration(newUser));
-
-        }else {
-
-            UserBean newUser = new UserBean();
-            newUser.setName("Luigi");
-            newUser.setSurname("Verdi");
-            newUser.setUserID("mario.rossi");
-            newUser.setPassword("mario.rossi");
-            newUser.setEmail("luigi.verdi@gmail.com");
-            newUser.setType("User");
-
-            //this kind of user couldn't create a new user
-            Assert.assertEquals("user created by a normal user",
-                    ErrorType.NO_ADMIN, this.user.newUserRegistration(newUser));
+                    ErrorType.NO_ERR, this.user.getAdministrationRole().newUserRegistration(newUser));
+        }
+        else {
+            Assert.assertEquals("This user is an admin", false, this.user.isAdmin());
         }
     }
 }
