@@ -1,8 +1,7 @@
 package beans.login;
 
 import Controllers.SerializeInstrumentController;
-import Controllers.UsersController;
-import DAO.UserDAO;
+import Controllers.NewUserController;
 import enumerations.ErrorType;
 
 /**
@@ -32,7 +31,7 @@ public class AdministrationBean extends UserBean {
      */
     public ErrorType newUserRegistration(UserBean user){
         if(user.isFull())
-            return UsersController.getUsersControllerInstance().createNewUserRecord(user, this.getType());
+            return NewUserController.getNewUserControllerInstance().createNewUserRecord(user, this.getType());
         return ErrorType.MISS_VAL;
     }
 

@@ -1,7 +1,8 @@
 package beans.login;
 
+import Controllers.LoginController;
 import Controllers.SearchClumpByDensityController;
-import Controllers.UsersController;
+import Controllers.NewUserController;
 import enumerations.ErrorType;
 
 import java.util.List;
@@ -33,13 +34,13 @@ public class UserBean {
      */
     public ErrorType login(){
         if(this.getUserID() != null && this.getPassword() != null) {
-            return UsersController.getUsersControllerInstance().login(this);
+            return LoginController.getLoginControllerInstance().login(this);
         }
         return ErrorType.MISS_VAL;
     }
 
     public ErrorType logout(){
-        return UsersController.getUsersControllerInstance().logout(this);
+        return LoginController.getLoginControllerInstance().logout(this);
     }
 
     /**
