@@ -68,18 +68,6 @@ public class UserBean {
             this.administrationRole = null;
     }
 
-    /**
-     * if the bean's object colling this method had administration role the newUser data are inserted in the db by the constructor
-     * @param newUser
-     * @return boolean
-     */
-    public ErrorType newUserRegistration(UserBean newUser){
-        if(this.isAdmin()){
-            return this.getAdministrationRole().newUserRegistration(newUser);
-        }
-        return ErrorType.NO_ADMIN;
-    }
-
     public ErrorType getClumpsByDensity(List<ClumpBean> results){
         ErrorType errorType = SearchClumpByDensityController.getSearchClumpByDensityController().searchPossibleClumpHosts(results);
         return errorType;

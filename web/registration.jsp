@@ -23,7 +23,12 @@
 <jsp:include page="forms/registrationForm.jsp"/>
 <%}else{
     if(loginBean.isAdmin()){
-        ErrorType errorType = loginBean.newUserRegistration(newUserBean);
+        ErrorType errorType;
+        if(loginBean.isAdmin()){
+            errorType = loginBean.getAdministrationRole().newUserRegistration(newUserBean);
+        }else {
+            errorType = ErrorType.NO_ADMIN;
+        }
         switch (errorType){
             case NO_ERR:
                 newUserBean.emptyBean();%>
