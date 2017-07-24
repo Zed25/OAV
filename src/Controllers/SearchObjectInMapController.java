@@ -3,8 +3,8 @@ package Controllers;
 import DAO.SearchObjectDAO;
 import beans.login.ClumpBean;
 import beans.login.SourceBean;
-import beans.login.search.ResultBean;
-import beans.login.search.SearchBean;
+import beans.login.ResultBean;
+import beans.login.SearchBean;
 import com.sun.rowset.CachedRowSetImpl;
 import enumerations.ErrorType;
 import model.Clump;
@@ -24,7 +24,7 @@ public class SearchObjectInMapController {
     }
 
     //Adapter
-    public ErrorType FindObjectInMapFromBean(SearchBean bean, ResultBean resBean) {  //band==0 -> 1 banda, else tutte
+    public ErrorType FindObjectInMapFromBean(SearchBean bean, ResultBean resBean) {  //band==0 -> 1 banda,     else all
         //CLUMPS
         if (bean.getMapName().equals("HiGal")) {
             List<Clump> clumps = FindClumpInMap(bean.getRealBand());

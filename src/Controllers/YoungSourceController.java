@@ -1,8 +1,8 @@
 package Controllers;
 import DAO.YoungSourceDAO;
 import beans.login.SourceBean;
-import beans.login.search.ResultBean;
-import beans.login.search.SearchBean;
+import beans.login.ResultBean;
+import beans.login.SearchBean;
 import com.sun.rowset.CachedRowSetImpl;
 import enumerations.ErrorType;
 import model.Source;

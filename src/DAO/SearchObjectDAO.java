@@ -1,7 +1,7 @@
 package DAO;
 
 import beans.login.ClumpBean;
-import beans.login.search.SearchBean;
+import beans.login.SearchBean;
 import com.sun.rowset.CachedRowSetImpl;
 import enumerations.ConnectionType;
 import enumerations.ErrorType;

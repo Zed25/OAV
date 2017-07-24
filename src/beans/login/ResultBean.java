@@ -1,4 +1,4 @@
-package beans.login.search;
+package beans.login;
 
 import Controllers.SearchController;
 import beans.login.ClumpBean;
