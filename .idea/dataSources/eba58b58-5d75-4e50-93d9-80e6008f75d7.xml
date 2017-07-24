@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="OAVDB@localhost">
-  <database-model serializer="dbm" rdbms="POSTGRES" format-version="4.1">
+  <database-model serializer="dbm" rdbms="POSTGRES" format-version="4.2">
     <root id="1"/>
     <database id="2" parent="1" name="OAVDB">
       <ObjectId>16389</ObjectId>
@@ -9,8 +9,8 @@
     </database>
     <schema id="3" parent="2" name="public">
       <ObjectId>34075</ObjectId>
-      <IntrospectionTimestamp>2017-07-09.18:55:07.392</IntrospectionTimestamp>
-      <IntrospectionStateNumber>4505</IntrospectionStateNumber>
+      <IntrospectionTimestamp>2017-07-24.10:35:01.617</IntrospectionTimestamp>
+      <IntrospectionStateNumber>4585</IntrospectionStateNumber>
       <Current>1</Current>
       <Visible>1</Visible>
     </schema>
@@ -30,84 +30,84 @@
       <ObjectId>12123</ObjectId>
     </schema>
     <sequence id="9" parent="3" name="fluxes_fluxid_seq">
-      <ObjectId>38497</ObjectId>
-      <StateNumber>4495</StateNumber>
+      <ObjectId>38805</ObjectId>
+      <StateNumber>4583</StateNumber>
       <SequenceIdentity>1</SequenceIdentity>
       <BelongsToColumn>1</BelongsToColumn>
     </sequence>
     <table id="10" parent="3" name="agencies">
-      <ObjectId>38361</ObjectId>
-      <StateNumber>4485</StateNumber>
+      <ObjectId>38669</ObjectId>
+      <StateNumber>4573</StateNumber>
     </table>
     <table id="11" parent="3" name="bands">
-      <ObjectId>38406</ObjectId>
-      <StateNumber>4495</StateNumber>
+      <ObjectId>38714</ObjectId>
+      <StateNumber>4583</StateNumber>
     </table>
     <table id="12" parent="3" name="clumps">
-      <ObjectId>38453</ObjectId>
-      <StateNumber>4495</StateNumber>
+      <ObjectId>38761</ObjectId>
+      <StateNumber>4583</StateNumber>
     </table>
     <table id="13" parent="3" name="collection">
-      <ObjectId>38438</ObjectId>
-      <StateNumber>4491</StateNumber>
+      <ObjectId>38746</ObjectId>
+      <StateNumber>4579</StateNumber>
     </table>
     <table id="14" parent="3" name="ellipses">
-      <ObjectId>38487</ObjectId>
-      <StateNumber>4494</StateNumber>
+      <ObjectId>38795</ObjectId>
+      <StateNumber>4582</StateNumber>
     </table>
     <table id="15" parent="3" name="fluxes">
-      <ObjectId>38499</ObjectId>
-      <StateNumber>4495</StateNumber>
+      <ObjectId>38807</ObjectId>
+      <StateNumber>4583</StateNumber>
     </table>
     <table id="16" parent="3" name="instruments">
-      <ObjectId>38391</ObjectId>
-      <StateNumber>4489</StateNumber>
+      <ObjectId>38699</ObjectId>
+      <StateNumber>4577</StateNumber>
     </table>
     <table id="17" parent="3" name="missionsjoined">
-      <ObjectId>38371</ObjectId>
-      <StateNumber>4485</StateNumber>
+      <ObjectId>38679</ObjectId>
+      <StateNumber>4573</StateNumber>
     </table>
     <table id="18" parent="3" name="s_bsurbay">
-      <ObjectId>38411</ObjectId>
-      <StateNumber>4489</StateNumber>
+      <ObjectId>38719</ObjectId>
+      <StateNumber>4577</StateNumber>
     </table>
-    <table id="19" parent="3" name="satellites">
-      <ObjectId>38366</ObjectId>
-      <StateNumber>4487</StateNumber>
+    <table id="19" parent="3" name="s_c_membership">
+      <ObjectId>38780</ObjectId>
+      <StateNumber>4581</StateNumber>
     </table>
-    <table id="20" parent="3" name="sources">
-      <ObjectId>38426</ObjectId>
-      <StateNumber>4495</StateNumber>
+    <table id="20" parent="3" name="satellites">
+      <ObjectId>38674</ObjectId>
+      <StateNumber>4575</StateNumber>
     </table>
-    <table id="21" parent="3" name="starmaps">
-      <ObjectId>38386</ObjectId>
-      <StateNumber>4492</StateNumber>
+    <table id="21" parent="3" name="sources">
+      <ObjectId>38734</ObjectId>
+      <StateNumber>4583</StateNumber>
     </table>
-    <table id="22" parent="3" name="users">
-      <ObjectId>38528</ObjectId>
-      <StateNumber>4505</StateNumber>
+    <table id="22" parent="3" name="starmaps">
+      <ObjectId>38694</ObjectId>
+      <StateNumber>4580</StateNumber>
     </table>
     <view id="23" parent="3" name="v1">
-      <ObjectId>38520</ObjectId>
-      <StateNumber>4496</StateNumber>
+      <ObjectId>38828</ObjectId>
+      <StateNumber>4584</StateNumber>
     </view>
     <view id="24" parent="3" name="v2">
-      <ObjectId>38524</ObjectId>
-      <StateNumber>4497</StateNumber>
+      <ObjectId>38832</ObjectId>
+      <StateNumber>4585</StateNumber>
     </view>
     <column id="25" parent="10" name="name">
       <Position>1</Position>
       <DataType>varchar(10)|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>4483</StateNumber>
+      <StateNumber>4571</StateNumber>
     </column>
     <index id="26" parent="10" name="agencies_pkey">
-      <ObjectId>38364</ObjectId>
+      <ObjectId>38672</ObjectId>
       <ColNames>name</ColNames>
       <Unique>1</Unique>
     </index>
     <key id="27" parent="10" name="agencies_pkey">
-      <ObjectId>38365</ObjectId>
+      <ObjectId>38673</ObjectId>
       <ColNames>name</ColNames>
       <UnderlyingIndexName>agencies_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
@@ -116,21 +116,21 @@
       <Position>1</Position>
       <DataType>real|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>4488</StateNumber>
+      <StateNumber>4576</StateNumber>
     </column>
     <column id="29" parent="11" name="spectrallength">
       <Position>2</Position>
       <DataType>real|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>4488</StateNumber>
+      <StateNumber>4576</StateNumber>
     </column>
     <index id="30" parent="11" name="bands_pkey">
-      <ObjectId>38409</ObjectId>
+      <ObjectId>38717</ObjectId>
       <ColNames>resolution</ColNames>
       <Unique>1</Unique>
     </index>
     <key id="31" parent="11" name="bands_pkey">
-      <ObjectId>38410</ObjectId>
+      <ObjectId>38718</ObjectId>
       <ColNames>resolution</ColNames>
       <UnderlyingIndexName>bands_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
@@ -139,62 +139,62 @@
       <Position>1</Position>
       <DataType>integer|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>4492</StateNumber>
+      <StateNumber>4580</StateNumber>
     </column>
     <column id="33" parent="12" name="galacticlongitude">
       <Position>2</Position>
       <DataType>double precision|0</DataType>
-      <StateNumber>4492</StateNumber>
+      <StateNumber>4580</StateNumber>
       <DefaultExpression>0.0</DefaultExpression>
     </column>
     <column id="34" parent="12" name="galacticlatitude">
       <Position>3</Position>
       <DataType>double precision|0</DataType>
-      <StateNumber>4492</StateNumber>
+      <StateNumber>4580</StateNumber>
       <DefaultExpression>0.0</DefaultExpression>
     </column>
     <column id="35" parent="12" name="temperature">
       <Position>4</Position>
       <DataType>real|0</DataType>
-      <StateNumber>4492</StateNumber>
+      <StateNumber>4580</StateNumber>
       <DefaultExpression>0.0</DefaultExpression>
     </column>
     <column id="36" parent="12" name="lmratio">
       <Position>5</Position>
       <DataType>real|0</DataType>
-      <StateNumber>4492</StateNumber>
+      <StateNumber>4580</StateNumber>
       <DefaultExpression>0.0</DefaultExpression>
     </column>
     <column id="37" parent="12" name="surfacedensity">
       <Position>6</Position>
       <DataType>real|0</DataType>
-      <StateNumber>4492</StateNumber>
+      <StateNumber>4580</StateNumber>
       <DefaultExpression>0.0</DefaultExpression>
     </column>
     <column id="38" parent="12" name="type">
       <Position>7</Position>
       <DataType>numeric|0</DataType>
-      <StateNumber>4492</StateNumber>
+      <StateNumber>4580</StateNumber>
       <DefaultExpression>0</DefaultExpression>
     </column>
     <column id="39" parent="12" name="higalmaps">
       <Position>8</Position>
       <DataType>varchar(10)|0</DataType>
-      <StateNumber>4492</StateNumber>
+      <StateNumber>4580</StateNumber>
     </column>
     <index id="40" parent="12" name="clumps_pkey">
-      <ObjectId>38465</ObjectId>
+      <ObjectId>38773</ObjectId>
       <ColNames>clumpid</ColNames>
       <Unique>1</Unique>
     </index>
     <key id="41" parent="12" name="clumps_pkey">
-      <ObjectId>38466</ObjectId>
+      <ObjectId>38774</ObjectId>
       <ColNames>clumpid</ColNames>
       <UnderlyingIndexName>clumps_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
     <foreign-key id="42" parent="12" name="clumps_higalmaps_fkey">
-      <ObjectId>38467</ObjectId>
+      <ObjectId>38775</ObjectId>
       <ColNames>higalmaps</ColNames>
       <RefTableName>starmaps</RefTableName>
       <RefKeyName>starmaps_pkey</RefKeyName>
@@ -204,36 +204,36 @@
       <Position>1</Position>
       <DataType>varchar(10)|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>4491</StateNumber>
+      <StateNumber>4579</StateNumber>
     </column>
     <column id="44" parent="13" name="source">
       <Position>2</Position>
       <DataType>varchar(20)|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>4491</StateNumber>
+      <StateNumber>4579</StateNumber>
     </column>
     <index id="45" parent="13" name="collection_pkey">
-      <ObjectId>38441</ObjectId>
+      <ObjectId>38749</ObjectId>
       <ColNames>starmap
 source</ColNames>
       <Unique>1</Unique>
     </index>
     <key id="46" parent="13" name="collection_pkey">
-      <ObjectId>38442</ObjectId>
+      <ObjectId>38750</ObjectId>
       <ColNames>starmap
 source</ColNames>
       <UnderlyingIndexName>collection_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
     <foreign-key id="47" parent="13" name="collection_starmap_fkey">
-      <ObjectId>38443</ObjectId>
+      <ObjectId>38751</ObjectId>
       <ColNames>starmap</ColNames>
       <RefTableName>starmaps</RefTableName>
       <RefKeyName>starmaps_pkey</RefKeyName>
       <RefColNames>name</RefColNames>
     </foreign-key>
     <foreign-key id="48" parent="13" name="collection_source_fkey">
-      <ObjectId>38448</ObjectId>
+      <ObjectId>38756</ObjectId>
       <ColNames>source</ColNames>
       <RefTableName>sources</RefTableName>
       <RefKeyName>sources_pkey</RefKeyName>
@@ -243,47 +243,47 @@ source</ColNames>
       <Position>1</Position>
       <DataType>integer|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>4494</StateNumber>
+      <StateNumber>4582</StateNumber>
     </column>
     <column id="50" parent="14" name="band">
       <Position>2</Position>
       <DataType>real|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>4494</StateNumber>
+      <StateNumber>4582</StateNumber>
     </column>
     <column id="51" parent="14" name="maxaxis">
       <Position>3</Position>
       <DataType>double precision|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>4494</StateNumber>
+      <StateNumber>4582</StateNumber>
     </column>
     <column id="52" parent="14" name="minaxis">
       <Position>4</Position>
       <DataType>double precision|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>4494</StateNumber>
+      <StateNumber>4582</StateNumber>
     </column>
     <column id="53" parent="14" name="positionangle">
       <Position>5</Position>
       <DataType>double precision|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>4494</StateNumber>
+      <StateNumber>4582</StateNumber>
     </column>
     <index id="54" parent="14" name="ellipses_pkey">
-      <ObjectId>38490</ObjectId>
+      <ObjectId>38798</ObjectId>
       <ColNames>clump
 band</ColNames>
       <Unique>1</Unique>
     </index>
     <key id="55" parent="14" name="ellipses_pkey">
-      <ObjectId>38491</ObjectId>
+      <ObjectId>38799</ObjectId>
       <ColNames>clump
 band</ColNames>
       <UnderlyingIndexName>ellipses_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
     <foreign-key id="56" parent="14" name="ellipses_band_fkey">
-      <ObjectId>38492</ObjectId>
+      <ObjectId>38800</ObjectId>
       <ColNames>band</ColNames>
       <RefTableName>bands</RefTableName>
       <RefKeyName>bands_pkey</RefKeyName>
@@ -293,7 +293,7 @@ band</ColNames>
       <Position>1</Position>
       <DataType>integer|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>4495</StateNumber>
+      <StateNumber>4583</StateNumber>
       <SequenceName>fluxes_fluxid_seq</SequenceName>
       <DefaultExpression>nextval(&apos;fluxes_fluxid_seq&apos;::regclass)</DefaultExpression>
     </column>
@@ -301,56 +301,56 @@ band</ColNames>
       <Position>2</Position>
       <DataType>real|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>4495</StateNumber>
+      <StateNumber>4583</StateNumber>
     </column>
     <column id="59" parent="15" name="error">
       <Position>3</Position>
       <DataType>real|0</DataType>
-      <StateNumber>4495</StateNumber>
+      <StateNumber>4583</StateNumber>
     </column>
     <column id="60" parent="15" name="band">
       <Position>4</Position>
       <DataType>real|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>4495</StateNumber>
+      <StateNumber>4583</StateNumber>
     </column>
     <column id="61" parent="15" name="source">
       <Position>5</Position>
       <DataType>varchar(20)|0</DataType>
-      <StateNumber>4495</StateNumber>
+      <StateNumber>4583</StateNumber>
     </column>
     <column id="62" parent="15" name="clump">
       <Position>6</Position>
       <DataType>integer|0</DataType>
-      <StateNumber>4495</StateNumber>
+      <StateNumber>4583</StateNumber>
     </column>
     <index id="63" parent="15" name="fluxes_pkey">
-      <ObjectId>38503</ObjectId>
+      <ObjectId>38811</ObjectId>
       <ColNames>fluxid</ColNames>
       <Unique>1</Unique>
     </index>
     <key id="64" parent="15" name="fluxes_pkey">
-      <ObjectId>38504</ObjectId>
+      <ObjectId>38812</ObjectId>
       <ColNames>fluxid</ColNames>
       <UnderlyingIndexName>fluxes_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
     <foreign-key id="65" parent="15" name="fluxes_band_fkey">
-      <ObjectId>38505</ObjectId>
+      <ObjectId>38813</ObjectId>
       <ColNames>band</ColNames>
       <RefTableName>bands</RefTableName>
       <RefKeyName>bands_pkey</RefKeyName>
       <RefColNames>resolution</RefColNames>
     </foreign-key>
     <foreign-key id="66" parent="15" name="fluxes_source_fkey">
-      <ObjectId>38510</ObjectId>
+      <ObjectId>38818</ObjectId>
       <ColNames>source</ColNames>
       <RefTableName>sources</RefTableName>
       <RefKeyName>sources_pkey</RefKeyName>
       <RefColNames>sourceid</RefColNames>
     </foreign-key>
     <foreign-key id="67" parent="15" name="fluxes_clump_fkey">
-      <ObjectId>38515</ObjectId>
+      <ObjectId>38823</ObjectId>
       <ColNames>clump</ColNames>
       <RefTableName>clumps</RefTableName>
       <RefKeyName>clumps_pkey</RefKeyName>
@@ -360,40 +360,40 @@ band</ColNames>
       <Position>1</Position>
       <DataType>varchar(10)|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>4487</StateNumber>
+      <StateNumber>4575</StateNumber>
     </column>
     <column id="69" parent="16" name="satallite">
       <Position>2</Position>
       <DataType>varchar(10)|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>4487</StateNumber>
+      <StateNumber>4575</StateNumber>
     </column>
     <column id="70" parent="16" name="starmap">
       <Position>3</Position>
       <DataType>varchar(10)|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>4487</StateNumber>
+      <StateNumber>4575</StateNumber>
     </column>
     <index id="71" parent="16" name="instruments_pkey">
-      <ObjectId>38394</ObjectId>
+      <ObjectId>38702</ObjectId>
       <ColNames>name</ColNames>
       <Unique>1</Unique>
     </index>
     <key id="72" parent="16" name="instruments_pkey">
-      <ObjectId>38395</ObjectId>
+      <ObjectId>38703</ObjectId>
       <ColNames>name</ColNames>
       <UnderlyingIndexName>instruments_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
     <foreign-key id="73" parent="16" name="instruments_satallite_fkey">
-      <ObjectId>38396</ObjectId>
+      <ObjectId>38704</ObjectId>
       <ColNames>satallite</ColNames>
       <RefTableName>satellites</RefTableName>
       <RefKeyName>satellites_pkey</RefKeyName>
       <RefColNames>name</RefColNames>
     </foreign-key>
     <foreign-key id="74" parent="16" name="instruments_starmap_fkey">
-      <ObjectId>38401</ObjectId>
+      <ObjectId>38709</ObjectId>
       <ColNames>starmap</ColNames>
       <RefTableName>starmaps</RefTableName>
       <RefKeyName>starmaps_pkey</RefKeyName>
@@ -403,36 +403,36 @@ band</ColNames>
       <Position>1</Position>
       <DataType>varchar(10)|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>4485</StateNumber>
+      <StateNumber>4573</StateNumber>
     </column>
     <column id="76" parent="17" name="satellite">
       <Position>2</Position>
       <DataType>varchar(10)|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>4485</StateNumber>
+      <StateNumber>4573</StateNumber>
     </column>
     <index id="77" parent="17" name="missionsjoined_pkey">
-      <ObjectId>38374</ObjectId>
+      <ObjectId>38682</ObjectId>
       <ColNames>agency
 satellite</ColNames>
       <Unique>1</Unique>
     </index>
     <key id="78" parent="17" name="missionsjoined_pkey">
-      <ObjectId>38375</ObjectId>
+      <ObjectId>38683</ObjectId>
       <ColNames>agency
 satellite</ColNames>
       <UnderlyingIndexName>missionsjoined_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
     <foreign-key id="79" parent="17" name="missionsjoined_agency_fkey">
-      <ObjectId>38376</ObjectId>
+      <ObjectId>38684</ObjectId>
       <ColNames>agency</ColNames>
       <RefTableName>agencies</RefTableName>
       <RefKeyName>agencies_pkey</RefKeyName>
       <RefColNames>name</RefColNames>
     </foreign-key>
     <foreign-key id="80" parent="17" name="missionsjoined_satellite_fkey">
-      <ObjectId>38381</ObjectId>
+      <ObjectId>38689</ObjectId>
       <ColNames>satellite</ColNames>
       <RefTableName>satellites</RefTableName>
       <RefKeyName>satellites_pkey</RefKeyName>
@@ -442,193 +442,185 @@ satellite</ColNames>
       <Position>1</Position>
       <DataType>varchar(10)|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>4489</StateNumber>
+      <StateNumber>4577</StateNumber>
     </column>
     <column id="82" parent="18" name="band">
       <Position>2</Position>
       <DataType>real|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>4489</StateNumber>
+      <StateNumber>4577</StateNumber>
     </column>
     <index id="83" parent="18" name="s_bsurbay_pkey">
-      <ObjectId>38414</ObjectId>
+      <ObjectId>38722</ObjectId>
       <ColNames>instrument
 band</ColNames>
       <Unique>1</Unique>
     </index>
     <key id="84" parent="18" name="s_bsurbay_pkey">
-      <ObjectId>38415</ObjectId>
+      <ObjectId>38723</ObjectId>
       <ColNames>instrument
 band</ColNames>
       <UnderlyingIndexName>s_bsurbay_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
     <foreign-key id="85" parent="18" name="s_bsurbay_instrument_fkey">
-      <ObjectId>38416</ObjectId>
+      <ObjectId>38724</ObjectId>
       <ColNames>instrument</ColNames>
       <RefTableName>instruments</RefTableName>
       <RefKeyName>instruments_pkey</RefKeyName>
       <RefColNames>name</RefColNames>
     </foreign-key>
     <foreign-key id="86" parent="18" name="s_bsurbay_band_fkey">
-      <ObjectId>38421</ObjectId>
+      <ObjectId>38729</ObjectId>
       <ColNames>band</ColNames>
       <RefTableName>bands</RefTableName>
       <RefKeyName>bands_pkey</RefKeyName>
       <RefColNames>resolution</RefColNames>
     </foreign-key>
-    <column id="87" parent="19" name="name">
+    <column id="87" parent="19" name="source">
+      <Position>1</Position>
+      <DataType>varchar(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>4581</StateNumber>
+    </column>
+    <column id="88" parent="19" name="clump">
+      <Position>2</Position>
+      <DataType>integer|0</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>4581</StateNumber>
+    </column>
+    <index id="89" parent="19" name="s_c_membership_pkey">
+      <ObjectId>38783</ObjectId>
+      <ColNames>source
+clump</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="90" parent="19" name="s_c_membership_pkey">
+      <ObjectId>38784</ObjectId>
+      <ColNames>source
+clump</ColNames>
+      <UnderlyingIndexName>s_c_membership_pkey</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="91" parent="19" name="s_c_membership_source_fkey">
+      <ObjectId>38785</ObjectId>
+      <ColNames>source</ColNames>
+      <RefTableName>sources</RefTableName>
+      <RefKeyName>sources_pkey</RefKeyName>
+      <RefColNames>sourceid</RefColNames>
+    </foreign-key>
+    <foreign-key id="92" parent="19" name="s_c_membership_clump_fkey">
+      <ObjectId>38790</ObjectId>
+      <ColNames>clump</ColNames>
+      <RefTableName>clumps</RefTableName>
+      <RefKeyName>clumps_pkey</RefKeyName>
+      <RefColNames>clumpid</RefColNames>
+    </foreign-key>
+    <column id="93" parent="20" name="name">
       <Position>1</Position>
       <DataType>varchar(10)|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>4484</StateNumber>
+      <StateNumber>4572</StateNumber>
     </column>
-    <column id="88" parent="19" name="startmissiondate">
+    <column id="94" parent="20" name="startmissiondate">
       <Position>2</Position>
       <DataType>timestamp|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>4484</StateNumber>
+      <StateNumber>4572</StateNumber>
     </column>
-    <column id="89" parent="19" name="endmissiondate">
+    <column id="95" parent="20" name="endmissiondate">
       <Position>3</Position>
       <DataType>timestamp|0</DataType>
-      <StateNumber>4484</StateNumber>
+      <StateNumber>4572</StateNumber>
     </column>
-    <index id="90" parent="19" name="satellites_pkey">
-      <ObjectId>38369</ObjectId>
+    <index id="96" parent="20" name="satellites_pkey">
+      <ObjectId>38677</ObjectId>
       <ColNames>name</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="91" parent="19" name="satellites_pkey">
-      <ObjectId>38370</ObjectId>
+    <key id="97" parent="20" name="satellites_pkey">
+      <ObjectId>38678</ObjectId>
       <ColNames>name</ColNames>
       <UnderlyingIndexName>satellites_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
-    <column id="92" parent="20" name="sourceid">
+    <column id="98" parent="21" name="sourceid">
       <Position>1</Position>
       <DataType>varchar(20)|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>4490</StateNumber>
+      <StateNumber>4578</StateNumber>
     </column>
-    <column id="93" parent="20" name="galacticlongitude">
+    <column id="99" parent="21" name="galacticlongitude">
       <Position>2</Position>
       <DataType>double precision|0</DataType>
-      <StateNumber>4490</StateNumber>
+      <StateNumber>4578</StateNumber>
       <DefaultExpression>0.0</DefaultExpression>
     </column>
-    <column id="94" parent="20" name="galacticlatitude">
+    <column id="100" parent="21" name="galacticlatitude">
       <Position>3</Position>
       <DataType>double precision|0</DataType>
-      <StateNumber>4490</StateNumber>
+      <StateNumber>4578</StateNumber>
       <DefaultExpression>0.0</DefaultExpression>
     </column>
-    <column id="95" parent="20" name="comparedsource">
+    <column id="101" parent="21" name="comparedsource">
       <Position>4</Position>
       <DataType>varchar(20)|0</DataType>
-      <StateNumber>4490</StateNumber>
+      <StateNumber>4578</StateNumber>
     </column>
-    <index id="96" parent="20" name="sources_pkey">
-      <ObjectId>38431</ObjectId>
+    <index id="102" parent="21" name="sources_pkey">
+      <ObjectId>38739</ObjectId>
       <ColNames>sourceid</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="97" parent="20" name="sources_pkey">
-      <ObjectId>38432</ObjectId>
+    <key id="103" parent="21" name="sources_pkey">
+      <ObjectId>38740</ObjectId>
       <ColNames>sourceid</ColNames>
       <UnderlyingIndexName>sources_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="98" parent="20" name="sources_comparedsource_fkey">
-      <ObjectId>38433</ObjectId>
+    <foreign-key id="104" parent="21" name="sources_comparedsource_fkey">
+      <ObjectId>38741</ObjectId>
       <ColNames>comparedsource</ColNames>
       <RefTableName>sources</RefTableName>
       <RefKeyName>sources_pkey</RefKeyName>
       <RefColNames>sourceid</RefColNames>
     </foreign-key>
-    <column id="99" parent="21" name="name">
+    <column id="105" parent="22" name="name">
       <Position>1</Position>
       <DataType>varchar(10)|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>4486</StateNumber>
+      <StateNumber>4574</StateNumber>
     </column>
-    <index id="100" parent="21" name="starmaps_pkey">
-      <ObjectId>38389</ObjectId>
+    <index id="106" parent="22" name="starmaps_pkey">
+      <ObjectId>38697</ObjectId>
       <ColNames>name</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="101" parent="21" name="starmaps_pkey">
-      <ObjectId>38390</ObjectId>
+    <key id="107" parent="22" name="starmaps_pkey">
+      <ObjectId>38698</ObjectId>
       <ColNames>name</ColNames>
       <UnderlyingIndexName>starmaps_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
-    <column id="102" parent="22" name="user_id">
+    <column id="108" parent="23" name="v1source">
       <Position>1</Position>
       <DataType>varchar(20)|0</DataType>
-      <NotNull>1</NotNull>
-      <StateNumber>4505</StateNumber>
+      <StateNumber>4584</StateNumber>
     </column>
-    <column id="103" parent="22" name="password">
-      <Position>2</Position>
-      <DataType>char(32)|0</DataType>
-      <NotNull>1</NotNull>
-      <StateNumber>4505</StateNumber>
-    </column>
-    <column id="104" parent="22" name="name">
-      <Position>3</Position>
-      <DataType>varchar(20)|0</DataType>
-      <NotNull>1</NotNull>
-      <StateNumber>4505</StateNumber>
-    </column>
-    <column id="105" parent="22" name="surname">
-      <Position>4</Position>
-      <DataType>varchar(20)|0</DataType>
-      <NotNull>1</NotNull>
-      <StateNumber>4505</StateNumber>
-    </column>
-    <column id="106" parent="22" name="email">
-      <Position>5</Position>
-      <DataType>text|0</DataType>
-      <NotNull>1</NotNull>
-      <StateNumber>4505</StateNumber>
-    </column>
-    <column id="107" parent="22" name="type">
-      <Position>6</Position>
-      <DataType>varchar(20)|0</DataType>
-      <NotNull>1</NotNull>
-      <StateNumber>4505</StateNumber>
-    </column>
-    <index id="108" parent="22" name="users_pkey">
-      <ObjectId>38534</ObjectId>
-      <ColNames>user_id</ColNames>
-      <Unique>1</Unique>
-    </index>
-    <key id="109" parent="22" name="users_pkey">
-      <ObjectId>38535</ObjectId>
-      <ColNames>user_id</ColNames>
-      <UnderlyingIndexName>users_pkey</UnderlyingIndexName>
-      <Primary>1</Primary>
-    </key>
-    <column id="110" parent="23" name="v1source">
-      <Position>1</Position>
-      <DataType>varchar(20)|0</DataType>
-      <StateNumber>4496</StateNumber>
-    </column>
-    <column id="111" parent="23" name="difvalue4558">
+    <column id="109" parent="23" name="difvalue4558">
       <Position>2</Position>
       <DataType>real|0</DataType>
-      <StateNumber>4496</StateNumber>
+      <StateNumber>4584</StateNumber>
     </column>
-    <column id="112" parent="24" name="v2source">
+    <column id="110" parent="24" name="v2source">
       <Position>1</Position>
       <DataType>varchar(20)|0</DataType>
-      <StateNumber>4497</StateNumber>
+      <StateNumber>4585</StateNumber>
     </column>
-    <column id="113" parent="24" name="difvalue3645">
+    <column id="111" parent="24" name="difvalue3645">
       <Position>2</Position>
       <DataType>real|0</DataType>
-      <StateNumber>4497</StateNumber>
+      <StateNumber>4585</StateNumber>
     </column>
   </database-model>
 </dataSource>

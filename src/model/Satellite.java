@@ -1,5 +1,8 @@
 package model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -48,5 +51,21 @@ public class Satellite {
 
     public void setAgenciesLinked(List<Agency> agenciesLinked) {
         this.agenciesLinked = agenciesLinked;
+    }
+
+    //ricava Durata massima della missione
+    public long maxMission(String startMissionDate, String endMissionDate){
+
+        long diff = 0;
+        try {
+            Date d1 = new SimpleDateFormat("yyyy-M-dd").parse(startMissionDate);
+            Date d2 = new SimpleDateFormat("yyyy-M-dd").parse(endMissionDate);
+            diff= Math.abs(d1.getTime() - d2.getTime());
+            //long diffDays = diff / (24 * 60 * 60 * 1000);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return diff;
+
     }
 }

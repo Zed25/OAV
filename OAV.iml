@@ -40,7 +40,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" scope="PROVIDED" name="Tomcat 8.5.12" level="application_server_libraries" />
+    <orderEntry type="library" name="Tomcat 8.5.12" level="application_server_libraries" />
     <orderEntry type="library" name="Arquillian JUnit:Release" level="project" />
     <orderEntry type="library" name="taglibs-standard-impl-1.2.5" level="project" />
     <orderEntry type="library" name="postgresql-42.0.0" level="project" />
@@ -53,5 +53,6 @@
     <orderEntry type="library" name="commons-collections-3.2.2" level="project" />
     <orderEntry type="library" name="jsp-api-2.0" level="project" />
     <orderEntry type="library" name="jstl-1.2" level="project" />
+    <orderEntry type="library" name="javax.servlet:javax.servlet-api:3.0.1" level="project" />
   </component>
 </module>

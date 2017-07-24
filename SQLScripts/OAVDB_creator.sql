@@ -66,17 +66,17 @@ create table S_C_Membership(
 );
 
 create table Ellipses (
-  Clump integer not null,
+  Clump integer NOT NULL,
   Band REAL references Bands(Resolution)  NOT NULL,
-  Maxaxis double precision not null,
-  Minaxis double precision not null,
-  PositionAngle double precision not null,
+  Maxaxis double precision NOT NULL,
+  Minaxis double precision NOT NULL,
+  PositionAngle double precision NOT NULL,
   primary key (Clump , Band)
 );
 
 create table Fluxes (
   FluxID SERIAL PRIMARY KEY,
-  Value real not null,
+  Value real NOT NULL,
   Error real,
   Band real references Bands (Resolution)  NOT NULL,
   Source character varying (20) references Sources (SourceID),
