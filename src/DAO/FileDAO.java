@@ -371,7 +371,7 @@ public class FileDAO extends SuperDAO {
 
 
             case "mips.csv":
-              /*  List<String> existingSources = GetOldSources(connection);
+                List<String> existingSources = GetOldSources(connection);
                 List<String> newSources = new ArrayList<>();
 
                 //Controllo  NOMI COLONNE prima riga
@@ -459,10 +459,10 @@ public class FileDAO extends SuperDAO {
                             e1.printStackTrace();
                         }
                     }
-*/
+
                     //Riempimento s_c_membership
                     SC_membership();
-              //  }
+                }
                 return error;
         }
         return error;

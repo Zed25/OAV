@@ -8,7 +8,7 @@ WHERE ( ( sqrt((sources.galacticlatitude - clumps.galacticlatitude)^2 +
         (sources.galacticlongitude - clumps.galacticlongitude)^2) <
         ellipses.maxaxis*3600)
         AND clumps.galacticlongitude!=0 AND clumps.galacticlatitude!=0
-        AND sources.galacticlongitude!=0 AND sources.galacticlatitude!=0));
+        AND sources.galacticlongitude!=0 AND sources.galacticlatitude!=0);
 
 
 --UC11--
