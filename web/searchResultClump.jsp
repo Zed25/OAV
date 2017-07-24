@@ -21,7 +21,6 @@
     <h5>(Boar)</h5>
     <h4>Sorry for the dust. Please try again</h4>
     <br>
-    <a class="waves-effect waves-light btn" href="backToSearch.jsp">Back to Search</a>
 </div>
 <% } else { %>
 

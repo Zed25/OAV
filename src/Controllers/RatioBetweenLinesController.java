@@ -84,11 +84,11 @@ public class RatioBetweenLinesController {
 
         //# of elements is odd
         if (list.size() % 2 == 1)
-            return list.get((list.size() + 1)/2);
+            return list.get((list.size() + 1)/2 - 1);
 
             //# of elements is even
         else
-            return  (list.get(list.size()/2) + list.get((list.size() + 1)/2))/2;
+            return  (list.get(list.size()/2 - 1) + list.get(list.size()/2))/2;
     }
 
     public double computeMAD(List<Clump> clumps, double median) {

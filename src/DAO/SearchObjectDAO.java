@@ -13,7 +13,7 @@ import java.sql.*;
  */
 public class SearchObjectDAO extends SuperDAO {
 
-    public CachedRowSetImpl searchObjectInMap(String mapName, float band, int clumpID) {
+    public CachedRowSetImpl searchObjectInMap(String mapName, float band) {
 
         String query;
 

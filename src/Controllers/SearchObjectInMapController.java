@@ -27,7 +27,7 @@ public class SearchObjectInMapController {
     public ErrorType FindObjectInMapFromBean(SearchBean bean, ResultBean resBean) {  //band==0 -> 1 banda, else tutte
         //CLUMPS
         if (bean.getMapName().equals("HiGal")) {
-            List<Clump> clumps = FindClumpInMap(bean.getClumpID(), bean.getRealBand());
+            List<Clump> clumps = FindClumpInMap(bean.getRealBand());
             if (clumps == null)
                 return ErrorType.BABOON;
             else {
@@ -65,7 +65,7 @@ public class SearchObjectInMapController {
     //KUC 4 -> SOURCE
     public List<Source> FindSourceInMap(String mapName, float band){
         SearchObjectDAO dao = new SearchObjectDAO();
-        CachedRowSetImpl result = dao.searchObjectInMap(mapName, band, 0);
+        CachedRowSetImpl result = dao.searchObjectInMap(mapName, band);
         List<Source> sources = new ArrayList<>();
         try {
             while (result.next()) {
@@ -85,9 +85,9 @@ public class SearchObjectInMapController {
     }
 
     //KUC 4 -> CLUMP
-    public List<Clump> FindClumpInMap(int clumpID, float band) {
+    public List<Clump> FindClumpInMap(float band) {
         SearchObjectDAO dao = new SearchObjectDAO();
-        CachedRowSetImpl result = dao.searchObjectInMap("HiGal", band, clumpID);
+        CachedRowSetImpl result = dao.searchObjectInMap("HiGal", band);
         List<Clump> clumps = new ArrayList<>();
         try {
             while (result.next()) {
