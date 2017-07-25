@@ -27,7 +27,7 @@
 <%}else{%>
 <h4>Satellite's data summary</h4>
 <form action="serializeSatellite.jsp" method="post">
-    <div class="row"></div>
+    <div class="row">
         Name: <%=newSatellite.getName()%>
     </div>
     <div class="row">
