@@ -35,7 +35,7 @@
     per la banda selezionata. Ad esempio, se si seleziona la banda di 350us, allora si utilizzerà
     come distanza massima la colonna relativa FW350_1.
 
--UC9 Visualizzare la massa di tutti i clump:        USER    [Andrea - in progress]
+-UC9 Visualizzare la massa di tutti i clump:        USER    [Andrea]
     Trovare la massa di ogni clump. La massa è stimata secondo la seguente formula
     M = 0.053*(S350)*(D^2)*{exp(41.14/TEMP) - 1}
     //S350 e' il valore del flusso per il clump specifico alla banda 350 us e sta nella tab. fluxes
@@ -46,7 +46,7 @@
 
     	Con  D = la distanza in Kilo Parsec (kpc). Considerare tutte le sorgenti ad una distanza di D=10 kpc.
 
--UC10 Valori dei rapporti delle righe:      USER    [Andrea - in progress]
+-UC10 Valori dei rapporti delle righe:      USER    [Andrea]
     Un utente registrato potrà richiedere il valore medio, la deviazione standard,
     la mediana e la deviazione media assoluta delle masse di tutti i clumps.
 

@@ -7,9 +7,9 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<jsp:useBean id="searchBean" scope="session" class="beans.login.search.SearchBean"/>
+<jsp:useBean id="searchBean" scope="session" class="beans.login.SearchBean"/>
 <jsp:setProperty name="searchBean" property="*"/>
-<jsp:useBean id="resultBean" scope="session" class="beans.login.search.ResultBean"/>
+<jsp:useBean id="resultBean" scope="session" class="beans.login.ResultBean"/>
 
 <jsp:include page="header.jsp"/>
 
