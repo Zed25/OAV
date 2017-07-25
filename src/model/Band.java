@@ -5,7 +5,7 @@ package model;
  */
 public class Band {
 
-    double resolution;
+    private double resolution;
 
     public Band(){}
     public Band(double resolution) {

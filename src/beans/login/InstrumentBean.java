@@ -11,8 +11,8 @@ import java.util.List;
  * Created by simone on 11/04/17.
  */
 public class InstrumentBean {
-    String name, satellite, map, bandsFromFormString;
-    List<String> bands;
+    private String name, satellite, map, bandsFromFormString;
+    private List<String> bands;
 
     /**
      * Instrument bean's constructor.

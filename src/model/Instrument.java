@@ -7,8 +7,8 @@ import java.util.List;
  * Created by simone on 22/06/17.
  */
 public class Instrument {
-    String name, satellite, map;
-    List<Band> bands;
+    private String name, satellite, map;
+    private List<Band> bands;
 
     public Instrument(String name, String satellite, String map, List<Band> bands) {
         this.name = name;

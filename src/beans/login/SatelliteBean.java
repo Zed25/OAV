@@ -11,8 +11,8 @@ import java.util.List;
  * Created by simone on 03/04/17.
  */
 public class SatelliteBean {
-    String name, startMissionDate, endMissionDate, agenciesLinked;
-    List<AgencyBean> agencyPartecipationList;
+    private String name, startMissionDate, endMissionDate, agenciesLinked;
+    private List<AgencyBean> agencyPartecipationList;
 
     /**
      * Satellite bean's constructor

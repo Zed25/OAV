@@ -11,8 +11,8 @@ import java.util.List;
  */
 public class Satellite {
 
-    String name, startMissionDate, endMissionDate;
-    List<Agency> agenciesLinked;
+    private String name, startMissionDate, endMissionDate;
+    private List<Agency> agenciesLinked;
 
     public Satellite(String name, String startMissionDate, String endMissionDate, List<Agency> agenciesLinked) {
         this.name = name;
