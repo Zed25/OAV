@@ -5,6 +5,7 @@ import beans.login.ResultBean;
 import beans.login.SearchBean;
 import com.sun.rowset.CachedRowSetImpl;
 import enumerations.ErrorType;
+import model.Clump;
 import model.Source;
 
 import java.sql.SQLException;
@@ -28,7 +29,10 @@ public class YoungSourceController {
     //Adapter
     public ErrorType getYoungSource(SearchBean searchBean, ResultBean resultBean) {
 
-        List<Source> resultSources = findYoungSource(searchBean.getClumpID());
+        Clump clump = new Clump();
+        clump.setClumpID(searchBean.getClumpID());
+
+        List<Source> resultSources = findYoungSource(clump.getClumpID());
         if (resultSources == null) {
             return ErrorType.NO_RESULTS;
         } else {

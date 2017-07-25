@@ -17,15 +17,6 @@ public class SourceinClumpDAO extends SuperDAO{
     public CachedRowSetImpl searchSource(int clumpID, Float band) {
 
 
-       /* String query = "SELECT sources.sourceid " +
-                        "FROM sources INNER JOIN collection ON (sources.sourceid=collection.source) " +
-                        "NATURAL JOIN ellipses INNER JOIN clumps ON (ellipses.clump=clumps.clumpid) " +
-                        "WHERE (sqrt((sources.galacticlatitude - clumps.galacticlatitude)^2 +" +
-                        "(sources.galacticlongitude - clumps.galacticlongitude)^2) <" +
-                        "ellipses.maxaxis) AND (clumps.clumpid = ?) AND (ellipses.band = ?) " +
-                        "AND (collection.starmap= 'MIPS-GAL')" +
-                        "AND clumps.galacticlongitude!=0 AND clumps.galacticlatitude!=0 " +
-                        "AND sources.galacticlongitude!=0 AND sources.galacticlatitude!=0 );";*/
         String query = "SELECT s_c_membership.source " +
                 "FROM s_c_membership INNER JOIN ellipses ON (s_c_membership.clump = ellipses.clump) " +
                 "INNER JOIN collection ON (s_c_membership.source = collection.source) " +

@@ -17,12 +17,12 @@ import java.util.List;
 
 public class FileUpload extends HttpServlet {
 
-    public String filescelto;
+    public String fileUploaded;
     FileController c = FileController.getFileControllerInstance();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        filescelto = c.filescelto;
+        fileUploaded = c.fileUploaded;
 
         ServletFileUpload sf = new ServletFileUpload(new DiskFileItemFactory());
         String savePath = request.getServletContext().getRealPath("");         //System.out.print(savePath); =*/OAV/out/artifacts/OAV_war_exploded/
@@ -35,7 +35,7 @@ public class FileUpload extends HttpServlet {
 
                 FileItem item = multifiles.get(0);
                 String fileName = item.getName();
-                if (fileName.equals(filescelto)) {
+                if (fileName.equals(fileUploaded)) {
                     item.write(new File(savePath + fileName));
 
                     ErrorType error = getSplitted(savePath, fileName);

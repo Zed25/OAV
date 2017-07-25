@@ -6,6 +6,7 @@ import beans.login.SourceBean;
 import beans.login.*;
 import com.sun.rowset.CachedRowSetImpl;
 import enumerations.ErrorType;
+import model.Clump;
 import model.Source;
 
 import java.sql.SQLException;
@@ -29,7 +30,11 @@ public class SourceClumpController {
     //Adapter
     public ErrorType getElementsFromBean(SearchBean searchBean, ResultBean resultBean) {
 
-        List<Source> sources = findSourceinClump(searchBean.getClumpID(), Float.parseFloat(searchBean.getBand()));
+        Clump clump = new Clump();
+        clump.setClumpID(searchBean.getClumpID());
+        clump.setBand(Float.parseFloat(searchBean.getBand()));
+
+        List<Source> sources = findSourceinClump(clump.getClumpID(), clump.getBand() );
         if (sources == null) {
             return ErrorType.NO_RESULTS;
         } else {
