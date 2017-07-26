@@ -1,7 +1,6 @@
 package Controllers;
 
 import DAO.ClumpDAO;
-import beans.login.ClumpBean;
 import beans.login.ResultBean;
 import com.sun.rowset.CachedRowSetImpl;
 import enumerations.ErrorType;
