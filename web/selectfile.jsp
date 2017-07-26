@@ -57,12 +57,12 @@
         </div>
         <%
             String filescelto = "";
-            if (request.getParameter("filescelto")!=null){
-                filescelto= request.getParameter("filescelto");
+            if (request.getParameter("fileUploaded")!=null){
+                filescelto= request.getParameter("fileUploaded");
 
                 FileController c = FileController.getFileControllerInstance();
-                c.filescelto = filescelto;
-                // Test: System.out.println("selectfile" + filescelto);
+                c.fileUploaded = filescelto;
+                // Test: System.out.println("selectfile" + fileUploaded);
         %>
         <jsp:forward page="csvInsert.jsp"/>
         <%

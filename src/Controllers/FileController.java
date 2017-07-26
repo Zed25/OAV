@@ -18,7 +18,7 @@ public class FileController {
             fileControllerInstance = new FileController();
         return fileControllerInstance;
     }
-    public String filescelto;
+    public String fileUploaded;
     public ErrorType errorToShow=ErrorType.NO_ERR;
 
 
