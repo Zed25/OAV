@@ -42,7 +42,7 @@ public class YoungSourceController {
                 sourceBean.setSourceID(source.getSourceID());
                 finalSourceList.add(sourceBean);
 
-                System.out.println(sourceBean.getSourceID());
+                //System.out.println(sourceBean.getSourceID());
             }
             resultBean.setSourceBeans(finalSourceList);
 
@@ -61,7 +61,7 @@ public class YoungSourceController {
                 source.setSourceID(result.getString("V1source"));
                 youngSources.add(source);
 
-                System.out.println(source.getSourceID());
+                //System.out.println(source.getSourceID());
             }
 
         } catch (SQLException e) {
