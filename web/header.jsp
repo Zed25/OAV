@@ -56,15 +56,14 @@
     <li><a href="ratioBetweenLinesResult.jsp"><i class="material-icons black-text">equalizer</i>Get stats of clumps mass</a></li>
     <li><a href="selectfile.jsp"><i class="material-icons black-text">add</i>Add csv</a></li>
     <li><a href="insertInstrument.jsp"><i class="material-icons black-text">add</i>New Instrument</a></li>
-    <li><a href="clumpByDensitySearch.jsp"><i class="material-icons black-text">search</i>Search clump for density</a></li>
+    <li><a href="clumpByDensitySearch.jsp"><i class="material-icons black-text">search</i>Search clump by density</a></li>
     <li><a href="searchInSquareOrCircle.jsp"><i class="material-icons black-text">search</i>Search elements in area</a></li>
     <br>
     <li><a href="sourceInClump.jsp"><i class="material-icons black-text">search</i>Search sources in Clump</a></li>
     <li><a href="youngSourceObject.jsp"><i class="material-icons black-text">search</i>Search Young Source</a></li>
     <br>
     <li><div class="divider"></div></li>
-    <li><a class="subheader">Subheader</a></li>
-    <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
+    <li><a href="logout.jsp"><i class="material-icons black-text">eject</i>Logout</a></li>
 </ul>
 <%}else{%>
 <ul id="slide-out" class="side-nav">
@@ -76,17 +75,17 @@
         <span class="white-text name"><%=loginBean.getName()%> <%=loginBean.getSurname()%> (Normal User)</span>
         <span class="white-text email"><%=loginBean.getEmail()%></span>
     </div></li>
-    <li><a href="logout.jsp"><i class="material-icons black-text">eject</i>Logout</a></li>
-    <li><a href="#!"><i class="material-icons black-text">add</i>First Link With Icon</a></li>
-    <li><a href="findObjInMap.jsp"><i class="material-icons black-text">add</i>Search Source</a></li>
-    <li><a href="clumpByDensitySearch.jsp"><i class="material-icons black-text">search</i>Search clump for density</a></li>
+    <li><a href="findObjInMap.jsp"><i class="material-icons black-text">search</i>Search Object in Map</a></li>
+    <li><a href="findClumpByID.jsp"><i class="material-icons black-text">search</i>Search Clump by ID</a></li>
+    <li><a href="massAllClumpsResult.jsp"><i class="material-icons black-text">equalizer</i>Get mass of all Clumps</a></li>
+    <li><a href="clumpByDensitySearch.jsp"><i class="material-icons black-text">search</i>Search clump by density</a></li>
     <li><a href="searchInSquareOrCircle.jsp"><i class="material-icons black-text">search</i>Search elements in area</a></li>
     <br>
     <li><a href="sourceInClump.jsp"><i class="material-icons black-text">search</i>Search sources in Clump</a></li>
     <li><a href="youngSourceObject.jsp"><i class="material-icons black-text">search</i>Search Young Source</a></li>
+    <li><a href="ratioBetweenLinesResult.jsp"><i class="material-icons black-text">equalizer</i>Get stats of clumps mass</a></li>
     <li><div class="divider"></div></li>
-    <li><a class="subheader">Subheader</a></li>
-
+    <li><a href="logout.jsp"><i class="material-icons black-text">eject</i>Logout</a></li>
 </ul>
 <%}%>
 <div class="container">
