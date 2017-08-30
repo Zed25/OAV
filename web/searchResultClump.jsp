@@ -33,7 +33,7 @@
                 <th>Galactic Latitude</th>
                 <th>Galactic Longitude</th>
                 <th>Band Width</th>
-                <th>Flow Value</th>
+                <th>Flux Value</th>
             </tr>
         </div>
         </thead>
