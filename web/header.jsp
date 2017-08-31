@@ -23,19 +23,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>OAV</title>
 </head>
-<body>
+<body background="images/sfondo.png">
 <nav>
     <div class="nav-wrapper blue">
-<a href="#" class="brand-logo center">Logo</a>
-<ul id="nav-mobile" class="left hide-on-med-and-down">
-    <%if(loginBean.isLogged()){%>
-    <li><a href="#" data-activates="slide-out" id="side_bar"><i class="material-icons white-text">menu</i></a></li>
-    <li>Ciao <%=loginBean.getName()%>!</li>
-    <%}else {%>
-    <li><a href="#login_modal">Login</a></li>
-    <%}%>
-</ul>
-</div>
+        <a href="#" class="brand-logo center">Logo</a>
+        <ul id="nav-mobile" class="left hide-on-med-and-down">
+            <%if(loginBean.isLogged()){%>
+            <li><a href="#" data-activates="slide-out" id="side_bar"><i class="material-icons white-text">menu</i></a></li>
+            <li>Ciao <%=loginBean.getName()%>!</li>
+            <%}else {%>
+            <li><a href="#login_modal">Login</a></li>
+            <%}%>
+        </ul>
+    </div>
 </nav>
 <%if(loginBean.isAdmin()){%>
 <ul id="slide-out" class="side-nav">
@@ -58,7 +58,6 @@
     <li><a href="insertInstrument.jsp"><i class="material-icons black-text">add</i>New Instrument</a></li>
     <li><a href="clumpByDensitySearch.jsp"><i class="material-icons black-text">search</i>Search clump by density</a></li>
     <li><a href="searchInSquareOrCircle.jsp"><i class="material-icons black-text">search</i>Search elements in area</a></li>
-    <br>
     <li><a href="sourceInClump.jsp"><i class="material-icons black-text">search</i>Search sources in Clump</a></li>
     <li><a href="youngSourceObject.jsp"><i class="material-icons black-text">search</i>Search Young Source</a></li>
     <br>
@@ -80,7 +79,6 @@
     <li><a href="massAllClumpsResult.jsp"><i class="material-icons black-text">equalizer</i>Get mass of all Clumps</a></li>
     <li><a href="clumpByDensitySearch.jsp"><i class="material-icons black-text">search</i>Search clump by density</a></li>
     <li><a href="searchInSquareOrCircle.jsp"><i class="material-icons black-text">search</i>Search elements in area</a></li>
-    <br>
     <li><a href="sourceInClump.jsp"><i class="material-icons black-text">search</i>Search sources in Clump</a></li>
     <li><a href="youngSourceObject.jsp"><i class="material-icons black-text">search</i>Search Young Source</a></li>
     <li><a href="ratioBetweenLinesResult.jsp"><i class="material-icons black-text">equalizer</i>Get stats of clumps mass</a></li>
@@ -88,4 +86,4 @@
     <li><a href="logout.jsp"><i class="material-icons black-text">eject</i>Logout</a></li>
 </ul>
 <%}%>
-<div class="container">
+<div class="container"></div>

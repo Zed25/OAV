@@ -56,9 +56,9 @@
 
         </div>
         <%
-            String filescelto = "";
-            if (request.getParameter("fileUploaded")!=null){
-                filescelto= request.getParameter("fileUploaded");
+            String filescelto;
+            if (request.getParameter("filescelto")!=null){
+                filescelto = request.getParameter("filescelto");
 
                 FileController c = FileController.getFileControllerInstance();
                 c.fileUploaded = filescelto;
@@ -69,7 +69,10 @@
                 }
             }
         %>
+        <div class="container"></div>
+
     </div>
+
 
 
 
