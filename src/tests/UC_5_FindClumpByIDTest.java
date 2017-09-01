@@ -27,12 +27,10 @@ public class UC_5_FindClumpByIDTest {
         Clump errorClump2 = new Clump();
         errorClump2.setClumpID(0);
 
-        Clump errorClump3 = new Clump();
         return Arrays.asList(
                 rightFilledClump,
                 errorClump1,
-                errorClump2,
-                errorClump3
+                errorClump2
         );
     }
 
@@ -40,12 +38,12 @@ public class UC_5_FindClumpByIDTest {
 
     @Test
     public void findClumpTest() throws Exception {
-        Assert.assertNotNull("clumps is null", FindClumpByIDController.getInstance().findClumpByID(clump.getClumpID()));
-    }
+        if (clump.getClumpID() == 179761) {
+            Assert.assertNotNull("clumps is null", FindClumpByIDController.getInstance().findClumpByID(clump.getClumpID()));
+            Assert.assertEquals("this is not the clump desired", (float) FindClumpByIDController.getInstance().findClumpByID(clump.getClumpID()).get(0).getClumpID(), 179761f, 1f);
+        }
 
-    @Test
-    public void findClumpByIDTest() throws Exception {
-        Assert.assertEquals("this is not the clump desired", (float)FindClumpByIDController.getInstance().findClumpByID(clump.getClumpID()).get(0).getClumpID(), 179761f, 1f);
+        else
+            Assert.assertNull("clumps is null", FindClumpByIDController.getInstance().findClumpByID(clump.getClumpID()));
     }
-
 }

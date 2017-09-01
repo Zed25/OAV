@@ -30,7 +30,7 @@ public class UC_4_SearchObjectInMapTest {
 
     @Test
     public void searchObjInMapTest1() throws Exception {
-        Assert.assertEquals("Some objects got lost", SearchObjectInMapController.getInstance().FindSourceInMap(map1, 0.0f).size(), 453);
+        Assert.assertEquals("Some objects got lost", SearchObjectInMapController.getInstance().FindSourceInMap(map1, 0.0f).size(), 607);
     }
 
     @Test
