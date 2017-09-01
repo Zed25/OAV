@@ -11,6 +11,7 @@ public class YoungSourceDAO extends SuperDAO {
 
     public CachedRowSetImpl searchYoungSource(int clumpID) {
 
+        /*UC_11 query: works with the Views created in OAVDB_creator.sql file*/
         String query=( "SELECT DISTINCT V1.V1source" +
                 "        FROM V1 INNER JOIN V2 ON (V1.V1source=V2.V2source) " +
                 "                INNER JOIN s_c_membership ON (V1.V1source=s_c_membership.source)" +

@@ -1,7 +1,7 @@
 package beans.login;
 
 import Controllers.*;
-import Controllers.SourceClumpController;
+import Controllers.SourceInClumpController;
 import enumerations.ErrorType;
 
 import java.util.List;
@@ -92,7 +92,7 @@ public class SearchBean {
     }
 
     public ErrorType sourceInClump(SearchBean searchBean, ResultBean resultBean){
-        return SourceClumpController.getInstance().getElementsFromBean(searchBean,resultBean);
+        return SourceInClumpController.getInstance().getElementsFromBean(searchBean,resultBean);
     }
 
     public ErrorType findObjectInMap(SearchBean bean, ResultBean resBean) {

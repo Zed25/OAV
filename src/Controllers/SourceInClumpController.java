@@ -1,7 +1,7 @@
 package Controllers;
 
 
-import DAO.SourceinClumpDAO;
+import DAO.SourceInClumpDAO;
 import beans.login.SourceBean;
 import beans.login.*;
 import com.sun.rowset.CachedRowSetImpl;
@@ -16,18 +16,19 @@ import java.util.List;
 /**
  * Created by dilettalagom on 30/06/17.
  */
-public class SourceClumpController {
+public class SourceInClumpController {
 
-    private static SourceClumpController instance = null;
-    public static synchronized SourceClumpController getInstance() {
+    private static SourceInClumpController instance = null;
+    public static synchronized SourceInClumpController getInstance() {
         if (instance == null)
-            instance = new SourceClumpController();
+            instance = new SourceInClumpController();
         return instance;
     }
-    private SourceClumpController() {
+    private SourceInClumpController() {
     }
 
-    //Adapter
+    /*Creating the SouceBeans instances used to send the query's result to the jsp,
+    * from the selected Clump instance*/
     public ErrorType getElementsFromBean(SearchBean searchBean, ResultBean resultBean) {
 
         Clump clump = new Clump();
@@ -51,8 +52,9 @@ public class SourceClumpController {
     }
 
     //UC8
-    public List<Source> findSourceinClump (int clumpID, Float band){
-        SourceinClumpDAO querydao = new SourceinClumpDAO();
+    /*Creating the Souces instances used to set the SoucesBeans values*/
+    private List<Source> findSourceinClump(int clumpID, Float band){
+        SourceInClumpDAO querydao = new SourceInClumpDAO();
         CachedRowSetImpl resultFound = querydao.searchSource(clumpID, band);
         List<Source> sourcesfound = new ArrayList<>();
         try {

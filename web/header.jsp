@@ -32,7 +32,7 @@
 <body background="images/sfondo.png">
 <nav>
     <div class="nav-wrapper blue">
-        <a href="#" class="brand-logo center">Logo</a>
+        <a href="#" class="brand-logo center">OAV</a>
         <ul id="nav-mobile" class="left hide-on-med-and-down">
             <%if(loginBean.isLogged()){%>
             <li><a href="#" data-activates="slide-out" id="side_bar"><i class="material-icons white-text">menu</i></a></li>
@@ -54,7 +54,6 @@
         <span class="white-text email"><%=loginBean.getEmail()%></span>
     </div></li>
     <li><a href="registration.jsp"><i class="material-icons black-text">person_add</i>Sign in a user</a></li>
-    <li><a href="logout.jsp"><i class="material-icons black-text">eject</i>Logout</a></li>
     <li><a href="insertSatellite.jsp"><i class="material-icons black-text">add</i>New Satellite</a></li>
     <li><a href="findObjInMap.jsp"><i class="material-icons black-text">search</i>Search Object in Map</a></li>
     <li><a href="findClumpByID.jsp"><i class="material-icons black-text">search</i>Search Clump by ID</a></li>
@@ -66,7 +65,6 @@
     <li><a href="searchInSquareOrCircle.jsp"><i class="material-icons black-text">search</i>Search elements in area</a></li>
     <li><a href="sourceInClump.jsp"><i class="material-icons black-text">search</i>Search sources in Clump</a></li>
     <li><a href="youngSourceObject.jsp"><i class="material-icons black-text">search</i>Search Young Source</a></li>
-    <br>
     <li><div class="divider"></div></li>
     <li><a href="logout.jsp"><i class="material-icons black-text">eject</i>Logout</a></li>
 </ul>

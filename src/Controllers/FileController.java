@@ -21,25 +21,21 @@ public class FileController {
     public String fileUploaded;
     public ErrorType errorToShow=ErrorType.NO_ERR;
 
-
+    /*Creating all the entities's instances used to insert values in tables*/
     public Band createBand(double resolution){
-        Band band= new Band(resolution);
-        return band;
+        return new Band(resolution);
     }
 
     public Clump createClump(int clumpID, double galLong, double galLat, float temperature, double lmRatio, float density , int type){
-        Clump clump = new Clump(clumpID,galLong,galLat,temperature,lmRatio,density,type);
-        return clump;
+        return new Clump(clumpID,galLong,galLat,temperature,lmRatio,density,type);
     }
 
     public Flux createFlux(Float value, Float error, Band band){
-        Flux flux = new Flux(value,error,band);
-        return flux;
+        return new Flux(value,error,band);
     }
 
     public Ellipse createEllipse(Integer clump, Band band, double maxaxis, double minaxis, double positionangle){
-        Ellipse ellipse = new Ellipse(clump, band, maxaxis, minaxis,positionangle);
-        return  ellipse;
+        return new Ellipse(clump, band, maxaxis, minaxis,positionangle);
     }
 
     public Source createSource(String sourceID, double galLong, double galLat, String comparedSource ){

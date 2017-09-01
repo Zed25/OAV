@@ -18,7 +18,7 @@ public class UserDAO extends SuperDAO{
 
         String query = "SELECT * FROM users WHERE user_id=? AND password=?;";
 
-        System.out.println(query); //DEBUG
+        //DEBUG: System.out.println(query);
 
         CachedRowSetImpl cachedRowSetImpl;
         Connection connection = connect(ConnectionType.SINGLEQUERY);
@@ -47,7 +47,7 @@ public class UserDAO extends SuperDAO{
 
         String query = "INSERT INTO users (user_id, password, name, surname, email, type) VALUES (?,?,?,?,?,?);";
 
-        System.out.println(query); //DEBUG
+        //DEBUG: System.out.println(query);
 
         Connection connection = connect(ConnectionType.SINGLEQUERY);
         PreparedStatement preparedStatement;
@@ -59,7 +59,7 @@ public class UserDAO extends SuperDAO{
             resultSet = preparedStatement.executeQuery();
 
             if(resultSet.next()){
-                System.out.println("This username (" + user.getUserID() +") already exits!");
+                //DEBUG: System.out.println("This username (" + user.getUserID() +") already exits!");
                 preparedStatement.close();
                 resultSet.close();
                 disconnect(connection);

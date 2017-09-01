@@ -26,7 +26,8 @@ public class YoungSourceController {
     private YoungSourceController() {
     }
 
-    //Adapter
+    /*Creating the SouceBeans instances used to send the query's result to the jsp,
+    * from the selected Clump instace*/
     public ErrorType getYoungSource(SearchBean searchBean, ResultBean resultBean) {
 
         Clump clump = new Clump();
@@ -36,22 +37,21 @@ public class YoungSourceController {
         if (resultSources == null) {
             return ErrorType.NO_RESULTS;
         } else {
-            List<SourceBean> finalSourceList = new ArrayList<>();
+            List<SourceBean> resultSourceList = new ArrayList<>();
             for (Source source : resultSources) {
                 SourceBean sourceBean = new SourceBean();
                 sourceBean.setSourceID(source.getSourceID());
-                finalSourceList.add(sourceBean);
-
-                //System.out.println(sourceBean.getSourceID());
+                resultSourceList.add(sourceBean);
             }
-            resultBean.setSourceBeans(finalSourceList);
+            resultBean.setSourceBeans(resultSourceList);
 
             return ErrorType.NO_ERR;
         }
     }
 
     //UC11
-    public List<Source> findYoungSource (int clumpID){
+    /*Creating the Souces instances used to set the SoucesBeans values*/
+    private List<Source> findYoungSource(int clumpID){
         YoungSourceDAO dao = new YoungSourceDAO();
         CachedRowSetImpl result = dao.searchYoungSource(clumpID);
         List<Source> youngSources = new ArrayList<>();
@@ -61,7 +61,6 @@ public class YoungSourceController {
                 source.setSourceID(result.getString("V1source"));
                 youngSources.add(source);
 
-                //System.out.println(source.getSourceID());
             }
 
         } catch (SQLException e) {

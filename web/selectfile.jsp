@@ -18,32 +18,32 @@
 
     <div class="col s11" style="margin-left: 10%">
 
-        <div class="white">
+        <div class="transparent">
 
-            <h5 style="color:darkslategray" >Which file do you want to insert? </h5>
+            <h5 style="color:black;" >Which file do you want to insert? </h5>
 
             <div class="row" style="margin-left: 26%; margin-top: 5%">
 
                 <form>
                     <p>
                         <input class="with-gap" type="radio" name="filescelto" id="higal" value="higal.csv"/>
-                        <label for="higal" id="filescelto" style="color: darkslategray" data-error="wrong" data-success="ok" >Higal</label>
+                        <label for="higal" id="filescelto" style="color: black" data-error="wrong" data-success="ok" >Higal</label>
                     </p>
 
                     <p>
                         <input class="with-gap" type="radio" name="filescelto" id="higal_additionalinfo" value="higal_additionalinfo.csv"/>
-                        <label for="higal_additionalinfo" style="color: darkslategray">Higal_additionalinfo</label>
+                        <label for="higal_additionalinfo" style="color: black">Higal_additionalinfo</label>
 
                     </p>
 
                     <p>
                         <input class="with-gap" type="radio" name="filescelto" id="r08" value="r08.csv"/>
-                        <label for="r08" style="color: darkslategray">R08</label>
+                        <label for="r08" style="color: black">R08</label>
                     </p>
 
                     <p>
                         <input class="with-gap" type="radio" name="filescelto" id="mips"  value="mips.csv"/>
-                        <label for="mips" style="color: darkslategray">Mips</label>
+                        <label for="mips" style="color: black">Mips</label>
                     </p>
 
 
@@ -62,7 +62,6 @@
 
                 FileController c = FileController.getFileControllerInstance();
                 c.fileUploaded = filescelto;
-                // Test: System.out.println("selectfile" + fileUploaded);
         %>
         <jsp:forward page="csvInsert.jsp"/>
         <%

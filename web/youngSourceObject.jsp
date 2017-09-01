@@ -38,7 +38,7 @@
             <div class="input-field col s6">
 
                 <input placeholder="Clump ID" id="clumpID" name="clumpID" type="text" class="validate">
-                <label for="clumpID">Select your Clump</label>
+                <label for="clumpID" style="color:#000;">Select your Clump</label>
             </div>
         </div>
         <div class="row" style="margin-left: 60%" >
@@ -48,9 +48,6 @@
         </div>
     </form>
 
-<%
-        //TEST:System.out.println("CLUMP FROM VIEW: "+searchBean.getClumpID());
-    }
-%>
 
 <jsp:include page="footer.jsp"/>
+<% } %>

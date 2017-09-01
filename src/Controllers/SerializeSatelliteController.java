@@ -43,7 +43,7 @@ public class SerializeSatelliteController {
     }
 
     /**
-     * creates the agenciesConnected list from the srting filled by the jsp page
+     * creates the agenciesConnected list from the string filled by the jsp page
      */
     public List<Agency> createAgenciesLinkedList(String agenciesLinked) {
         List<Agency> agenciesList = new ArrayList<>();

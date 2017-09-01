@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 @RunWith(value = Parameterized.class)
-public class UC_8_FindSourceInClump {
+public class UC_8_FindSourceInClumpTest {
 
     private SearchBean searchBean;
     private ResultBean resultBean = new ResultBean();
@@ -33,7 +33,7 @@ public class UC_8_FindSourceInClump {
     }
 
 
-    public UC_8_FindSourceInClump(SearchBean searchBean) {
+    public UC_8_FindSourceInClumpTest(SearchBean searchBean) {
         this.searchBean = searchBean;
     }
 

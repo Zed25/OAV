@@ -39,7 +39,7 @@
             <div class="input-field col s6">
 
                 <input placeholder="Clump ID" id="clumpID" name="clumpID" type="text" class="validate">
-                <label for="clumpID">Select your Clump</label>
+                <label for="clumpID" style="color:#000;">Select your Clump</label>
             </div>
         </div>
 
@@ -49,8 +49,9 @@
                     <option value="" disabled selected>Choose band's value</option>
 
                     <%  List<String> bande = Arrays.asList("70.0", "160.0", "250.0", "350.0", "500.0");
-                        for(int i = 0; i < bande.size(); i++){%>
-                            <option value="<%=bande.get(i)%>" name="band"><%=bande.get(i)%></option>
+                        for (String aBande : bande) {%>
+                        <option value="<%=aBande%>" name="band"><%=aBande%>
+                    </option>
                     <%}%>
                     <label>Band's value</label><span></span>
                 </select>
@@ -65,10 +66,6 @@
     </form>
 </div>
 
-<%
-    //TEST:System.out.println("source.jsp " + searchBean.getBand() + " " +searchBean.getClumpID());
-
-}
-%>
 
 <jsp:include page="footer.jsp"/>
+<% } %>

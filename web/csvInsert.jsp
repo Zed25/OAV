@@ -1,5 +1,3 @@
-<%@ page import="enumerations.ErrorType" %>
-<%@ page import="Controllers.FileController" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
@@ -15,7 +13,7 @@
 <div class="row" style="margin-top: 3%">
     <div class="col s11" style="margin-left: 10%;">
 
-        <h5 style="color:darkslategray" >Please, select here: </h5>
+        <h5 style="color:black;" >Please, select here: </h5>
 
         <form action="upload" method="post" enctype="multipart/form-data">
             <div class="row" style="margin-left:5%; margin-top: 10%">
@@ -29,7 +27,7 @@
                             </div>
 
                             <div class="file-path-wrapper">
-                                <input class="file-path validate" type="text">
+                                <input class="file-path validate" type="text" title="fileuploading">
                             </div>
                         </div>
                     </div>
@@ -46,13 +44,6 @@
 
     </div>
 </div>
-
-<%
-  /*  FileController c = FileController.getFileControllerInstance();
-    c.errorToShow=ErrorType.NO_ERR;*/
-%>
-
-
 
 
 <jsp:include page="footer.jsp"/>

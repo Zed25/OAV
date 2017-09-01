@@ -17,21 +17,18 @@ import java.util.List;
 
 public class FileUpload extends HttpServlet {
 
-    public String fileUploaded;
-    FileController c = FileController.getFileControllerInstance();
+    private FileController c = FileController.getFileControllerInstance();
 
+    /*Checking if the file uploaded name by admin is the one actually selected in the jsp form*/
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        fileUploaded = c.fileUploaded;
+        String fileUploaded = c.fileUploaded;
 
         ServletFileUpload sf = new ServletFileUpload(new DiskFileItemFactory());
-        String savePath = request.getServletContext().getRealPath("");         //System.out.print(savePath); =*/OAV/out/artifacts/OAV_war_exploded/
-
+        String savePath = request.getServletContext().getRealPath("");
 
             try {
                 List<FileItem> multifiles = sf.parseRequest(request);
-
-                //System.out.println(Arrays.toString(new List[]{multifiles}));
 
                 FileItem item = multifiles.get(0);
                 String fileName = item.getName();
@@ -51,7 +48,7 @@ public class FileUpload extends HttpServlet {
 
         }
 
-
+    /*Parsing the csv file and sending all rows to the FileDao*/
     private ErrorType getSplitted(String path, String fileName) throws SQLException, ClassNotFoundException {
 
         ErrorType error = ErrorType.NO_ERR;
@@ -64,7 +61,7 @@ public class FileUpload extends HttpServlet {
                 line = line.replace("\"", "");
                 String [] result = line.split(",");
                 if (!(result.length<3)) {
-                    allLines.add(result); //restituisce un csv che parte dalla riga con i NOMI DELLE TABELLE
+                    allLines.add(result); //takes the first csv's rows with the tables's names
                 }
             }
 
@@ -76,7 +73,6 @@ public class FileUpload extends HttpServlet {
             FileDAO fileDAO = new FileDAO();
             error = fileDAO.fillingTable(fileName, allLines);
 
-           //TEST: ErrorType=System.out.println(error.toString());
         }
         return error;
     }

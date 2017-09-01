@@ -1,7 +1,6 @@
 package DAO;
 
 import Controllers.FileController;
-import DAO.SuperDAO;
 import enumerations.ConnectionType;
 import enumerations.ErrorType;
 import model.*;
@@ -18,6 +17,7 @@ import java.util.List;
 public class FileDAO extends SuperDAO {
 
 
+    /*Filling the Database's tables according to the selected file */
     public ErrorType fillingTable(String fileName, List<String[]> allLines) {
 
         ErrorType error = ErrorType.NO_ERR;
@@ -31,7 +31,7 @@ public class FileDAO extends SuperDAO {
 
             case "higal.csv":
 
-                //Controllo  NOMI COLONNE prima riga
+                //First row's names check
                 tableNamesRight = new String[]{"ID", "GLON", "GLAT", "TEMP", "L/M", "SURF_DENS", "EVOL_FLAG"};
                 if (!(FirstLineOK(allLines.get(0), tableNamesRight))) {
                     error=ErrorType.DIFFERENTTABLEFILE;
@@ -48,6 +48,7 @@ public class FileDAO extends SuperDAO {
                                     Float.parseFloat(line[3]),Float.parseFloat(line[4]),Float.parseFloat(line[5]),Integer.parseInt(line[6]));
 
 
+                            //Table Clumps filling
                             String query;
                             try {
                                 if (existingClump.contains(clump.getClumpID())){
@@ -69,8 +70,7 @@ public class FileDAO extends SuperDAO {
 
 
                             } catch (NumberFormatException e) {
-                                //Controllo type sulle singole righe
-                                //System.out.println("il formato del csv non è adatto a questa operazione");
+                                //Columns's data types check
                                 error=ErrorType.UNFORMATFILE;
                                 return error;
 
@@ -99,7 +99,7 @@ public class FileDAO extends SuperDAO {
                 List<Integer> existingClump = GetOldClump(connection);
                 List<Integer> newClump = new ArrayList<>();
 
-                //Controllo  NOMI COLONNE prima riga
+                //First row's names check
                 tableNamesRight = new String[]{"SOURCE_ID", "S70", "S160", "S250", "S350", "S500", "FW70_1", "FW70_2", "FW160_1", "FW160_2", "FW250_1",
                         "FW250_2", "FW350_1", "FW350_2", "FW500_1", "FW500_2", "PA70", "PA160", "PA250", "PA350", "PA500"};
 
@@ -115,7 +115,7 @@ public class FileDAO extends SuperDAO {
                         }
                     }
 
-                    try {//Aggiornamento tabella Clumps
+                    try {//Table Clumps updates
                         for (int j = 0; j < newClump.size(); j++) {
                             String queryNewClumps = "INSERT INTO Clumps (clumpid, higalmaps) Values (" + newClump.get(j) + ",'HiGal');";
                             Statement statement = connection.createStatement();
@@ -137,11 +137,11 @@ public class FileDAO extends SuperDAO {
 
                             try {
 
-                                String query; //Riempimento tabella Ellipse
-                                String query2; //Riempimento tabella Fluxes
+                                String query; //Table Ellipses filling
+                                String query2; //Table Fluxes filling
 
 
-                                if (Double.parseDouble(line[1]) != 0.0) { //BANDA 70
+                                if (Double.parseDouble(line[1]) != 0.0) { //BAND 70
                                     Band band = controller.createBand(Double.parseDouble("70.0"));
 
                                     Ellipse ellipse = controller.createEllipse(Integer.parseInt(line[0]), band, Double.parseDouble(line[6]),
@@ -161,7 +161,7 @@ public class FileDAO extends SuperDAO {
                                 }
 
 
-                                if (Double.parseDouble(line[2]) != 0.0) { //BANDA 160
+                                if (Double.parseDouble(line[2]) != 0.0) { //BAND 160
                                     Band band = controller.createBand(Double.parseDouble("160.0"));
 
                                     Ellipse ellipse = controller.createEllipse(Integer.parseInt(line[0]), band, Double.parseDouble(line[8]),
@@ -179,7 +179,7 @@ public class FileDAO extends SuperDAO {
                                     queriesFluxes.add(query2);
                                 }
 
-                                if (Double.parseDouble(line[3]) != 0.0) { //BANDA 250
+                                if (Double.parseDouble(line[3]) != 0.0) { //BAND 250
                                     Band band = controller.createBand(Double.parseDouble("250.0"));
 
                                     Ellipse ellipse = controller.createEllipse(Integer.parseInt(line[0]), band, Double.parseDouble(line[10]),
@@ -197,7 +197,7 @@ public class FileDAO extends SuperDAO {
                                     queriesFluxes.add(query2);
                                 }
 
-                                if (Double.parseDouble(line[4]) != 0.0) { //BANDA 350
+                                if (Double.parseDouble(line[4]) != 0.0) { //BAND 350
                                     Band band = controller.createBand(Double.parseDouble("350.0"));
 
                                     Ellipse ellipse = controller.createEllipse(Integer.parseInt(line[0]), band, Double.parseDouble(line[12]),
@@ -217,7 +217,7 @@ public class FileDAO extends SuperDAO {
                                     queriesFluxes.add(query2);
                                 }
 
-                                if (Double.parseDouble(line[5]) != 0.0) { //BANDA 500
+                                if (Double.parseDouble(line[5]) != 0.0) { //BAND 500
                                     Band band = controller.createBand(Double.parseDouble("500.0"));
 
                                     Ellipse ellipse = controller.createEllipse(Integer.parseInt(line[0]), band, Double.parseDouble(line[14]),
@@ -236,11 +236,8 @@ public class FileDAO extends SuperDAO {
                                     queriesFluxes.add(query2);
                                 }
 
-                                //TEST:  System.out.println(Arrays.toString(new List[]{queriesEllipses}));
-
                             } catch (NumberFormatException e) {
-                                //Controllo type sulle singole righe
-                                //System.out.println("il formato del csv non è adatto a questa operazione" + error);
+                                //Columns's data types check
                                 error=ErrorType.UNFORMATFILE;
                             }
 
@@ -269,6 +266,7 @@ public class FileDAO extends SuperDAO {
 
             case "r08.csv":
 
+                //First row's names check
                 tableNamesRight = new String[]{"SSTGLMC", "GLon", "GLat", "[3.6]G", "[4.5]G", "[5.8]G", "[8.0]G"};
 
                 if (!(FirstLineOK(allLines.get(0), tableNamesRight))) {
@@ -290,7 +288,7 @@ public class FileDAO extends SuperDAO {
 
                                 Source source = controller.createSource(line[0],Double.parseDouble(line[1]),Double.parseDouble(line[2]), "");
 
-                                //Riempimento tabella SourcesGLIMPSE
+                                //Table SourcesGLIMPSE filling
                                 if (existingSources.contains(source.getSourceID())) {
 
                                     query = "UPDATE sources " +
@@ -302,7 +300,7 @@ public class FileDAO extends SuperDAO {
                                             "VALUES ('" + source.getSourceID() + "', " + source.getGalLong() + ", " + source.getGalLat() + ");";
 
                                 }
-                                //Riempimento tabelle flusso
+                                //Table Fluxes filling
                                 if (!(line[3].equals("     "))) {
 
                                     Band band = controller.createBand(Double.parseDouble("3.6"));
@@ -339,11 +337,10 @@ public class FileDAO extends SuperDAO {
                                     queriesFluxes.add(query2);
                                 }
 
-                                //Riempimento tabella Mappe
+                                //Table Starmaps filling
                                 query3 = "INSERT INTO collection (starmap, source) VALUES ('Glimpse', '" + source.getSourceID() + "');";
                             } catch (NumberFormatException e) {
-                                //Controllo type sulle singole righe
-                                //System.out.println("il formato del csv non è adatto a questa operazione");
+                                //Columns's data types check
                                 error=ErrorType.UNFORMATFILE;
                                 return error;
 
@@ -374,7 +371,7 @@ public class FileDAO extends SuperDAO {
                 List<String> existingSources = GetOldSources(connection);
                 List<String> newSources = new ArrayList<>();
 
-                //Controllo  NOMI COLONNE prima riga
+                //First row's names check
                 tableNamesRight = new String[]{"MIPSGAL", "GLON", "GLAT", "[24]", "e_[24]", "GLIMPSE"};
 
                 if (!(FirstLineOK(allLines.get(0), tableNamesRight))) {
@@ -392,7 +389,8 @@ public class FileDAO extends SuperDAO {
                         }
                     }
 
-                    try {//Aggiornamento tabella Sources
+                    //Table Sources updates
+                    try {
                         for (int j = 0; j < newSources.size(); j++) {
                             String queryNewSources = "INSERT INTO sources (sourceid) Values ('" + newSources.get(j) + "');";
                             Statement statement = connection.createStatement();
@@ -416,7 +414,7 @@ public class FileDAO extends SuperDAO {
                                 Source source;
 
                                 if (line.length == 6) {
-                                    //Riempimento tabella Sources
+                                    //Table Sources updates
                                     source= controller.createSource(line[0],Double.parseDouble(line[1]),Double.parseDouble(line[2]),line[5]);
                                     query = "INSERT INTO sources (sourceid, galacticLongitude, galacticLatitude, comparedSource) VALUES ('" +
                                             source.getSourceID() + "', " + source.getGalLong() + ", " + source.getGalLat() + ", '" + source.getComparedSource() + "');";
@@ -426,7 +424,7 @@ public class FileDAO extends SuperDAO {
                                             source.getSourceID() + "', " + source.getGalLong() + ", " + source.getGalLat() + ");";
 
                                 }
-                                //Riempimento tabella fluxes
+                                //Table Fluxes filling
                                 Band band = controller.createBand(Double.parseDouble("24.0"));
                                 Flux flux = controller.createFlux(Float.parseFloat(line[3]), Float.parseFloat(line[4]), band);
                                 query2 = "INSERT INTO fluxes (value, error, band, source) VALUES (" + flux.getValue() + ", " + flux.getError() +
@@ -435,8 +433,7 @@ public class FileDAO extends SuperDAO {
                                 query3 = "INSERT INTO collection (starmap, source) VALUES ('MIPS-GAL', '" + source.getSourceID() + "');";
 
                             } catch (NumberFormatException e) {
-                                //Controllo type sulle singole righe
-                                //System.out.println("il formato del csv non è adatto a questa operazione");
+                                //Columns's data types check
                                 error=ErrorType.UNFORMATFILE;
                                 return error;
 
@@ -460,7 +457,7 @@ public class FileDAO extends SuperDAO {
                         }
                     }
 
-                    //Riempimento s_c_membership
+                    //s_c_membership filling
                     SC_membership();
                 }
                 return error;
@@ -473,15 +470,6 @@ public class FileDAO extends SuperDAO {
         try {
 
             Statement statement = connection.createStatement();
-
-           /* String query = ("INSERT INTO s_c_membership SELECT DISTINCT sources.sourceid, clumps.clumpid" +
-                    "            FROM sources CROSS JOIN " +
-                    "            clumps INNER JOIN ellipses ON (clumps.clumpid=ellipses.clump)" +
-                    "            WHERE ( (3600* sqrt((sources.galacticlatitude - clumps.galacticlatitude)^2 +" +
-                    "                            (sources.galacticlongitude - clumps.galacticlongitude)^2) <" +
-                    "                            ellipses.maxaxis)" +
-                    "                    AND clumps.galacticlongitude != 0 AND clumps.galacticlatitude != 0" +
-                    "                    AND sources.galacticlongitude != 0 AND sources.galacticlatitude != 0);");*/
 
             String query = ("INSERT INTO s_c_membership SELECT DISTINCT sources.sourceid, clumps.clumpid" +
                     "            FROM sources CROSS JOIN " +
@@ -509,6 +497,7 @@ public class FileDAO extends SuperDAO {
 
     }
 
+    /*Comparing the updaded file's first row with the expected one*/
     private boolean FirstLineOK(String[] csvFirstLine, String[] expetedLine) {
         for (int j = 0; j < csvFirstLine.length; j++) {
             if (!(csvFirstLine[j].equals(expetedLine[j]))) {
@@ -519,7 +508,7 @@ public class FileDAO extends SuperDAO {
     }
 
 
-
+    /*Updating the Clump table's keys if not present already*/
     private List<Integer> GetOldClump(Connection connection) {
 
         List<Integer> existingClump= new ArrayList<>();
@@ -531,7 +520,6 @@ public class FileDAO extends SuperDAO {
 
             while (rs.next())
                 existingClump.add(rs.getInt("clumpid"));
-            // TEST: System.out.println(Arrays.toString(existingClump.toArray()));
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -544,6 +532,7 @@ public class FileDAO extends SuperDAO {
         return existingClump;
     }
 
+    /*Updating the Sources table's keys if not present already*/
     private List<String> GetOldSources(Connection connection) {
 
         List<String> existingSources= new ArrayList<>();
@@ -555,7 +544,6 @@ public class FileDAO extends SuperDAO {
 
             while (rs.next())
                 existingSources.add(rs.getString("sourceid"));
-            // TEST: System.out.println(Arrays.toString(existingClump.toArray()));
 
         } catch (SQLException e) {
             e.printStackTrace();
