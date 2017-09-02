@@ -33,7 +33,7 @@ public class UserBean {
      * @return boolean
      */
     public ErrorType login(){
-        if(this.getUserID() != null && this.getPassword() != null) {
+        if(this.getUserID() != null && this.getPassword() != null && !this.getUserID().equals("") && !this.getPassword().equals("")) {
             return LoginController.getLoginControllerInstance().login(this);
         }
         return ErrorType.MISS_VAL;

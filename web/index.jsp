@@ -9,9 +9,10 @@
 <jsp:useBean id="loginBean" class="beans.login.UserBean" scope="session"/>
 <jsp:setProperty name="loginBean" property="userID" param="log_userID"/>
 <jsp:setProperty name="loginBean" property="password" param="log_password"/>
-<%  //loginBean.setUserID("Zed");
-    //loginBean.setPassword("root");
-    if((!loginBean.isLogged() && !loginBean.getUserID().equals("")) || (!loginBean.isLogged() && !loginBean.getPassword().equals(""))){
+
+
+<jsp:include page="header.jsp"/>
+<%if((!loginBean.isLogged() && !loginBean.getUserID().equals("")) || (!loginBean.isLogged() && !loginBean.getPassword().equals(""))){
         if(loginBean.getUserID().equals("") || loginBean.getPassword().equals("")) {
             loginBean.emptyBean();
             out.println("<h3 class=\"red-text\">Please enter both UserID and Password in order to login!</h3>");
@@ -27,11 +28,15 @@
                     case NO_RESULTS:
                         out.println("<h3 class=\"red-text\">UserID or password wrong!</h3>");
                         break;
+                    case MISS_VAL:
+                        out.println("<h3 class=\"red-text\">Please enter both UserID and Password in order to login!</h3>");
+                        break;
                 }
-            }
-        }
+            }else{
+            %>
+            <jsp:forward page="index.jsp"/>
+<%        }}
 }%>
-<jsp:include page="header.jsp"/>
 <jsp:include page="login.jsp"/>
 <jsp:include page="footer.jsp"/>
 
