@@ -51,7 +51,7 @@ function addNewAgency(agencyListID) {
     checkbox.checked = 'checked';
     //checkbox.disabled = true;
 
-    var textnode = document.createTextNode(labelText);
+    var textnode = document.createTextNode(labelText.toUpperCase());
 
     var checkboxLabel = document.createElement('label');
     checkboxLabel.for = IDNumber;
@@ -61,13 +61,13 @@ function addNewAgency(agencyListID) {
     var buttonDeleteRow = document.createElement('input');
     buttonDeleteRow.type = 'button';
     buttonDeleteRow.value = '-';
-    buttonDeleteRow.onclick = function(){removeRow(this, agencyListID, document.getElementById(agencyListID).value, labelText);};
+    buttonDeleteRow.onclick = function(){removeRow(this, agencyListID, document.getElementById(agencyListID).value, labelText.toUpperCase());};
 
     div.appendChild(checkbox);
     div.appendChild(checkboxLabel);
     div.appendChild(buttonDeleteRow);
 
-    addCheckBoxElementToInput(agencyListID, document.getElementById(agencyListID).value, labelText);
+    addCheckBoxElementToInput(agencyListID, document.getElementById(agencyListID).value, labelText.toUpperCase());
 
     /*document.getElementById('div_' + IDNumber).appendChild(checkbox);
     document.getElementById('div_' + IDNumber).appendChild(checkboxLabel);

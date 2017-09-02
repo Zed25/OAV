@@ -59,7 +59,10 @@ public class SatelliteDAO extends SuperDAO{
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, satellite.getName());
             preparedStatement.setTimestamp(2, Timestamp.valueOf(satellite.getStartMissionDate()));
-            preparedStatement.setTimestamp(3, Timestamp.valueOf(satellite.getEndMissionDate()));
+            if(satellite.getEndMissionDate() != null)
+                preparedStatement.setTimestamp(3, Timestamp.valueOf(satellite.getEndMissionDate()));
+            else
+                preparedStatement.setTimestamp(3, null);
             preparedStatement.executeUpdate();
             preparedStatement.close();
 

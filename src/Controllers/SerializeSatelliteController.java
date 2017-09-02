@@ -50,9 +50,14 @@ public class SerializeSatelliteController {
 
         String[] agencies = agenciesLinked.split(",");
 
-        for(int i = 0; i < agencies.length; i++){
+        for(int i = 0; i < agencies.length - 1; i++){
             if(!agencies[i].equals("")){ //insert a new agency in the agenciesLinked list
-                Agency agency = new Agency(agencies[i]);
+                Agency agency;
+                if(agencies[i].substring(0,1).equals(" ")) {
+                    agency = new Agency(agencies[i].substring(1)); //discard the initial space
+                }else{
+                    agency = new Agency(agencies[i]);
+                }
                 agenciesList.add(agency);
                 System.out.println("Agency " + agency.getName() + " added to mission's list"); //DEBUG
             }
@@ -62,21 +67,42 @@ public class SerializeSatelliteController {
     }
 
     /**@param user who asks for**/
-    public ErrorType insertNewSatelliteInDB(String name, String startMissionDate,
-                                            String endMissionDate, List<Agency> agenciesLinked, User user){
+    public ErrorType insertNewSatelliteInDB(String name, String startMissionDateString,
+                                            String endMissionDateString, List<Agency> agenciesLinked, User user){
 
         if (!user.isAdmin())
             return ErrorType.NO_ADMIN;
 
         List<Agency> newAgencies = getNewAgenciesFromSatelliteBean(agenciesLinked);
-        Satellite satellite = new Satellite(name, startMissionDate, endMissionDate, agenciesLinked);
+        Satellite satellite = new Satellite(name, startMissionDateString, endMissionDateString, agenciesLinked);
 
         SatelliteDAO satelliteDAO = new SatelliteDAO();
 
         //check start mission date and end mission date format (it must be "dd/mm/yyyy")
         String startMissionDateFormatted = formatStringDatetoDB(satellite.getStartMissionDate());
         String endMissionDateFormatted = formatStringDatetoDB(satellite.getEndMissionDate());
-        if(startMissionDateFormatted == null || endMissionDateFormatted == null)
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date startMissionDate;
+        try {
+            startMissionDate = formatter.parse(startMissionDateFormatted);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return ErrorType.GEN_ERR;
+        }
+
+        Date endMissionDate = null;
+        try {
+             endMissionDate = formatter.parse(endMissionDateFormatted);
+        } catch (ParseException | NullPointerException e) {
+            e.printStackTrace();
+        }
+
+        if(startMissionDateFormatted == null)
+            return ErrorType.GEN_ERR;
+
+
+        if(endMissionDate != null && startMissionDate.after(endMissionDate))
             return ErrorType.GEN_ERR;
 
         satellite.setStartMissionDate(startMissionDateFormatted);
@@ -88,54 +114,69 @@ public class SerializeSatelliteController {
     }
 
     private String formatStringDatetoDB(String dateString) {
+        Integer day = null, month = null, year = null;
+        try {
+            String[] strings = dateString.split(" ");
+            try {
+                day = Integer.parseInt(strings[0]);
+                month = Integer.parseInt("-1");
+                year = Integer.parseInt(strings[2]);
+            }catch (NumberFormatException e){
+                return null;
+            }
+            switch (strings[1]) {
+                case "January,":
+                    month = Integer.parseInt("00");
+                    break;
+                case "February,":
+                    month = Integer.parseInt("01");
+                    break;
+                case "March,":
+                    month = Integer.parseInt("02");
+                    break;
+                case "April,":
+                    month = Integer.parseInt("03");
+                    break;
+                case "May,":
+                    month = Integer.parseInt("04");
+                    break;
+                case "June,":
+                    month = Integer.parseInt("05");
+                    break;
+                case "July,":
+                    month = Integer.parseInt("06");
+                    break;
+                case "August,":
+                    month = Integer.parseInt("07");
+                    break;
+                case "September,":
+                    month = Integer.parseInt("08");
+                    break;
+                case "October,":
+                    month = Integer.parseInt("09");
+                    break;
+                case "November,":
+                    month = Integer.parseInt("10");
+                    break;
+                case "December,":
+                    month = Integer.parseInt("11");
+                    break;
+            }
 
-        String[] strings = dateString.split(" ");
+            if (month == -1) {
+                return null;
+            }
 
-        int day = Integer.parseInt(strings[0]);
-        int month = -1;
-        int year = Integer.parseInt(strings[2]);
-        switch (strings[1]){
-            case "January,":
-                month = Integer.parseInt("00");
-                break;
-            case "February,":
-                month = Integer.parseInt("01");;
-                break;
-            case "March,":
-                month = Integer.parseInt("02");;
-                break;
-            case "April,":
-                month = Integer.parseInt("03");;
-                break;
-            case "May,":
-                month = Integer.parseInt("04");;
-                break;
-            case "June,":
-                month = Integer.parseInt("05");;
-                break;
-            case "July,":
-                month = Integer.parseInt("06");;
-                break;
-            case "August,":
-                month = Integer.parseInt("07");;
-                break;
-            case "September,":
-                month = Integer.parseInt("08");;
-                break;
-            case "October,":
-                month = Integer.parseInt("09");;
-                break;
-            case "November,":
-                month = Integer.parseInt("10");;
-                break;
-            case "December,":
-                month = Integer.parseInt("11");;
-                break;
-        }
-
-        if(month == -1){
+        }catch (NumberFormatException e){
+            e.printStackTrace();
+            return null;
+        }catch (NullPointerException e){
+            e.printStackTrace();
             return null;
         }
+
+        if(day == null || month == null || year == null)
+            return null;
 
         GregorianCalendar calendar = new GregorianCalendar(year, month, day);
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");

@@ -13,7 +13,7 @@
 <jsp:setProperty name="newSatellite" property="agenciesLinked" param="agencies_in_mission"/>
 <jsp:setProperty name="newSatellite" property="name" param="sat_name"/>
 <jsp:setProperty name="newSatellite" property="startMissionDate" param="sat_start_mission"/>
-<jsp:setProperty name="newSatellite" property="endMissionDate" param="sat_end_misison"/>
+<jsp:setProperty name="newSatellite" property="endMissionDate" param="sat_end_mission"/>
 <jsp:useBean id="loginBean" scope="session" class="beans.login.UserBean"/>
 
 
@@ -41,12 +41,12 @@
         <%}%>
     </div>
     <div class="divider"></div>
-    <!--<h6>Agencies connected to mission:</h6>-->
-        <%//for(int i = 0; i < newSatellite.getAgencyPartecipationList().size(); i++){%>
-        <!--<div class="row">
-            <%//=newSatellite.getAgencyPartecipationList().get(i).getName()%>
-        </div>-->
-        <%//}%>
+    <div class="row">
+        <h6>Agencies connected to mission:</h6>
+            <%  String agenciesLinked = newSatellite.getAgenciesLinked();
+                out.println(agenciesLinked.substring(0, agenciesLinked.length() - 2));
+            %>
+    </div>
     <button class="btn waves-effect waves-light blue offset-s10" type="submit">
         Register
     </button>

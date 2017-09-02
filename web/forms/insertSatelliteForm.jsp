@@ -18,13 +18,13 @@
         <div class="row">
             <div class="input-field">
                 <label for="sat_start_mission">Star Mission Date</label>
-                <input id="sat_start_mission" name="sat_start_mission" type="date" class="datepicker"><span></span>
+                <input id="sat_start_mission" name="sat_start_mission" type="text" class="datepicker"><span></span>
             </div>
         </div>
         <div class="row">
             <div class="input-field">
-                <label>End Mission Date(if it's over)</label>
-                <input id="sat_end_misison" name="sat_end_misison" type="date" class="datepicker"><span></span>
+                <label for="sat_end_mission">End Mission Date(if it's over)</label>
+                <input id="sat_end_mission" name="sat_end_mission" type="text" class="datepicker"><span></span>
             </div>
         </div>
         <div class="divider"></div>
@@ -45,7 +45,7 @@
             <input type='text area' id='label_new_agency'>
             <button class="btn waves-effect waves-light blue" type="button" onClick="addNewAgency('agencies_to_satellite')">Add</button>
         </div>
-        <input id="agencies_to_satellite" type="text" name="agencies_in_mission">
+        <input id="agencies_to_satellite" type="hidden" name="agencies_in_mission">
         <div class="row">
             <div class="input-field right-align">
                 <button class="btn waves-effect waves-light blue offset-s10" type="submit">

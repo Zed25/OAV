@@ -24,6 +24,10 @@ public class SearchInSquareOrCirclesController {
 
     public ErrorType searchElementsInArea(SquareCircleSearchBean squareCircleSearchBean) {
         ErrorType errorType;
+
+        if(checkBean(squareCircleSearchBean) == ErrorType.BAD_VALUE)
+            return ErrorType.BAD_VALUE;
+
         switch (squareCircleSearchBean.getElementType()){
             case "Sources":
                 List<Source> sourcesResults = new ArrayList<>();
@@ -67,6 +71,19 @@ public class SearchInSquareOrCirclesController {
             default:
                 return ErrorType.GEN_ERR;
         }
+    }
+
+    private ErrorType checkBean(SquareCircleSearchBean squareCircleSearchBean) {
+
+        try {
+            Double.valueOf(squareCircleSearchBean.getBaseLenght());
+            Double.valueOf(squareCircleSearchBean.getGalLong());
+            Double.valueOf(squareCircleSearchBean.getGalLat());
+        }catch (NumberFormatException e){
+            return ErrorType.BAD_VALUE;
+        }
+
+        return ErrorType.NO_ERR;
     }
 
     private ErrorType searchClumpInArea(List<Clump> clumpResults, String areaType, double baseGalLat, double baseGalLong, double baseLenght) {
