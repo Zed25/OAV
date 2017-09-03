@@ -47,7 +47,7 @@
     <div class="row">
         <div class="input-field col s5">
             <input id="base_length" name="base_length" type="text" class="validate">
-            <label for="base_length">Length in meters</label>
+            <label for="base_length">Length in deg</label>
         </div>
     </div>
     <div class="row">

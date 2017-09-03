@@ -31,7 +31,7 @@
         <tr>
             <th>N</th>
             <th><%=searchSquareOrCircleBean.getElementType()%>_ID</th>
-            <th>Distance</th>
+            <th>Distance (deg)</th>
         </tr>
         </thead>
         <tbody>
@@ -47,7 +47,7 @@
             <tr>
                 <td><%=i + 1%></td>
                 <td><%=searchSquareOrCircleBean.getResultSources().get(i).getSourceID()%></td>
-                <td><%=searchSquareOrCircleBean.getResultSources().get(i).getDistance()%> m</td>
+                <td><%=searchSquareOrCircleBean.getResultSources().get(i).getDistance()%></td>
             </tr>
             <%}%>
         </tbody>

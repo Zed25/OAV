@@ -22,12 +22,16 @@ public class SearchInSquareOrCirclesController {
 
     private SearchInSquareOrCirclesController() {}
 
+    /**check the bean and create the model object.
+     * than search for the right element in the area selecter**/
     public ErrorType searchElementsInArea(SquareCircleSearchBean squareCircleSearchBean) {
         ErrorType errorType;
 
+        //check the bean
         if(checkBean(squareCircleSearchBean) == ErrorType.BAD_VALUE)
             return ErrorType.BAD_VALUE;
 
+        //get the right flux
         switch (squareCircleSearchBean.getElementType()){
             case "Sources":
                 List<Source> sourcesResults = new ArrayList<>();
@@ -38,7 +42,7 @@ public class SearchInSquareOrCirclesController {
 
                 if (sourcesResults.size() == 0)
                     return ErrorType.NO_RESULTS;
-
+                //create results bean
                 List<SourceBean> sourceBeans = new ArrayList<>();
                 for(int j = 0; j < sourcesResults.size(); j++){
                     SourceBean sourceBean = new SourceBean();
@@ -59,6 +63,7 @@ public class SearchInSquareOrCirclesController {
                 if(clumpsResults.size() == 0)
                     return ErrorType.NO_RESULTS;
 
+                //create results bean
                 List<ClumpBean> clumpBeans = new ArrayList<>();
                 for(int i = 0; i < clumpsResults.size(); i++){
                     ClumpBean clumpBean = new ClumpBean();
@@ -88,7 +93,7 @@ public class SearchInSquareOrCirclesController {
 
     private ErrorType searchClumpInArea(List<Clump> clumpResults, String areaType, double baseGalLat, double baseGalLong, double baseLenght) {
 
-
+        //compute galactic range between lat and base lenght and long and base lenght
         double[] latRange = computeGalacticRange(areaType, baseGalLat, baseLenght);
         double[] longRange = computeGalacticRange(areaType, baseGalLong, baseLenght);
 
@@ -97,6 +102,7 @@ public class SearchInSquareOrCirclesController {
 
         ClumpDAO clumpDAO = new ClumpDAO();
 
+        //get clumps by galactic range
         CachedRowSetImpl clumps = clumpDAO.getClumpsByGalacticRange(latRange, longRange);
 
         try {
@@ -112,6 +118,7 @@ public class SearchInSquareOrCirclesController {
             return ErrorType.GEN_ERR;
         }
 
+        //compute clumps in area
         if(areaType.equals("Square")) {
             double lon, lat;
             for(int i = 0; i < clumpResults.size(); i++){
@@ -136,6 +143,8 @@ public class SearchInSquareOrCirclesController {
 
     private ErrorType searchSourcesInArea(List<Source> sourceResults, String areaType, double baseGalLat, double baseGalLong, double baseLenght) {
 
+
+        //compute galactic range between lat and base lenght and long and base lenght
         double[] latRange = computeGalacticRange(areaType, baseGalLat, baseLenght);
         double[] longRange = computeGalacticRange(areaType, baseGalLong, baseLenght);
 
@@ -144,6 +153,7 @@ public class SearchInSquareOrCirclesController {
 
         SourceDAO sourceDAO = new SourceDAO();
 
+        //get sources by galactic range
         CachedRowSetImpl sources = sourceDAO.getSourcesByGalacticRange(latRange, longRange);
 
         try {
@@ -160,6 +170,8 @@ public class SearchInSquareOrCirclesController {
             return ErrorType.GEN_ERR;
         }
 
+
+        //compute sources in area
         if(areaType.equals("Square")) {
             double lon, lat;
             for(int i = 0; i < sourceResults.size(); i++){
@@ -185,6 +197,9 @@ public class SearchInSquareOrCirclesController {
     }
 
 
+    /**compute galactic range
+     * if the area is a square the base lenght must be divide by 2
+     * this method returns the min and the max galactic point**/
     private double[] computeGalacticRange(String areaType, double galacticPoint, double base_length) {
         double min = 0.0, max = 0.0;
         switch (areaType){
@@ -245,7 +260,6 @@ public class SearchInSquareOrCirclesController {
     }
 
     private void sortClumpListByDistance(List<Clump> clumpList) {
-        //a very stupid sort
         for(int i = 0; i < clumpList.size(); i++){
             Clump clump = clumpList.get(0);
             int pos = 0;
@@ -264,7 +278,6 @@ public class SearchInSquareOrCirclesController {
     }
 
     private void sortSourceListByDistance(List<Source> sourceList) {
-        //a very stupid insertion sort
         for(int i = 0; i < sourceList.size(); i++){
             Source source = sourceList.get(0);
             int pos = 0;
