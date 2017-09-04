@@ -51,7 +51,6 @@ public class FileUpload extends HttpServlet {
     /*Parsing the csv file and sending all rows to the FileDao*/
     private ErrorType getSplitted(String path, String fileName) throws SQLException, ClassNotFoundException {
 
-        ErrorType error = ErrorType.NO_ERR;
         List<String[]> allLines = null;
         try{
             List<String> lines = Files.readAllLines(Paths.get(path+fileName));
@@ -71,10 +70,9 @@ public class FileUpload extends HttpServlet {
 
         if (allLines!= null) {
             FileDAO fileDAO = new FileDAO();
-            error = fileDAO.fillingTable(fileName, allLines);
-
+            return fileDAO.fillingTable(fileName, allLines);
         }
-        return error;
+        return ErrorType.NO_ERR;
     }
 }
 

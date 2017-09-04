@@ -17,6 +17,7 @@ public enum ErrorType {
     DIFFERENTCHOOSEFILE, //E' stato selezionato un csv errato
     DIFFERENTTABLEFILE, //il file non coincide con il formato delle colonne richieste
     UNFORMATFILE, //the file has different expected values
+    AlREADYADDED, //the file has been already added
 
     BAD_VALUE, SHORT_VALUES, WRONG_HOST_MAIL, ALREADY_EXISTS //try to create new object record in db with a ID that already exists
 

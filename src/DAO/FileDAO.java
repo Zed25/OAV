@@ -20,7 +20,7 @@ public class FileDAO extends SuperDAO {
     /*Filling the Database's tables according to the selected file */
     public ErrorType fillingTable(String fileName, List<String[]> allLines) {
 
-        ErrorType error = ErrorType.NO_ERR;
+      //  ErrorType error = ErrorType.NO_ERR;
 
         Connection connection = connect(ConnectionType.COMPQUERY);
         String[] tableNamesRight;
@@ -34,7 +34,7 @@ public class FileDAO extends SuperDAO {
                 //First row's names check
                 tableNamesRight = new String[]{"ID", "GLON", "GLAT", "TEMP", "L/M", "SURF_DENS", "EVOL_FLAG"};
                 if (!(FirstLineOK(allLines.get(0), tableNamesRight))) {
-                    error=ErrorType.DIFFERENTTABLEFILE;
+                    return ErrorType.DIFFERENTTABLEFILE;
                 } else {
 
                     try {
@@ -71,8 +71,7 @@ public class FileDAO extends SuperDAO {
 
                             } catch (NumberFormatException e) {
                                 //Columns's data types check
-                                error=ErrorType.UNFORMATFILE;
-                                return error;
+                                return  ErrorType.UNFORMATFILE;
 
                             }
                             Statement statement = connection.createStatement();
@@ -83,15 +82,17 @@ public class FileDAO extends SuperDAO {
                         disconnect(connection);
 
                     } catch (SQLException e) {
-                        e.printStackTrace();
+
                         try {
                             connection.rollback();
                         } catch (SQLException e1) {
-                            e1.printStackTrace();
+                            return ErrorType.GEN_ERR;
+
                         }
+                        return ErrorType.ALREADY_EXISTS;
                     }
                 }
-                return error;
+                break;
 
 
             case "higal_additionalinfo.csv":
@@ -104,7 +105,7 @@ public class FileDAO extends SuperDAO {
                         "FW250_2", "FW350_1", "FW350_2", "FW500_1", "FW500_2", "PA70", "PA160", "PA250", "PA350", "PA500"};
 
                 if (!(FirstLineOK(allLines.get(0), tableNamesRight))) {
-                    error=ErrorType.DIFFERENTTABLEFILE;
+                    return ErrorType.DIFFERENTTABLEFILE;
                 } else {
 
                     for (int i = 1; i < allLines.size(); i++) {
@@ -238,7 +239,7 @@ public class FileDAO extends SuperDAO {
 
                             } catch (NumberFormatException e) {
                                 //Columns's data types check
-                                error=ErrorType.UNFORMATFILE;
+                                return ErrorType.UNFORMATFILE;
                             }
 
                             Statement statement = connection.createStatement();
@@ -253,16 +254,16 @@ public class FileDAO extends SuperDAO {
                         disconnect(connection);
 
                     } catch (SQLException e) {
-                        e.printStackTrace();
                         try {
                             connection.rollback();
                         } catch (SQLException e1) {
-                            e1.printStackTrace();
+                            return ErrorType.GEN_ERR;
                         }
+                        return  ErrorType.ALREADY_EXISTS;
                     }
                 }
 
-                return error;
+               break;
 
             case "r08.csv":
 
@@ -270,7 +271,7 @@ public class FileDAO extends SuperDAO {
                 tableNamesRight = new String[]{"SSTGLMC", "GLon", "GLat", "[3.6]G", "[4.5]G", "[5.8]G", "[8.0]G"};
 
                 if (!(FirstLineOK(allLines.get(0), tableNamesRight))) {
-                    error=ErrorType.DIFFERENTTABLEFILE;
+                    return ErrorType.DIFFERENTTABLEFILE;
                 } else {
 
                     try {
@@ -341,8 +342,7 @@ public class FileDAO extends SuperDAO {
                                 query3 = "INSERT INTO collection (starmap, source) VALUES ('Glimpse', '" + source.getSourceID() + "');";
                             } catch (NumberFormatException e) {
                                 //Columns's data types check
-                                error=ErrorType.UNFORMATFILE;
-                                return error;
+                                return ErrorType.UNFORMATFILE;
 
                             }
                             Statement statement = connection.createStatement();
@@ -354,17 +354,16 @@ public class FileDAO extends SuperDAO {
                         }
                         connection.commit();
                         disconnect(connection);
-
                     } catch (SQLException e) {
-                        e.printStackTrace();
                         try {
                             connection.rollback();
                         } catch (SQLException e1) {
-                            e1.printStackTrace();
+                            return ErrorType.GEN_ERR;
                         }
+                        return  ErrorType.ALREADY_EXISTS;
                     }
                 }
-                return error;
+                break;
 
 
             case "mips.csv":
@@ -375,7 +374,7 @@ public class FileDAO extends SuperDAO {
                 tableNamesRight = new String[]{"MIPSGAL", "GLON", "GLAT", "[24]", "e_[24]", "GLIMPSE"};
 
                 if (!(FirstLineOK(allLines.get(0), tableNamesRight))) {
-                    error=ErrorType.DIFFERENTTABLEFILE;
+                    return ErrorType.DIFFERENTTABLEFILE;
                 } else {
 
                     for (int i = 1; i < allLines.size(); i++) {
@@ -434,8 +433,7 @@ public class FileDAO extends SuperDAO {
 
                             } catch (NumberFormatException e) {
                                 //Columns's data types check
-                                error=ErrorType.UNFORMATFILE;
-                                return error;
+                                return ErrorType.UNFORMATFILE;
 
                             }
 
@@ -449,23 +447,24 @@ public class FileDAO extends SuperDAO {
                         disconnect(connection);
 
                     } catch (SQLException e) {
-                        e.printStackTrace();
                         try {
                             connection.rollback();
                         } catch (SQLException e1) {
-                            e1.printStackTrace();
+                            return ErrorType.GEN_ERR;
                         }
+                        return  ErrorType.ALREADY_EXISTS;
                     }
 
                     //s_c_membership filling
-                    SC_membership();
+                    return SC_membership();
                 }
-                return error;
         }
-        return error;
+        return ErrorType.NO_ERR;
     }
 
-    private void SC_membership(){
+    private ErrorType SC_membership(){
+        ErrorType error = ErrorType.NO_ERR;
+
         Connection connection = connect(ConnectionType.COMPQUERY);
         try {
 
@@ -486,14 +485,14 @@ public class FileDAO extends SuperDAO {
             disconnect(connection);
 
         } catch (SQLException e) {
-            e.printStackTrace();
             try {
                 connection.rollback();
             } catch (SQLException e1) {
-                e1.printStackTrace();
+                return ErrorType.GEN_ERR;
             }
-
+            return  ErrorType.ALREADY_EXISTS;
         }
+        return error;
 
     }
 
