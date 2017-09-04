@@ -49,6 +49,16 @@
     <a class="waves-effect waves-light btn" href="selectfile.jsp">Back to Search</a>
 </div>
 
+<%} if (errorType == ErrorType.ALREADY_EXISTS) {%>
+<div class="container center-align">
+    <br>
+    <h5 style="color: black">This file has already added values</h5>
+    <h4>Please check</h4>
+    <br>
+
+    <a class="waves-effect waves-light btn" href="backToSearch.jsp">Back to Search</a>
+</div>
+
 <%} if (errorType == ErrorType.NO_ERR) {%>
 <div class="container center-align">
     <br>
