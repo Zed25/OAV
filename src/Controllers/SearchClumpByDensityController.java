@@ -2,6 +2,7 @@ package Controllers;
 
 import DAO.ClumpDAO;
 import beans.login.ClumpBean;
+import beans.login.ResultBean;
 import com.sun.rowset.CachedRowSetImpl;
 import enumerations.ErrorType;
 import model.Clump;
@@ -19,9 +20,18 @@ public class SearchClumpByDensityController {
 
     private SearchClumpByDensityController() {}
 
-    public ErrorType searchPossibleClumpHosts(List<ClumpBean> clumpBeans){
+    public ErrorType searchPossibleClumpHosts(List<ClumpBean> clumpBeans, ResultBean resultBean){
 
-        List<Clump> searchResults = getClumpsByDensity(0.1F, 1.0F);
+        List<Clump> searchResults = new ArrayList<>();
+
+        double percClumpPop = getClumpsByDensity(0.1F, 1.0F, searchResults);
+
+        if(percClumpPop == 0)
+            return ErrorType.GEN_ERR;
+
+
+        resultBean.setPercClumpPop(percClumpPop);
+
 
         if(searchResults == null || searchResults.size() == 0)
             return ErrorType.GEN_ERR;
@@ -37,11 +47,10 @@ public class SearchClumpByDensityController {
         return ErrorType.NO_ERR;
     }
 
-    private List<Clump> getClumpsByDensity(float minD, float maxD) {
+    private double getClumpsByDensity(float minD, float maxD, List<Clump> clumps) {
         ClumpDAO clumpDAO = new ClumpDAO();
         CachedRowSetImpl cachedRowSet = clumpDAO.getClumpsByDensity(minD, maxD);
 
-        List<Clump> clumps = new ArrayList<>();
         try {
             while(cachedRowSet.next()){
                 Clump clump = new Clump(cachedRowSet.getInt("clumpid"),
@@ -50,34 +59,40 @@ public class SearchClumpByDensityController {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            return null;
+            clumps = null;
+            return 0;
         }
 
-        if(clumps.size() == 0)
-            return null;
+        if(clumps.size() == 0) {
+            clumps = null;
+            return 0;
+        }
 
-        double totalSources, percentage;
+        double totalSources, totalClumps, sourcesPopulationPercentage, clumpPopulationPercentage;
 
         totalSources = clumpDAO.getTableEntryNumber("sources");
-        System.out.println(totalSources);
+        totalClumps = clumpDAO.getClumpsTotalPopulation();
+        //System.out.println(totalClumps);
 
-        cachedRowSet = clumpDAO.getSourcesPerClumpByDencity(minD, maxD);
+        clumpPopulationPercentage = clumps.size()/totalClumps;
+        cachedRowSet = clumpDAO.getSourcesPerClumpByDensity(minD, maxD);
 
         try {
             while(cachedRowSet.next()){
                 for (int i = 0; i < clumps.size(); i++){
                     if(clumps.get(i).getClumpID() == cachedRowSet.getInt("clumpid")){
-                        System.out.println(cachedRowSet.getInt("count"));
-                        percentage = cachedRowSet.getInt("count")/totalSources;
-                        clumps.get(i).setPercPop(percentage);
+                        //System.out.println(cachedRowSet.getInt("count"));
+                        sourcesPopulationPercentage = cachedRowSet.getInt("count")/totalSources;
+                        clumps.get(i).setPercPop(sourcesPopulationPercentage);
                         break;
                     }
                 }
             }
-            return clumps;
+            return clumpPopulationPercentage;
         } catch (SQLException e) {
             e.printStackTrace();
-            return null;
+            clumps =  null;
+            return 0;
         }
     }
 

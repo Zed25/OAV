@@ -1,7 +1,8 @@
 <%@ page import="java.util.List" %>
 <%@ page import="beans.login.ClumpBean" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="enumerations.ErrorType" %><%--
+<%@ page import="enumerations.ErrorType" %>
+<%@ page import="beans.login.ResultBean" %><%--
   Created by IntelliJ IDEA.
   User: simone
   Date: 28/04/17
@@ -17,12 +18,14 @@
     <h4>Please, log in with a valid username to continue</h4>
 <%}else {
     List<ClumpBean> searchResults = new ArrayList<>();
-    ErrorType errorType = loginBean.getClumpsByDensity(searchResults);
+    ResultBean percClumpPop = new ResultBean();
+    ErrorType errorType = loginBean.getClumpsByDensity(searchResults, percClumpPop);
     switch (errorType){
         case GEN_ERR:
             out.println("<h4 class=\"red-text\">Something went wrong! There aren't results. We are sorry for it!</h4>");
             break;
         case NO_ERR:%>
+            <h4>Clump population percentage: <%=percClumpPop.getPercClumpPop()%></h4>
             <table>
                 <thead>
                     <tr>

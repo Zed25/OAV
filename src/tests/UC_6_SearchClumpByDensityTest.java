@@ -1,5 +1,6 @@
 import beans.login.ClumpBean;
 import beans.login.InstrumentBean;
+import beans.login.ResultBean;
 import beans.login.UserBean;
 import enumerations.ErrorType;
 import model.Clump;
@@ -42,8 +43,9 @@ public class UC_6_SearchClumpByDensityTest {
     public void searchClumpByDensity() throws Exception {
 
         List<ClumpBean> clumpBeans = new ArrayList<>();
+        ResultBean percPop = new ResultBean();
 
         Assert.assertEquals("this test must be passed, but it isn't", ErrorType.NO_ERR,
-                user.getClumpsByDensity(clumpBeans));
+                user.getClumpsByDensity(clumpBeans, percPop));
     }
 }

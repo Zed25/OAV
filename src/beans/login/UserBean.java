@@ -68,8 +68,8 @@ public class UserBean {
             this.administrationRole = null;
     }
 
-    public ErrorType getClumpsByDensity(List<ClumpBean> results){
-        ErrorType errorType = SearchClumpByDensityController.getSearchClumpByDensityController().searchPossibleClumpHosts(results);
+    public ErrorType getClumpsByDensity(List<ClumpBean> results, ResultBean percClumpPop){
+        ErrorType errorType = SearchClumpByDensityController.getSearchClumpByDensityController().searchPossibleClumpHosts(results, percClumpPop);
         return errorType;
     }
 

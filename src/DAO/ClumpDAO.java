@@ -127,7 +127,7 @@ public class ClumpDAO extends SuperDAO{
     }
 
 
-    public CachedRowSetImpl getSourcesPerClumpByDencity(float minD, float maxD) {
+    public CachedRowSetImpl getSourcesPerClumpByDensity(float minD, float maxD) {
 
         String query = "SELECT clumpid, count(*)" +
                 "FROM clumps JOIN s_c_membership ON clumps.clumpid = s_c_membership.clump " +
@@ -153,5 +153,27 @@ public class ClumpDAO extends SuperDAO{
             return null;
         }
 
+    }
+
+    public int getClumpsTotalPopulation() {
+
+        String query = "SELECT count(*) FROM clumps WHERE (galacticlatitude != 0 AND galacticlongitude != 0)";
+
+        Connection connection = connect(ConnectionType.SINGLEQUERY);
+
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+            resultSet.next();
+            int rowCount = resultSet.getInt("count");
+            resultSet.close();
+            statement.close();
+            disconnect(connection);
+            return rowCount;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            disconnect(connection);
+            return 0;
+        }
     }
 }

@@ -22,9 +22,9 @@ public abstract class SuperDAO {
             connection = DriverManager.getConnection(DB_NAME, DB_PSW, DB_USER);
             if(connectionType == ConnectionType.COMPQUERY) {
                 connection.setAutoCommit(false);
-                System.out.println("connection without autocommit"); //DEBUG
+                //System.out.println("connection without autocommit"); //DEBUG
             }else{
-                System.out.println("connection with autocommit"); //DEBUG
+                //System.out.println("connection with autocommit"); //DEBUG
             }
             return connection;
         } catch (ClassNotFoundException e) {
@@ -39,7 +39,7 @@ public abstract class SuperDAO {
     public void disconnect(Connection connection){
         try {
             connection.close();
-            System.out.println("connection close correctly"); //DEBUG
+            //System.out.println("connection close correctly"); //DEBUG
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -30,6 +30,8 @@ public class ResultBean {
     private double median;
     private double MAD;
 
+    private double percClumpPop;
+
     public ResultBean() {
 
     }
@@ -97,5 +99,13 @@ public class ResultBean {
         this.setMedian(0.0);
         this.setMAD(0.0);
         this.setStandardDeviation(0.0);
+    }
+
+    public double getPercClumpPop() {
+        return percClumpPop;
+    }
+
+    public void setPercClumpPop(double percClumpPop) {
+        this.percClumpPop = percClumpPop;
     }
 }
