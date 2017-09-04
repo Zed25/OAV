@@ -74,7 +74,7 @@
         var passwordRepeat = $(this).val();
         var password = document.getElementById('reg_pswd').value;
         if(passwordRepeat != password) {
-            $(this).next('span').html("THIS LINE DON'T MATCH WITH THE PASSWORD");
+            $(this).next('span').html("THIS LINE DOESN'T MATCH WITH THE PASSWORD");
             return false;
         } else {
             $(this).next('span').html('');

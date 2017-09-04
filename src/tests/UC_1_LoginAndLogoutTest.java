@@ -17,19 +17,19 @@ public class UC_1_LoginAndLogoutTest {
     @Parameterized.Parameters
     public static Collection<UserBean> data() {
         UserBean rightFilledUser= new UserBean();
-        rightFilledUser.setUserID("Zed");
-        rightFilledUser.setPassword("root");
+        rightFilledUser.setUserID("Zeddicus");
+        rightFilledUser.setPassword("Zeddicus");
         rightFilledUser.login();
 
         UserBean userLoggedWithPasswordCleaned = new UserBean();
-        userLoggedWithPasswordCleaned.setUserID("Zed");
-        userLoggedWithPasswordCleaned.setPassword("root");
+        userLoggedWithPasswordCleaned.setUserID("Zeddicus");
+        userLoggedWithPasswordCleaned.setPassword("Zeddicus");
         userLoggedWithPasswordCleaned.login();
         userLoggedWithPasswordCleaned.setPassword("");
 
         UserBean userloggedWithSomeFieldCleaned = new UserBean();
-        userloggedWithSomeFieldCleaned.setUserID("Zed");
-        userloggedWithSomeFieldCleaned.setPassword("root");
+        userloggedWithSomeFieldCleaned.setUserID("Zeddicus");
+        userloggedWithSomeFieldCleaned.setPassword("Zeddicus");
         userloggedWithSomeFieldCleaned.login();
         userloggedWithSomeFieldCleaned.setName("");
         userloggedWithSomeFieldCleaned.setEmail("");
@@ -64,14 +64,14 @@ public class UC_1_LoginAndLogoutTest {
         Assert.assertNull("AdministrationRole isn't null", user.getAdministrationRole());
         Assert.assertFalse("the user results logged", user.isLogged());
 
-        user.setUserID("Zed");
-        user.setPassword("root");
+        user.setUserID("Zeddicus");
+        user.setPassword("Zeddicus");
         user.login();
 
         Assert.assertEquals("Name is wrong", "Simone", user.getName());
         Assert.assertEquals("Surname is wrong", "Mancini", user.getSurname());
-        Assert.assertEquals("Password is wrong", "root", user.getPassword());
-        Assert.assertEquals("UserID is wrong", "Zed", user.getUserID());
+        Assert.assertEquals("Password is wrong", "Zeddicus", user.getPassword());
+        Assert.assertEquals("UserID is wrong", "Zeddicus", user.getUserID());
         Assert.assertEquals("Email is wrong", "2simonemancini5@gmail.com", user.getEmail());
         Assert.assertEquals("Type is wrong", "Admin", user.getType());
         Assert.assertNotNull("This bean should have administration role", user.getAdministrationRole());
@@ -116,8 +116,8 @@ public class UC_1_LoginAndLogoutTest {
     /**check if a logged userBean is empty after a logout**/
     @Test
     public void logout() throws Exception {
-        this.user.setUserID("Zed");
-        this.user.setPassword("root");
+        this.user.setUserID("Zeddicus");
+        this.user.setPassword("Zeddicus");
         this.user.login();
 
         Assert.assertTrue("this bean isn't logged", this.user.isLogged());

@@ -34,6 +34,10 @@ public class NewUserController {
      * @param userType who try operation level
      * @return error type. NO_ERR if the operation ends without problems**/
     public ErrorType insertNewUser(User user, String userType){
+        if(!userIDPasswordMinSixChar(user.getUserID(), user.getPassword()))
+            return ErrorType.SHORT_VALUES;
+        if(!acceptedHostMail(user.getEmail()))
+            return ErrorType.WRONG_HOST_MAIL;
         if(userType.equals("Admin")) {
             if (user.hasAllInfoToInsert()) {
                 UserDAO userDAO = new UserDAO();
@@ -42,6 +46,26 @@ public class NewUserController {
             return ErrorType.MISS_VAL;
         }
         return ErrorType.NO_ADMIN;
+    }
+
+    private boolean acceptedHostMail(String email) {
+        for(int i = 0; i < email.length(); i++){
+            if(email.substring(i,i+1).equals("@")){
+                String hostMail = email.substring(i + 1, email.length());
+                if(hostMail.equals("gmail.com") || hostMail.equals("libero.it") || hostMail.equals("alice.it")) {
+                    return true;
+                }
+                return false;
+            }
+        }
+        return false;
+    }
+
+    /**check if values username and password have minimum six char**/
+    private boolean userIDPasswordMinSixChar(String userID, String password) {
+        if(userID.length() > 6 && password.length() > 6)
+            return true;
+        return false;
     }
 
     public static synchronized NewUserController getNewUserControllerInstance() {

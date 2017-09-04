@@ -69,6 +69,25 @@
                 <div class="row">
                     <jsp:include page="forms/registrationForm.jsp"/>
                 </div>
+                <%break;
+            case SHORT_VALUES:
+                newUserBean.emptyBean();%>
+                <div class="row">
+                    <h3 class="red-text">Password or username are too short, min 6 char</h3>
+                </div>
+                <div class="row">
+                    <jsp:include page="forms/registrationForm.jsp"/>
+                </div>
+                <%break;
+            case WRONG_HOST_MAIL:
+                newUserBean.emptyBean();%>
+                <div class="row">
+                    <h3 class="red-text">Email host name not accepted, only "gmail.com", "libero.it" and "alice.it".</h3>
+                </div>
+                <div class="row">
+                    <jsp:include page="forms/registrationForm.jsp"/>
+                </div>
+
         <%}%>
 <%}}%>
 <jsp:include page="footer.jsp"/>

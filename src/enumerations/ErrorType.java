@@ -18,6 +18,6 @@ public enum ErrorType {
     DIFFERENTTABLEFILE, //il file non coincide con il formato delle colonne richieste
     UNFORMATFILE, //the file has different expected values
 
-    BAD_VALUE, ALREADY_EXISTS //try to create new object record in db with a ID that already exists
+    BAD_VALUE, SHORT_VALUES, WRONG_HOST_MAIL, ALREADY_EXISTS //try to create new object record in db with a ID that already exists
 
 }
