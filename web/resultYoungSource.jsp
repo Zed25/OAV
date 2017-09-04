@@ -20,7 +20,7 @@
     <h5>There aren't Young Sources Objects in this Clump</h5>
     <h4>Please try again</h4>
     <br>
-    <a class="waves-effect waves-light btn" href="sourceInClump.jsp">Back to Search</a>
+    <a class="waves-effect waves-light btn" href="youngSourceObject.jsp">Back to Search</a>
 </div>
 <% } else { %>
 <div class="container center-align">

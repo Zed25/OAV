@@ -28,7 +28,7 @@
 <jsp:include page="header.jsp"/>
 <br>
 
-<div class="row">
+<div class="row" >
     <h4 style="margin-top: 2%;margin-left: 2%"> Insert the Clump for the Young Source Object</h4>
     <br>
 
@@ -37,7 +37,8 @@
         <div class="row">
             <div class="input-field col s6">
 
-                <input placeholder="Clump ID" id="clumpID" name="clumpID" type="text" class="validate">
+                <input placeholder="Clump ID" id="clumpID" name="clumpID"
+                        type="number" class="validate">
                 <label for="clumpID" style="color:#000;">Select your Clump</label>
             </div>
         </div>
@@ -48,6 +49,20 @@
         </div>
     </form>
 
+    <style>
+        ::-webkit-input-placeholder { /* WebKit browsers */
+            color: #000000;
+        }
+        :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+            color: #000000;
+        }
+        ::-moz-placeholder { /* Mozilla Firefox 19+ */
+            color: #000000;
+        }
+        :-ms-input-placeholder { /* Internet Explorer 10+ */
+            color: #000000;
+        }
+    </style>
 
 <jsp:include page="footer.jsp"/>
 <% } %>

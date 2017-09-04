@@ -8,6 +8,6 @@ create table Users (
 );
 
 INSERT INTO Users(User_ID, Password, Name, Surname, Email, Type)
-		VALUES ('Zed', 'root', 'Simone', 'Mancini', '2simonemancini5@gmail.com', 'Admin');
-INSERT INTO Users(User_ID, Password, Name, Surname, Email, Type)
-    VALUES ('Giad', 'root1', 'Giada', 'Rossi', 'giadaR@gmail.com', 'User');
+		VALUES
+			('Zeddicus', 'Zeddicus', 'Simone', 'Mancini', '2simonemancini5@gmail.com', 'Admin'),
+			('Darken2', 'Darken2', 'Darken', 'Rahl', 'darken3@gmail.com', 'User');

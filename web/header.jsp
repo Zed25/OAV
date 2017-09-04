@@ -30,7 +30,7 @@
         }
     </style>
 </head>
-<body background="images/sfondo.png">
+<body background="images/wallpaper.jpg">
 <nav>
     <div class="nav-wrapper blue">
         <a href="#" class="brand-logo center">OAV</a>

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="OAVDB@localhost" uuid="eba58b58-5d75-4e50-93d9-80e6008f75d7">
+    <data-source source="LOCAL" name="OAVDB@localhost" uuid="0cfdb306-355d-4e24-bae9-f2d0df92318d">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://localhost:5432/OAVDB</jdbc-url>
-      <vm-options>-Xmx1024m</vm-options>
+      <vm-options>-Xmx256m</vm-options>
     </data-source>
   </component>
 </project>

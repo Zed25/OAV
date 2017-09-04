@@ -477,8 +477,8 @@ public class FileDAO extends SuperDAO {
                     "            WHERE ( (sqrt((sources.galacticlatitude - clumps.galacticlatitude)^2 +" +
                     "                            (sources.galacticlongitude - clumps.galacticlongitude)^2) <" +
                     "                            3600*ellipses.maxaxis)" +
-                    "                    AND clumps.galacticlongitude != 0 AND clumps.galacticlatitude != 0" +
-                    "                    AND sources.galacticlongitude != 0 AND sources.galacticlatitude != 0);");
+                    "                    AND clumps.galacticlongitude != 0.0 AND clumps.galacticlatitude != 0.0" +
+                    "                    AND sources.galacticlongitude != 0.0 AND sources.galacticlatitude != 0.0);");
 
 
             statement.executeUpdate(query);

@@ -38,7 +38,7 @@
         <div class="row">
             <div class="input-field col s6">
 
-                <input placeholder="Clump ID" id="clumpID" name="clumpID" type="text" class="validate">
+                <input placeholder="Clump ID" id="clumpID" name="clumpID" type="number" class="validate">
                 <label for="clumpID" style="color:#000;">Select your Clump</label>
             </div>
         </div>
@@ -66,6 +66,20 @@
     </form>
 </div>
 
+<style>
+    ::-webkit-input-placeholder { /* WebKit browsers */
+        color: #000000;
+    }
+    :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+        color: #000000;
+    }
+    ::-moz-placeholder { /* Mozilla Firefox 19+ */
+        color: #000000;
+    }
+    :-ms-input-placeholder { /* Internet Explorer 10+ */
+        color: #000000;
+    }
+</style>
 
 <jsp:include page="footer.jsp"/>
 <% } %>
