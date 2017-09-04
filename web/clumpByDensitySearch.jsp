@@ -25,7 +25,7 @@
             out.println("<h4 class=\"red-text\">Something went wrong! There aren't results. We are sorry for it!</h4>");
             break;
         case NO_ERR:%>
-            <h4>Clump population percentage: <%=percClumpPop.getPercClumpPop()%></h4>
+            <h4>Clump population percentage: <%=percClumpPop.getPercClumpPop()*100%>%</h4>
             <table>
                 <thead>
                     <tr>
