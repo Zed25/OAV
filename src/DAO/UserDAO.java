@@ -85,4 +85,28 @@ public class UserDAO extends SuperDAO{
         disconnect(connection);
         return ErrorType.NO_ERR;
     }
+
+
+    public boolean deleteUserByID(String userID){
+
+        String query = "DELETE FROM users WHERE user_id = ?;";
+
+        Connection connection = connect(ConnectionType.SINGLEQUERY);
+        PreparedStatement preparedStatement;
+
+        try {
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, userID);
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+
+        }catch (SQLException e) {
+            e.printStackTrace();
+            disconnect(connection);
+            return false;
+        }
+
+        disconnect(connection);
+        return true;
+    }
 }

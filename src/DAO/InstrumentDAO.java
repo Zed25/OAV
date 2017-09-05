@@ -3,12 +3,14 @@ package DAO;
 import beans.login.InstrumentBean;
 import enumerations.ConnectionType;
 import enumerations.ErrorType;
+import model.Agency;
 import model.Instrument;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 /**
  * Created by simone on 11/04/17.
@@ -63,5 +65,34 @@ public class InstrumentDAO extends SuperDAO{
             }
         }
 
+    }
+
+    public boolean deleteInstrumentAndConnections
+            (String instrumentID){
+
+        String deleteInstrumentConnections = "DELETE FROM s_bsurbay WHERE instrument = ?;";
+        String deleteInstrument = "DELETE FROM instruments WHERE name = ?";
+
+        Connection connection = connect(ConnectionType.SINGLEQUERY);
+        PreparedStatement preparedStatement;
+
+        try {
+            preparedStatement = connection.prepareStatement(deleteInstrumentConnections);
+            preparedStatement.setString(1, instrumentID);
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+            preparedStatement = connection.prepareStatement(deleteInstrument);
+            preparedStatement.setString(1, instrumentID);
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+
+        }catch (SQLException e) {
+            e.printStackTrace();
+            disconnect(connection);
+            return false;
+        }
+
+        disconnect(connection);
+        return true;
     }
 }

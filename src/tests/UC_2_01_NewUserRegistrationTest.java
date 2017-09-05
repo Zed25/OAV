@@ -1,3 +1,4 @@
+import DAO.UserDAO;
 import beans.login.UserBean;
 import enumerations.ErrorType;
 import model.User;
@@ -49,8 +50,8 @@ public class UC_2_01_NewUserRegistrationTest {
             UserBean newUser = new UserBean();
             newUser.setName("Luigi");
             newUser.setSurname("Verdi");
-            newUser.setUserID("mario.rossi");
-            newUser.setPassword("mario.rossi");
+            newUser.setUserID("luigi.verdi");
+            newUser.setPassword("luigi.verdi");
             newUser.setEmail("luigi.verdi@gmail.com");
             newUser.setType("User");
 
@@ -59,6 +60,9 @@ public class UC_2_01_NewUserRegistrationTest {
 
             Assert.assertEquals("User with a userID already chosen added to db",
                     ErrorType.ALREADY_EXISTS, this.user.getAdministrationRole().newUserRegistration(newUser));
+
+            UserDAO userDAO = new UserDAO();
+            userDAO.deleteUserByID(newUser.getUserID());
 
             //user without some info
             newUser.setName("");

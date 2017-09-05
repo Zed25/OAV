@@ -9,5 +9,5 @@ create table Users (
 
 INSERT INTO Users(User_ID, Password, Name, Surname, Email, Type)
 		VALUES
-			('Zeddicus', 'Zeddicus', 'Simone', 'Mancini', '2simonemancini5@gmail.com', 'Admin'),
-			('Darken2', 'Darken2', 'Darken', 'Rahl', 'darken3@gmail.com', 'User');
+			('Zeddicus', 'Zeddicus', 'Simone', 'Mancini', 'simone.mancini@gmail.com', 'Admin'),
+			('mario.rossi', 'mario.rossi', 'Mario', 'Rossi', 'mario.rossi@gmail.com', 'User');

@@ -59,7 +59,7 @@ public class SerializeSatelliteController {
                     agency = new Agency(agencies[i]);
                 }
                 agenciesList.add(agency);
-                System.out.println("Agency " + agency.getName() + " added to mission's list"); //DEBUG
+                //System.out.println("Agency " + agency.getName() + " added to mission's list"); //DEBUG
             }
         }
 

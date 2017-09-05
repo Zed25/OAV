@@ -1,3 +1,4 @@
+import DAO.InstrumentDAO;
 import beans.login.InstrumentBean;
 import beans.login.SatelliteBean;
 import beans.login.UserBean;
@@ -25,8 +26,8 @@ public class UC_2_03_NewInstrumentTest {
 
         //user admin
         UserBean userAdmin = new UserBean();
-        userAdmin.setUserID("Zed");
-        userAdmin.setPassword("root");
+        userAdmin.setUserID("Zeddicus");
+        userAdmin.setPassword("Zeddicus");
         userAdmin.login();
 
         //user no admin
@@ -59,6 +60,9 @@ public class UC_2_03_NewInstrumentTest {
         if(this.user.isAdmin()) {
             Assert.assertEquals("this test must be passed, but it isn't", ErrorType.NO_ERR,
                     user.getAdministrationRole().serializeInstrument(instrumentBean));
+
+            InstrumentDAO instrumentDAO = new InstrumentDAO();
+            instrumentDAO.deleteInstrumentAndConnections(instrumentBean.getName());
         }
     }
 }

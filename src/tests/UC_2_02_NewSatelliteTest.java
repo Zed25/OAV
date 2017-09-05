@@ -1,4 +1,5 @@
 import Controllers.SerializeSatelliteController;
+import DAO.SatelliteDAO;
 import beans.login.SatelliteBean;
 import beans.login.UserBean;
 import enumerations.ErrorType;
@@ -27,8 +28,8 @@ public class UC_2_02_NewSatelliteTest {
 
         //user admin
         UserBean userAdmin = new UserBean();
-        userAdmin.setUserID("Zed");
-        userAdmin.setPassword("root");
+        userAdmin.setUserID("Zeddicus");
+        userAdmin.setPassword("Zeddicus");
         userAdmin.login();
 
         //user no admin
@@ -54,11 +55,18 @@ public class UC_2_02_NewSatelliteTest {
         satellite.setName("XSatellite");
         satellite.setStartMissionDate("18 June, 2017");
         satellite.setEndMissionDate("23 June, 2017");
-        satellite.setAgenciesLinked("ESA,NASA,PROVA");
+        satellite.setAgenciesLinked("ESA,NASA,PROVA, ");
 
         if(this.user.isAdmin()) {
             Assert.assertEquals("this test must be passed, but it isn't now", ErrorType.NO_ERR,
                     satellite.serializeSatellite(this.user));
+
+            //clean db after the test
+            SatelliteDAO satelliteDAO = new SatelliteDAO();
+            List<Agency> agencies = new ArrayList<>();
+            Agency agency = new Agency("PROVA");
+            agencies.add(agency);
+            satelliteDAO.deleteSatelliteAndNewAgenciesByID(satellite.getName(), agencies);
         }else{
             Assert.assertEquals("this user isn't an admin, so it couldn't perform this action", ErrorType.NO_ADMIN,
                     satellite.serializeSatellite(this.user));

@@ -136,4 +136,40 @@ public class SatelliteDAO extends SuperDAO{
             return null;
         }
     }
+
+
+    public boolean deleteSatelliteAndNewAgenciesByID(String satelliteID, List<Agency> agenciesToDelete){
+
+        String deleteFromMissionJoined = "DELETE FROM missionsjoined WHERE satellite = ?;";
+        String deleteFromAgencies = "DELETE FROM agencies WHERE name = ?;";
+        String deleteFromSatellite = "DELETE FROM satellites WHERE name = ?";
+
+        Connection connection = connect(ConnectionType.SINGLEQUERY);
+        PreparedStatement preparedStatement;
+
+        try {
+            preparedStatement = connection.prepareStatement(deleteFromMissionJoined);
+            preparedStatement.setString(1, satelliteID);
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+            preparedStatement = connection.prepareStatement(deleteFromAgencies);
+            for(int i = 0; i < agenciesToDelete.size(); i++) {
+                preparedStatement.setString(1, agenciesToDelete.get(i).getName());
+                preparedStatement.executeUpdate();
+            }
+            preparedStatement.close();
+            preparedStatement = connection.prepareStatement(deleteFromSatellite);
+            preparedStatement.setString(1, satelliteID);
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+
+        }catch (SQLException e) {
+            e.printStackTrace();
+            disconnect(connection);
+            return false;
+        }
+
+        disconnect(connection);
+        return true;
+    }
 }
