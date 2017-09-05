@@ -72,7 +72,7 @@ public class UC_1_LoginAndLogoutTest {
         Assert.assertEquals("Surname is wrong", "Mancini", user.getSurname());
         Assert.assertEquals("Password is wrong", "Zeddicus", user.getPassword());
         Assert.assertEquals("UserID is wrong", "Zeddicus", user.getUserID());
-        Assert.assertEquals("Email is wrong", "2simonemancini5@gmail.com", user.getEmail());
+        Assert.assertEquals("Email is wrong", "simone.mancini@gmail.com", user.getEmail());
         Assert.assertEquals("Type is wrong", "Admin", user.getType());
         Assert.assertNotNull("This bean should have administration role", user.getAdministrationRole());
         Assert.assertTrue("the user results logged", user.isLogged());

@@ -97,8 +97,8 @@ public class SearchInSquareOrCirclesController {
         double[] latRange = computeGalacticRange(areaType, baseGalLat, baseLenght);
         double[] longRange = computeGalacticRange(areaType, baseGalLong, baseLenght);
 
-        System.out.println("latRange = [" + Double.toString(latRange[0]) + ", " + Double.toString(latRange[1]) + "]"); //DEBUG
-        System.out.println("latRange = [" + Double.toString(longRange[0]) + ", " + Double.toString(longRange[1]) + "]"); //DEBUG
+        //System.out.println("latRange = [" + Double.toString(latRange[0]) + ", " + Double.toString(latRange[1]) + "]"); //DEBUG
+        //System.out.println("latRange = [" + Double.toString(longRange[0]) + ", " + Double.toString(longRange[1]) + "]"); //DEBUG
 
         ClumpDAO clumpDAO = new ClumpDAO();
 
@@ -148,8 +148,8 @@ public class SearchInSquareOrCirclesController {
         double[] latRange = computeGalacticRange(areaType, baseGalLat, baseLenght);
         double[] longRange = computeGalacticRange(areaType, baseGalLong, baseLenght);
 
-        System.out.println("latRange = [" + Double.toString(latRange[0]) + ", " + Double.toString(latRange[1]) + "]"); //DEBUG
-        System.out.println("latRange = [" + Double.toString(longRange[0]) + ", " + Double.toString(longRange[1]) + "]"); //DEBUG
+        //System.out.println("latRange = [" + Double.toString(latRange[0]) + ", " + Double.toString(latRange[1]) + "]"); //DEBUG
+        //System.out.println("latRange = [" + Double.toString(longRange[0]) + ", " + Double.toString(longRange[1]) + "]"); //DEBUG
 
         SourceDAO sourceDAO = new SourceDAO();
 
