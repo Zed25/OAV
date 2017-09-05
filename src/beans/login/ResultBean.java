@@ -1,16 +1,7 @@
 package beans.login;
 
-import Controllers.SearchController;
-import beans.login.ClumpBean;
-import beans.login.SourceBean;
-import com.sun.beans.util.Cache;
-import com.sun.rowset.CachedRowSetImpl;
-import enumerations.ErrorType;
-
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by andrea on 31/03/17.
@@ -20,9 +11,9 @@ public class ResultBean {
     private List<ClumpBean> clumpBeans;
     private List<SourceBean> sourceBeans;
 
-    //serve a tenere traccia del numero di risultati per pagina
+    //counts all the results shown in the jsp result page
     private int count;
-    //serve a tenere traccia del numeo di pagina
+    //counts the show page number
     private int page;
     //UC 10
     private double mediumValue;
