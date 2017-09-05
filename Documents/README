@@ -23,3 +23,12 @@ da terminale inserire le seguenti command line (sostituire project_path con il p
 	psql -h localhost -p 5432 -d OAVDB -U postgres -W -e -f project_path/OAV/SQLScripts/OAVDB_values.sql
 
 	eseguire l'applicazione e inserire i dati tramite file .csv
+
+
+ACCESSO AL SISTEMA:
+
+per accedere ad OAV System utilizzare le seguenti credenziali:
+
+    come ADMIN -> username: Zeddicus, password: Zeddicus
+    come USER  -> username: mario.rossi, password: mario.rossi
+
